@@ -44,7 +44,7 @@ from pathlib import Path
 
 from pipeline.event_study import build_event_study, parse_date
 
-MAX_TICKERS_PER_STORY = 3
+MAX_TICKERS_PER_STORY = 7
 LOOKBACK_DAYS = 10   # nur fuer den Rohkurs-Rueckfall
 LOOKAHEAD_DAYS = 15  # nur fuer den Rohkurs-Rueckfall
 DEFAULT_BENCHMARK = "^GSPC"
@@ -211,6 +211,24 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
         return False
     tickers = tickers[:MAX_TICKERS_PER_STORY]
 
+    # Begruendung je Ticker ("Warum steht dieser Wert hier?") -- Prioritaet wie bei den Tickern
+    reasons: dict[str, str] = {}
+    for src in (topic.get("reasons"), mc.get("ticker_reasons"), override.get("reasons")):
+        if isinstance(src, dict):
+            reasons.update({str(k): str(v).strip() for k, v in src.items() if isinstance(v, str) and v.strip()})
+    mc.pop("ticker_reasons", None)
+    event_label = override.get("event_label") or mc.get("event_label") or ""
+    event_label = event_label.strip()[:40] if isinstance(event_label, str) else ""
+    mc.pop("event_label", None)
+
+    # Trennung Theorie / Messung: Wirkungen, die sich NICHT ueber einen Kurs messen lassen,
+    # stehen als eigene Liste "unmeasured" (Frontend: "Nur theoretisch ...").
+    raw_unm = override.get("unmeasured") or mc.get("unmeasured_effects") or mc.get("unmeasured") or []
+    mc["unmeasured"] = [x.strip() for x in raw_unm if isinstance(x, str) and x.strip()][:6] if isinstance(raw_unm, list) else []
+    mc.pop("unmeasured_effects", None)
+    if isinstance(override.get("explanation_text"), str) and override["explanation_text"].strip():
+        mc["explanation"] = override["explanation_text"].strip()
+
     benchmark = (override.get("benchmark") or mc.get("benchmark") or topic.get("benchmark") or DEFAULT_BENCHMARK)
     benchmark = benchmark.strip() if isinstance(benchmark, str) and benchmark.strip() else DEFAULT_BENCHMARK
     mc.pop("benchmark", None)
@@ -235,6 +253,12 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
         for a in study["assets"]:
             for p in a["points"]:
                 p.pop("close", None)
+        got = {a["ticker"] for a in study["assets"]}
+        for a in study["assets"]:
+            if reasons.get(a["ticker"]):
+                a["reason"] = reasons[a["ticker"]]
+        # Angeforderte Werte ohne ausreichende Kursdaten: nicht verschweigen, das Frontend nennt sie
+        study["skipped"] = [t for t in tickers if t not in got]
         study["event_date"] = event.isoformat()
         study["event_date_source"] = date_source
         mc["event_study"] = study
@@ -248,6 +272,8 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
 
     mc["series"] = series
     mc["event_date"] = event.isoformat()
+    if event_label:
+        mc["event_label"] = event_label
     mc["event_date_source"] = date_source
     mc["verified_live"] = True
     mc["note"] = VERIFIED_NOTE

@@ -216,7 +216,7 @@ STORY_JSON_SCHEMA_HINT_RESEARCH = """
         "source_url": "Quelle der Kursdaten"
       }
     ],
-    "tickers": ["0-3 ECHTE Yahoo-Finance-Ticker-Symbole der oben genannten Instrumente (z.B. 'BZ=F' fuer Brent), NUR falls du dir bei der exakten Schreibweise sicher bist. Wird NUR genutzt, falls 'series' oben leer bleibt -- ein server-seitiger Dienst holt dann ECHTE Kursdaten fuer diese Ticker nach, statt dass die Story ganz ohne Chart bleibt."],
+    "tickers": ["0-7 ECHTE Yahoo-Finance-Ticker-Symbole der oben genannten Instrumente (z.B. 'BZ=F' fuer Brent), NUR falls du dir bei der exakten Schreibweise sicher bist. Wird NUR genutzt, falls 'series' oben leer bleibt -- ein server-seitiger Dienst holt dann ECHTE Kursdaten fuer diese Ticker nach, statt dass die Story ganz ohne Chart bleibt."],
     "note": "Hinweis auf Näherungen/Indexierung, falls zutreffend"
   },
   // WICHTIG: has_correlation=false mit leerem 'series' ist ein voll
@@ -240,6 +240,9 @@ STORY_JSON_SCHEMA_HINT_MARKET_LITE = """
     "has_correlation": true,
     "explanation": "2-4 Sätze AUS DEINEM ALLGEMEINWISSEN (keine Live-Recherche): welche Märkte/Anlageklassen bei diesem Themenfeld typischerweise reagieren und warum (z.B. bei neuen Zöllen: betroffene Aktienindizes/Branchen, Wechselkurse, Rohstoffe; bei Sanktionen: Energiepreise, betroffene Währungen; bei Zentralbankentscheidungen: Anleiherenditen). Sei GROSSZÜGIG beim Erkennen einer plausiblen Korrelation -- ein großer Handelskonflikt, neue Zölle, Sanktionen, ein Kriegsausbruch oder eine Zentralbankentscheidung haben so gut wie IMMER einen bekannten, plausiblen Marktbezug, den du aus Allgemeinwissen benennen kannst, auch ohne exakte tagesaktuelle Zahlen.",
     "tickers": ["0-3 ECHTE, offizielle Yahoo-Finance-Ticker-Symbole fuer die in 'explanation' genannten Instrumente, NUR wenn du dir bei der exakten Schreibweise wirklich sicher bist -- z.B. Aktien wie 'LMT' oder 'GEO', Indizes wie '^GSPC' oder '^VIX', Rohstoff-Futures wie 'BZ=F' (Brent) oder 'GC=F' (Gold), Waehrungspaare wie 'EURUSD=X'. Ein Server-seitiger Dienst (yfinance) holt fuer diese Ticker ECHTE historische Kursdaten und ersetzt damit deine Einschaetzung durch einen verifizierten Chart. Bei Unsicherheit ueber die exakte Schreibweise leer lassen ([]) statt zu raten -- ein falscher Ticker liefert schlicht keine Daten, ist also ungefaehrlich, aber ein erfundener sollte trotzdem vermieden werden."],
+    "unmeasured_effects": ["0-4 kurze Sätze (deutsch) zu Wirkungen, die du in 'explanation' nennst, die sich aber NICHT über einen der 'tickers' messen lassen (z.B. politische Unsicherheit, Lieferketten, Stimmung). Jeder Satz im Konjunktiv ('könnte', 'in der Theorie'). Gehört hier hinein statt in die Messung."],
+    "ticker_reasons": {"<ticker>": "EIN kurzer Satz (deutsch): Warum steht dieser Wert hier, was erwartest du von ihm? Ein Eintrag je Ticker in 'tickers'."},
+    "event_label": "2-4 Wörter, die das Ereignis KONKRET benennen, z.B. '50-%-Zölle in Kraft' oder 'Iran-Sanktionen verhängt' -- niemals nur 'Ereignis'. Erscheint als Beschriftung der Ereignislinie im Chart.",
     "event_date": "YYYY-MM-DD: der TAG DES EREIGNISSES, das den Markt bewegt haben koennte (z.B. Tag der Zollankuendigung, des Angriffs, der Zentralbankentscheidung) -- NICHT automatisch das Veroeffentlichungsdatum der Artikel, falls das Ereignis frueher stattfand. Nur angeben, wenn du dir bei dem Datum sicher bist, sonst weglassen (dann wird das Datum der Meldung genommen).",
     "benchmark": "EIN Yahoo-Finance-Ticker des breiten Vergleichsmarkts, gegen den der 'normale' Kursverlauf geschaetzt wird: '^GSPC' (S&P 500) fuer USA-/Welt-Themen, '^STOXX50E' (Euro Stoxx 50) fuer Europa-Themen, '^GSPTSE' fuer rein kanadische Themen. Im Zweifel '^GSPC'. NICHT zusaetzlich in 'tickers' nennen.",
     "note": "kurzer Hinweis, dass dies eine Einschätzung aus Allgemeinwissen ist, keine live abgefragten Kursdaten"
@@ -380,7 +383,19 @@ ANALYTICAL_INSTRUCTIONS_LITE_NOTE = """\
    (Tag des Ereignisses, YYYY-MM-DD) und `benchmark` (breiter
    Vergleichsmarkt, im Zweifel '^GSPC') an: damit wird eine Event Study
    gerechnet, die zeigt, ob sich der Kurs nach dem Ereignis anders
-   bewegte als normalerweise. Bei `has_correlation: true` sind 1-3 `tickers` PFLICHT. Findest du
+   bewegte als normalerweise. WICHTIG -- Text und Chart müssen zusammenpassen: Jede Marktgröße, die du in
+   `explanation` nennst UND die sich über einen Yahoo-Ticker messen lässt
+   (Wechselkurs, Index, Rohstoff-Future, Aktie, ETF als Stellvertreter für
+   eine Branche), MUSS in `tickers` stehen -- bis zu 7. Zu jedem Ticker
+   gehört ein Satz in `ticker_reasons`. Nenne in `explanation` nichts, was
+   du nicht auch messen willst. Gib außerdem `event_label` an.
+   TRENNUNG THEORIE/MESSUNG: Formuliere `explanation` durchgehend vorsichtig
+   ('könnte', 'dürfte', 'in der Theorie') -- sie ist eine Einschätzung, kein
+   Messergebnis. Wirkungen, die sich über keinen Ticker messen lassen,
+   gehören NICHT in `explanation`, sondern als eigener Satz in
+   `unmeasured_effects`. So sieht die Leserin klar: Was im Chart steht, ist
+   gemessen; was in `unmeasured_effects` steht, ist nur Theorie.
+   Bei `has_correlation: true` sind 1-7 `tickers` PFLICHT. Findest du
    keine plausiblen Instrumente (z.B. reine Naturkatastrophen mit lokalem
    Schaden), setze stattdessen `has_correlation: false` -- das ist
    ehrlicher als eine Behauptung ohne Kurse. Typische Marktthemen, bei

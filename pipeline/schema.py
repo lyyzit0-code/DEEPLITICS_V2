@@ -196,6 +196,7 @@ class EventStudyAsset:
     diff_pct: float  # tatsaechlich minus erwartet am letzten Tag, in Prozentpunkten
     t_stat: float | None  # |t| > 2 ~ Abweichung groesser als normales Rauschen
     points: list[EventStudyPoint] = field(default_factory=list)
+    reason: str = ""  # ein Satz: Warum steht dieser Wert bei der Story?
 
 
 @dataclass
@@ -204,6 +205,7 @@ class EventStudy:
     event_date_source: str  # "model" oder "story_date" (= Datum der Meldung)
     benchmark: str | None
     assets: list[EventStudyAsset] = field(default_factory=list)
+    skipped: list[str] = field(default_factory=list)  # angeforderte Ticker ohne ausreichende Kursdaten
 
 
 @dataclass
@@ -220,6 +222,8 @@ class MarketCorrelation:
     verified_live: bool = False
     event_date: str = ""
     event_date_source: str = ""
+    event_label: str = ""  # 2-4 Woerter, benennt das Ereignis im Chart
+    unmeasured: list[str] = field(default_factory=list)  # nur theoretische Wirkungen, nicht mit Kursen belegt
     event_study: EventStudy | None = None
 
 

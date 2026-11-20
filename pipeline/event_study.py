@@ -21,9 +21,18 @@ Methode (Standard-Marktmodell, MacKinlay 1997):
    Ein t-Wert sagt, ob die Abweichung groesser ist als das normale
    Rauschen (|t| > 2 ~ "auffaellig").
 
-Ist der Kurs selbst die Benchmark (z.B. S&P 500 gegen sich selbst), gibt
-es nichts zu regressieren: dann gilt das einfachere Mean-Adjusted-Modell
-(erwartet = durchschnittliche Tagesrendite im Schaetzfenster).
+Zwei bewusste Entscheidungen (Nutzerfeedback 20.11.2026):
+ * KEIN Grundtrend (alpha) in der erwarteten Linie. Ein Durchschnittstrend
+   der letzten 120 Tage, 15 Tage lang aufaddiert, wirkte wie eine Prognose
+   (S&P 500: Linie stieg, obwohl der Kurs davor fiel). Erwartet wird nur
+   beta * Bewegung des Vergleichsmarkts. alpha wird weiter geschaetzt, damit
+   beta und das Rauschen sauber sind, aber nicht fortgeschrieben.
+ * PASSENDER Vergleichsmarkt je Wertart (`benchmark_for`): Rohstoffe gegen
+   einen Rohstoff-ETF, Waehrungen gegen den Dollar-Index, Aktien gegen den
+   S&P 500 usw. -- der S&P 500 passt fuer Aluminium oder Wechselkurse nicht.
+
+Ist der Kurs selbst die Benchmark und kein anderer Vergleichsmarkt
+verfuegbar, gilt das Mean-Adjusted-Modell ohne Trend: erwartet = 0 %.
 
 WICHTIG (ehrliche Einordnung, steht auch so im Frontend): Das ist eine
 statistische SCHAETZUNG. Sie zeigt, ob der Kurs ungewoehnlich lief, nicht,
@@ -117,9 +126,9 @@ def compute_event_study(asset, bench, event_date) -> dict | None:
     p1 = base_pos + 1 + post_n
     post = rets.iloc[p0:p1]
     if model == "market":
-        exp_ret = alpha + beta * post["m"]
+        exp_ret = beta * post["m"]          # ohne alpha: kein fortgeschriebener Grundtrend
     else:
-        exp_ret = pd.Series(alpha, index=post.index)
+        exp_ret = pd.Series(0.0, index=post.index)
     ar = post["a"] - exp_ret
     car = float(ar.sum())
     exp_cum = (1.0 + exp_ret).cumprod() - 1.0
@@ -164,6 +173,34 @@ def compute_event_study(asset, bench, event_date) -> dict | None:
     }
 
 
+# Vergleichsmaerkte je Wertart (alle ueber Yahoo Finance abrufbar)
+BENCH_WORLD = "URTH"          # iShares MSCI World (Weltaktien)
+BENCH_COMMODITY = "DBC"       # Invesco DB Commodity Index (breiter Rohstoffkorb)
+BENCH_DOLLAR = "DX-Y.NYB"     # US-Dollar-Index
+
+
+def benchmark_for(ticker: str, story_benchmark: str | None) -> list[str]:
+    """Vergleichsmaerkte fuer diesen Wert, beste Wahl zuerst (Rueckfaelle
+    dahinter). Der S&P 500 passt nur fuer Aktien/Indizes, nicht fuer
+    Rohstoffe oder Waehrungen."""
+    sb = story_benchmark or "^GSPC"
+    if ticker.endswith("=X"):
+        cands = [BENCH_DOLLAR]
+    elif ticker.endswith("=F"):
+        cands = [BENCH_COMMODITY]
+    elif ticker == "^GSPC":
+        cands = [BENCH_WORLD]
+    elif ticker == "^TNX":
+        cands = [sb]
+    else:
+        cands = [sb]
+    # Rueckfaelle: Story-Vergleichsmarkt, dann Weltaktien
+    for fb in (sb, BENCH_WORLD):
+        if fb not in cands:
+            cands.append(fb)
+    return [c for c in cands if c != ticker]
+
+
 def _fetch_close(ticker: str, start: date, end: date):
     """Schlusskurse via yfinance (end exklusiv). None bei jedem Fehler."""
     try:
@@ -193,32 +230,46 @@ def build_event_study(tickers: list[str], benchmark: str | None, event_date: dat
     start = event_date - timedelta(days=EST_CAL_DAYS)
     end = min(event_date + timedelta(days=POST_CAL_DAYS), today) + timedelta(days=1)
 
-    bench_series = _fetch_close(benchmark, start, end) if benchmark else None
-    used_benchmark = benchmark if bench_series is not None else None
+    bench_cache: dict[str, object] = {}
+
+    def bench_series(sym: str):
+        if sym not in bench_cache:
+            bench_cache[sym] = _fetch_close(sym, start, end)
+        return bench_cache[sym]
 
     assets = []
     for ticker in tickers:
-        if benchmark and ticker == benchmark:
-            res_bench = None  # Benchmark gegen sich selbst -> Mean-Adjusted
-        else:
-            res_bench = bench_series
         close = _fetch_close(ticker, start, end)
         if close is None:
             continue
-        try:
-            res = compute_event_study(close, res_bench, event_date)
-        except Exception as exc:  # noqa: BLE001
-            print(f"    [warn] Event Study fuer '{ticker}' fehlgeschlagen: {exc}", file=sys.stderr)
-            continue
+        res, used = None, None
+        for cand in benchmark_for(ticker, benchmark):
+            bs = bench_series(cand)
+            if bs is None:
+                continue
+            try:
+                r = compute_event_study(close, bs, event_date)
+            except Exception as exc:  # noqa: BLE001
+                print(f"    [warn] Event Study fuer '{ticker}' gegen '{cand}' fehlgeschlagen: {exc}", file=sys.stderr)
+                continue
+            if r is not None:
+                res, used = r, cand
+                break
+        if res is None:  # kein Vergleichsmarkt brauchbar -> Modell ohne Vergleichsmarkt
+            try:
+                res = compute_event_study(close, None, event_date)
+            except Exception as exc:  # noqa: BLE001
+                print(f"    [warn] Event Study fuer '{ticker}' fehlgeschlagen: {exc}", file=sys.stderr)
+                continue
         if res is None:
             continue
         res["ticker"] = ticker
-        res["benchmark"] = used_benchmark if res["model"] == "market" else None
+        res["benchmark"] = used if res["model"] == "market" else None
         assets.append(res)
 
     if not assets:
         return None
-    return {"benchmark": used_benchmark, "assets": assets}
+    return {"benchmark": benchmark, "assets": assets}
 
 
 def parse_date(raw) -> date | None:

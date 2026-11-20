@@ -569,7 +569,8 @@
       '</div>';
     }
     // Event Study: tatsaechlich vs. erwartet ohne Ereignis (s. drawMarketChart)
-    var es = mc.event_study;
+    if (mcView.sid !== story.id) mcView = { sid: story.id, variant: 0, win: null };
+    var es = mcStudy(story);
     if (es && es.assets && es.assets.length) {
       var assetTabs = es.assets.length > 1 ? '<div class="mc-assets">' + es.assets.map(function (a, i) {
         return '<button class="mc-asset-btn' + (i === 0 ? ' active' : '') + '" data-mc-asset="' + i + '">' + escapeHtml(marketLabel(a.ticker)) + '</button>';
@@ -580,22 +581,33 @@
       var theoryHtml = theory.length ? '<div class="mc-theory"><div class="mc-label">' + mcL("Weitere Überlegungen – nicht mit Kursen belegt", "Further considerations – not backed by prices") + '</div><ul>' + theory.map(function (x) { return '<li>' + x + '</li>'; }).join("") + '</ul></div>' : '';
       var evTitle = mc.event_description || (story.title ? String(story.title) : "");
       var evDate = es.event_date ? mcDate(es.event_date, true) : "";
+      var varHtml = '';
+      if (mc.event_study_alt) {
+        varHtml = '<div class="mc-label" style="margin-top:12px">' + mcL("Bezugstag wählen", "Pick reference day") + '</div><div class="mc-assets">' +
+          [0, 1].map(function (v) { return '<button class="mc-asset-btn' + (mcView.variant === v ? ' active' : '') + '" data-mc-var="' + v + '">' + escapeHtml(mcVariantLabel(story, v)) + '</button>'; }).join("") + '</div>';
+      }
+      var maxPost = Math.max.apply(null, es.assets.map(function (x) { return x.n_post; }));
+      var winOpts = [3, 5].filter(function (w) { return w < maxPost; });
+      var winHtml = winOpts.length ? '<div class="mc-label" style="margin-top:10px">' + mcL("Zeitraum (Zoom)", "Time range (zoom)") + '</div><div class="mc-assets">' +
+        winOpts.concat([0]).map(function (w) { var on = (w === 0 ? mcView.win === null : mcView.win === w); return '<button class="mc-asset-btn' + (on ? ' active' : '') + '" data-mc-win="' + w + '">' + (w === 0 ? mcL("alles (" + maxPost + " Tage)", "all (" + maxPost + " days)") : mcL("erste " + w + " Tage", "first " + w + " days")) + '</button>'; }).join("") + '</div>' : '';
       var headHtml = '<div class="mc-label">' + mcL("Ereignis und Märkte", "Event and markets") + '</div>' +
         '<div class="mc-head">' + mcL("Untersucht wird, wie sich Märkte seit diesem Ereignis entwickelt haben:", "This section examines how markets have moved since this event:") +
         '<div class="mc-head-ev">' + escapeHtml(evTitle) + (evDate ? ' <span>(' + escapeHtml(evDate) + ')</span>' : '') + '</div></div>';
-      return '<div class="chart-card">' +
+      return '<div class="chart-card" id="mcCard">' +
         headHtml +
+        varHtml +
         '<div class="mc-label" style="margin-top:14px">' + mcL("Was die Kurse seit dem Ereignis zeigen", "What prices show since the event") + '</div>' +
         observationHtml(es) +
         '<div class="mc-label" style="margin-top:16px">' + mcL("Verlauf im Detail – Wert wählen", "Detail – pick an asset") + '</div>' +
         assetTabs +
+        winHtml +
         '<div class="mc-small" id="mcAbout" style="margin:8px 0"></div>' +
         marketLegendEventStudy() +
         '<div style="position:relative"><svg id="mcChart" viewBox="0 0 480 290" width="100%" style="overflow:visible;display:block;touch-action:pan-y"></svg>' +
         '<div class="tooltip" id="mcTooltip"></div></div>' +
         '<div id="mcSummary"></div>' +
         '<div class="mc-small" id="mcMethod"></div>' +
-        (mc.explanation ? '<div class="mc-label" style="margin-top:18px">' + mcL("Einordnung und mögliche Erklärungen (Theorie)", "Interpretation and possible explanations (theory)") + '</div><div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
+        (mc.explanation ? '<div class="mc-label" style="margin-top:18px">' + mcL("Einordnung und mögliche Erklärungen (Theorie)", "Interpretation and possible explanations (theory)") + '</div><div class="chart-sub"><p style="margin:0 0 8px">' + interpretationLead(es) + '</p>' + escapeHtml(mc.explanation) + '</div>' : '') +
         theoryHtml +
         (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
       '</div>';
@@ -928,7 +940,7 @@
   }
   function renderAbout(story, idx) {
     var box = document.getElementById("mcAbout");
-    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    var mc = story.market_correlation, es = mcStudy(story), a = es.assets[idx];
     if (!box || !a) return;
     var html = '<b>' + escapeHtml(marketLabel(a.ticker)) + '</b>';
     if (MARKET_INFO[a.ticker]) html += ' \u2013 ' + escapeHtml(MARKET_INFO[a.ticker]);
@@ -974,35 +986,119 @@
   }
   function tickLabel(v, dec) { return v === 0 ? "0 %" : fmtPct(v, dec); }
 
-  /* Rein beschreibender Text aus den Kursdaten (keine Theorie): je Wert ein Satz */
-  function observationHtml(es) {
-    var items = [], hits = 0;
+  /* Ansicht: Bezugstag (0 = Meldung/Ereignistag, 1 = Ankuendigung) und Zeitfenster (null = alles) */
+  var mcView = { sid: null, variant: 0, win: null };
+  function mcStudy(story) {
+    var mc = story.market_correlation;
+    return (mcView.variant === 1 && mc.event_study_alt) ? mc.event_study_alt : mc.event_study;
+  }
+  /* Asset auf ein Zeitfenster (Handelstage nach dem Ereignis) zuschneiden; t-Wert neu */
+  function mcWindowed(a, win) {
+    if (!win || win >= a.n_post) return a;
+    var pts = a.points.filter(function (p) { return p.day <= win; });
+    var last = pts[pts.length - 1];
+    if (!last || last.day < 1) return a;
+    var diff = last.actual - (last.expected || 0);
+    var t = a.resid_sd_pct > 1e-9 ? diff / (a.resid_sd_pct * Math.sqrt(last.day)) : null;
+    var c = {}; for (var k in a) c[k] = a[k];
+    c.points = pts; c.n_post = last.day; c.diff_pct = Math.round(diff * 1000) / 1000; c.t_stat = t === null ? null : Math.round(t * 100) / 100;
+    return c;
+  }
+  function mcVariantLabel(story, v) {
+    var mc = story.market_correlation;
+    if (v === 1) return (mc.event_study_alt.label || mcL("Ankündigung", "Announcement")) + " (" + mcDate(mc.event_study_alt.event_date, false) + ")";
+    var es = mc.event_study;
+    return mcL(es.event_date_source === "story_date" ? "Meldung" : "Ereignistag", es.event_date_source === "story_date" ? "Report" : "Event day") + " (" + mcDate(es.event_date, false) + ")";
+  }
+
+  /* Rein beschreibender, VERDICHTETER Text aus den Kursdaten (keine Theorie).
+     Aehnliche Werte werden zusammengefasst (gleiche Richtung, kein auffaelliger
+     Ausreisser), nur Auffaelliges/Ausreisser bekommt einen eigenen Satz. */
+  function mcNames(list) {
+    var n = list.map(function (x) { return "<b>" + escapeHtml(marketLabel(x.a.ticker)) + "</b>"; });
+    if (n.length < 2) return n.join("");
+    return n.slice(0, -1).join(", ") + mcL(" und ", " and ") + n[n.length - 1];
+  }
+  function mcRange(vals, signed) {
+    var abs = vals.map(function (v) { return Math.abs(v); }), lo = Math.min.apply(null, abs), hi = Math.max.apply(null, abs);
+    return lo.toFixed(1) === hi.toFixed(1) ? fmtNum(hi, 1) : fmtNum(lo, 1) + mcL(" bis ", " to ") + fmtNum(hi, 1);
+  }
+  function mcAssetInfo(es) {
+    var rows = [];
     es.assets.forEach(function (a) {
       var last = a.points[a.points.length - 1];
       if (!last) return;
-      var name = escapeHtml(marketLabel(a.ticker));
-      var act = last.actual, exp = last.expected, diff = a.diff_pct;
-      var hit = a.t_stat !== null && a.t_stat !== undefined && Math.abs(a.t_stat) >= 2;
-      if (hit) hits++;
-      var flat = function (v) { return Math.abs(v) < 0.05; };
-      var moved = flat(act) ? mcL("praktisch unverändert geblieben", "stayed practically unchanged")
-        : mcL((act > 0 ? "um " : "um ") + fmtNum(Math.abs(act), 1) + " % " + (act > 0 ? "gestiegen" : "gefallen"), (act > 0 ? "risen " : "fallen ") + fmtNum(Math.abs(act), 1) + " %");
-      var expTxt = (exp === null || exp === undefined) ? "" : (flat(exp)
-        ? mcL("praktisch keine Veränderung", "practically no change")
-        : mcL((exp > 0 ? "ein Anstieg" : "ein Rückgang") + " um " + fmtNum(Math.abs(exp), 1) + " %", (exp > 0 ? "a rise" : "a fall") + " of " + fmtNum(Math.abs(exp), 1) + " %"));
-      var cmp;
-      if (flat(diff)) cmp = mcL("genau wie erwartet", "exactly as expected");
-      else cmp = mcL(fmtNum(Math.abs(diff), 1) + " Prozentpunkte " + (diff > 0 ? "stärker" : "schwächer") + " als erwartet", fmtNum(Math.abs(diff), 1) + " percentage points " + (diff > 0 ? "stronger" : "weaker") + " than expected");
-      var verdict = hit ? mcL("auffällig, mehr als die übliche Schwankung", "notable, more than usual fluctuation") : mcL("im Rahmen der üblichen Schwankung", "within usual fluctuation");
-      var n = last.day;
-      items.push('<li><b>' + name + '</b> ' + mcL("ist seit dem Ereignis (Tag +" + n + ") ", "has, since the event (day +" + n + "), ") + moved + '. ' +
-        (expTxt ? mcL("Nach dem üblichen Muster wäre " + expTxt + " zu erwarten gewesen", "By the usual pattern " + expTxt + " would have been expected") : "") +
-        ' (' + cmp + '; ' + verdict + ').</li>');
+      rows.push({ a: a, act: last.actual, exp: (last.expected === null || last.expected === undefined) ? 0 : last.expected, diff: a.diff_pct, day: last.day,
+        hit: a.t_stat !== null && a.t_stat !== undefined && Math.abs(a.t_stat) >= 2 });
     });
-    var head = hits === 0
-      ? mcL("Bei keinem der untersuchten Werte weicht der Kurs auffällig vom Erwartungsverlauf ab.", "For none of the examined assets does the price deviate notably from its expected path.")
-      : mcL("Bei " + hits + " von " + es.assets.length + " untersuchten Werten weicht der Kurs auffällig vom Erwartungsverlauf ab.", "For " + hits + " of " + es.assets.length + " examined assets the price deviates notably from its expected path.");
-    return '<div class="mc-obs"><div class="mc-obs-head">' + head + '</div><ul>' + items.join("") + '</ul></div>';
+    var abs = rows.map(function (r) { return Math.abs(r.act); }).sort(function (x, y) { return x - y; });
+    var med = abs.length ? abs[Math.floor(abs.length / 2)] : 0;
+    rows.forEach(function (r) { r.outlier = r.hit || (rows.length >= 3 && Math.abs(r.act) >= 5 && Math.abs(r.act) >= 2.5 * med); });
+    return rows;
+  }
+  function observationHtml(es) {
+    var rows = mcAssetInfo(es);
+    if (!rows.length) return "";
+    var day = rows[0].day, flat = function (v) { return Math.abs(v) < 0.05; };
+    var down = [], up = [], still = [], singles = [];
+    rows.forEach(function (r) {
+      if (r.outlier) singles.push(r);
+      else if (flat(r.act)) still.push(r); else if (r.act < 0) down.push(r); else up.push(r);
+    });
+    var parts = [];
+    if (down.length) parts.push(mcL((down.length > 1 ? "gefallen sind " : "gefallen ist ") + mcNames(down) + " (um " + mcRange(down.map(function (r) { return r.act; })) + " %)",
+      "fallen: " + mcNames(down) + " (by " + mcRange(down.map(function (r) { return r.act; })) + " %)"));
+    if (up.length) parts.push(mcL((up.length > 1 ? "gestiegen sind " : "gestiegen ist ") + mcNames(up) + " (um " + mcRange(up.map(function (r) { return r.act; })) + " %)",
+      "risen: " + mcNames(up) + " (by " + mcRange(up.map(function (r) { return r.act; })) + " %)"));
+    if (still.length) parts.push(mcL("praktisch unverändert blieb " + mcNames(still), "practically unchanged: " + mcNames(still)));
+    var html = "";
+    if (parts.length) {
+      var rest = down.concat(up, still);
+      var exps = rest.map(function (r) { return r.exp; }), diffs = rest.map(function (r) { return Math.abs(r.diff); });
+      var eLo = Math.min.apply(null, exps), eHi = Math.max.apply(null, exps), dMax = Math.max.apply(null, diffs);
+      var expTxt = (flat(eLo) && flat(eHi)) ? mcL("praktisch keine Veränderung", "practically no change")
+        : (eLo.toFixed(1) === eHi.toFixed(1) ? fmtPct(eLo, 1) : mcL("zwischen ", "between ") + fmtPct(eLo, 1) + mcL(" und ", " and ") + fmtPct(eHi, 1));
+      html += '<p>' + mcL("Seit dem Ereignis (Tag +" + day + ") " + parts.join("; ") + ". ", "Since the event (day +" + day + ") " + parts.join("; ") + ". ") +
+        mcL("Nach dem üblichen Marktmuster waren " + expTxt + " zu erwarten; die Abweichungen betragen höchstens " + fmtNum(dMax, 1) + " Prozentpunkte und liegen im Rahmen der üblichen Schwankung.",
+            "By the usual market pattern " + expTxt + " was expected; deviations are at most " + fmtNum(dMax, 1) + " percentage points, within usual fluctuation.") + '</p>';
+    }
+    singles.forEach(function (r) {
+      var act = r.act, exp = r.exp, diff = r.diff;
+      var verb = flat(act) ? mcL("blieb praktisch unverändert", "stayed practically unchanged")
+        : mcL((act > 0 ? "stieg" : "fiel") + " um " + fmtNum(Math.abs(act), 1) + " %", (act > 0 ? "rose " : "fell ") + fmtNum(Math.abs(act), 1) + " %");
+      var expT = flat(exp) ? mcL("praktisch keine Veränderung", "practically no change") : fmtPct(exp, 1);
+      var cmp = flat(diff) ? mcL("wie erwartet", "as expected") : mcL(fmtNum(Math.abs(diff), 1) + " Prozentpunkte " + (diff > 0 ? "stärker" : "schwächer") + " als erwartet", fmtNum(Math.abs(diff), 1) + " pp " + (diff > 0 ? "stronger" : "weaker") + " than expected");
+      var verdict = r.hit ? mcL("auffällig", "notable") : mcL("trotzdem im Rahmen der üblichen Schwankung dieses Werts", "still within this asset's usual fluctuation");
+      html += '<p><b>' + escapeHtml(marketLabel(r.a.ticker)) + '</b> ' + verb + mcL(" (erwartet: ", " (expected: ") + expT + "; " + cmp + "; " + verdict + ").</p>";
+    });
+    // Kurzfristig auffaellig, auf 15 Tage aber im Rauschen? (sensibler fuer Sofortreaktionen)
+    var short = [];
+    es.assets.forEach(function (a, i) {
+      if (rows[i] && rows[i].hit) return;
+      [3, 5].some(function (w) {
+        if (w >= a.n_post) return false;
+        var v = mcWindowed(a, w);
+        if (v.t_stat !== null && v.t_stat !== undefined && Math.abs(v.t_stat) >= 2) {
+          short.push({ a: a, w: w, diff: v.diff_pct, t: v.t_stat }); return true;
+        }
+        return false;
+      });
+    });
+    if (short.length) {
+      html += '<p>' + mcL("Kurzfristig fällt auf: ", "Short-term: ") + short.map(function (s) {
+        return "<b>" + escapeHtml(marketLabel(s.a.ticker)) + "</b>" + mcL(" weicht in den ersten " + s.w + " Tagen " + fmtNum(Math.abs(s.diff), 1) + " Prozentpunkte " + (s.diff > 0 ? "nach oben" : "nach unten") + " vom Erwartungsverlauf ab",
+          " deviates " + fmtNum(Math.abs(s.diff), 1) + " pp " + (s.diff > 0 ? "upwards" : "downwards") + " in the first " + s.w + " days");
+      }).join(mcL("; ", "; ")) + mcL(". Über das ganze Zeitfenster geht das im üblichen Schwanken unter. Hinweis: Je mehr Zeitfenster man prüft, desto leichter entstehen Zufallstreffer.", ". Over the whole window this disappears in normal fluctuation. Note: the more windows are checked, the easier random hits become.") + '</p>';
+    }
+    return '<div class="mc-obs">' + html + '</div>';
+  }
+  /* Einleitender Satz der Einordnung: knuepft an die Beobachtungen an */
+  function interpretationLead(es) {
+    var rows = mcAssetInfo(es), hits = rows.filter(function (r) { return r.hit; });
+    if (!hits.length) return mcL("Die Kursbewegungen bleiben im Rahmen der üblichen Schwankung, ein Effekt des Ereignisses lässt sich daraus nicht belegen. Theoretisch sind folgende Zusammenhänge plausibel:",
+      "Price moves stay within usual fluctuation, so no effect of the event can be demonstrated from them. In theory the following connections are plausible:");
+    return mcL("Auffällig vom Erwartungsverlauf weicht " + (hits.length > 1 ? "ab: " : "ab: ") + hits.map(function (r) { return escapeHtml(marketLabel(r.a.ticker)); }).join(", ") + ". Bei den übrigen Werten ist ein Effekt aus den Kursen nicht belegbar. Mögliche theoretische Hintergründe:",
+      "Notably off the expected path: " + hits.map(function (r) { return escapeHtml(marketLabel(r.a.ticker)); }).join(", ") + ". For the other assets no effect can be demonstrated from prices. Possible theoretical background:");
   }
   function ensureMarketStyle() {
     if (document.getElementById("mcStyle")) return;
@@ -1024,7 +1120,7 @@
       ".mc-head-ev span{font-weight:500;font-size:14px;color:var(--ink-muted)}" +
       ".mc-obs{font-size:14px;line-height:1.55;color:var(--ink-secondary)}" +
       ".mc-obs-head{font-weight:600;color:var(--ink);margin-bottom:6px}" +
-      ".mc-obs ul{margin:0;padding-left:18px}.mc-obs li{margin:0 0 7px}" +
+      ".mc-obs p{margin:0 0 8px}" +
       ".mc-theory{margin:14px 0 4px;padding:12px 14px;border:1px dashed var(--border);border-radius:var(--radius-s);font-size:13.5px;line-height:1.55;color:var(--ink-secondary)}" +
       ".mc-theory ul{margin:4px 0 0;padding-left:18px}" +
       ".mc-small{font-size:12.5px;color:var(--ink-muted);line-height:1.55;margin:10px 0 4px}" +
@@ -1043,7 +1139,7 @@
   }
 
   function renderEventSummary(story, idx) {
-    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    var mc = story.market_correlation, es = mcStudy(story), a0 = es.assets[idx], a = a0 && mcWindowed(a0, mcView.win);
     var box = document.getElementById("mcSummary"), meth = document.getElementById("mcMethod");
     if (!box || !a) return;
     renderAbout(story, idx);
@@ -1062,7 +1158,7 @@
     }
     var base = a.points.filter(function (p) { return p.day === 0; })[0];
     var dateInfo = mcL("Stichtag: ", "Event date: ") + mcDate(es.event_date, true) +
-      (es.event_date_source === "story_date" ? mcL(" (Datum der Meldung, nicht zwingend der Tag des Ereignisses)", " (date of the report, not necessarily the day of the event)") : "") +
+      (es.event_date_source === "story_date" ? mcL(" (Datum der Meldung, nicht zwingend der Tag des Ereignisses)", " (date of the report, not necessarily the day of the event)") : (es.event_date_source === "announce" ? mcL(" (Tag der Ankündigung)", " (day of the announcement)") : "")) +
       (base ? mcL(" · Basis (0 %) ist der Schlusskurs vom ", " · baseline (0 %) is the close of ") + mcDate(base.date, true) : "") + ".";
     var n = a.n_post;
     box.innerHTML =
@@ -1092,7 +1188,7 @@
   }
 
   function drawEventStudy(story, idx) {
-    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    var mc = story.market_correlation, es = mcStudy(story), a0 = es.assets[idx], a = a0 && mcWindowed(a0, mcView.win);
     var svg = document.getElementById("mcChart");
     if (!svg || !a || !a.points || a.points.length < 2) return;
     var pts = a.points;
@@ -1126,10 +1222,11 @@
     // Ereignislinie
     var ex = X(0).toFixed(1);
     body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="3 3"/>';
-    body += '<text x="' + ex + '" y="' + (padT - 10) + '" text-anchor="' + (X(0) < padL + 90 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + escapeHtml(eventLabelText(mc, story)) + '</text>';
+    body += '<text x="' + ex + '" y="' + (padT - 10) + '" text-anchor="' + (X(0) < padL + 90 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + escapeHtml((es.event_date_source === "announce" && es.label) ? es.label : eventLabelText(mc, story)) + '</text>';
     // X-Achse: Handelstage
-    var t0 = Math.ceil(dMin / 5) * 5;
-    for (var d = t0; d <= dMax; d += 5) {
+    var tick = (dMax - dMin) <= 8 ? 1 : 5;
+    var t0 = Math.ceil(dMin / tick) * tick;
+    for (var d = t0; d <= dMax; d += tick) {
       var lab = d === 0 ? "0" : (d > 0 ? "+" : "−") + Math.abs(d);
       body += '<text x="' + X(d).toFixed(1) + '" y="' + (H - padB + 16) + '" text-anchor="middle" font-size="12" fill="var(--ink-muted)">' + lab + '</text>';
     }
@@ -1304,7 +1401,7 @@
     var mc = story.market_correlation;
     if (!mc) return;
     ensureMarketStyle();
-    var es = mc.event_study;
+    var es = mcStudy(story);
     if (es && es.assets && es.assets.length) {
       var current = 0;
       var svg = document.getElementById("mcChart");
@@ -1321,6 +1418,21 @@
       };
       document.querySelectorAll("[data-mc-asset]").forEach(function (b) {
         b.onclick = function () { current = parseInt(b.getAttribute("data-mc-asset"), 10); paint(); };
+      });
+      document.querySelectorAll("[data-mc-win]").forEach(function (b) {
+        b.onclick = function () {
+          var w = parseInt(b.getAttribute("data-mc-win"), 10);
+          mcView.win = w === 0 ? null : w;
+          document.querySelectorAll("[data-mc-win]").forEach(function (x) { x.classList.toggle("active", x === b); });
+          paint();
+        };
+      });
+      document.querySelectorAll("[data-mc-var]").forEach(function (b) {
+        b.onclick = function () {
+          mcView.variant = parseInt(b.getAttribute("data-mc-var"), 10); mcView.win = null;
+          var card = document.getElementById("mcCard");
+          if (card) { card.outerHTML = marketHtml(story); drawMarketChart(story); }
+        };
       });
       paint();
       return;

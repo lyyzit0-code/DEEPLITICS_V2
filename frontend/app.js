@@ -574,14 +574,21 @@
       var assetTabs = es.assets.length > 1 ? '<div class="mc-assets">' + es.assets.map(function (a, i) {
         return '<button class="mc-asset-btn' + (i === 0 ? ' active' : '') + '" data-mc-asset="' + i + '">' + escapeHtml(marketLabel(a.ticker)) + '</button>';
       }).join("") + '</div>' : '';
+      var theory = [];
+      (mc.unmeasured || []).forEach(function (x) { theory.push(escapeHtml(x)); });
+      (es.skipped || []).forEach(function (tk) { theory.push(mcL("<b>" + escapeHtml(marketLabel(tk)) + "</b>: Dafür waren keine ausreichenden Kursdaten verfügbar, die Wirkung bleibt hier Theorie.", "<b>" + escapeHtml(marketLabel(tk)) + "</b>: no sufficient price data available, so this effect remains theory here.")); });
+      var theoryHtml = theory.length ? '<div class="mc-theory"><div class="mc-label">' + mcL("Nur Theorie – nicht mit Kursen belegt", "Theory only – not backed by prices") + '</div><ul>' + theory.map(function (x) { return '<li>' + x + '</li>'; }).join("") + '</ul></div>' : '';
       return '<div class="chart-card">' +
-        (mc.explanation ? '<div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
+        (mc.explanation ? '<div class="mc-label">' + mcL("Einschätzung (Theorie)", "Assessment (theory)") + '</div><div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
+        '<div class="mc-label" style="margin-top:14px">' + mcL("Mit echten Kursen geprüft – Wert wählen", "Checked with real prices – pick an asset") + '</div>' +
         assetTabs +
+        '<div class="mc-small" id="mcAbout" style="margin:8px 0"></div>' +
         marketLegendEventStudy() +
         '<div style="position:relative"><svg id="mcChart" viewBox="0 0 480 290" width="100%" style="overflow:visible;display:block;touch-action:pan-y"></svg>' +
         '<div class="tooltip" id="mcTooltip"></div></div>' +
         '<div id="mcSummary"></div>' +
         '<div class="mc-small" id="mcMethod"></div>' +
+        theoryHtml +
         (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
       '</div>';
     }
@@ -868,7 +875,7 @@
          der Rohkurse seit dem Ereignistag/Beginn.
      Beide mit runden Achsenwerten, Klarnamen statt Tickern, Endwerten. */
   var MARKET_NAMES = {
-    "CADUSD=X": "Kanad. Dollar (CAD/USD)", "USDCAD=X": "US-Dollar/Kanad. Dollar",
+    "CADUSD=X": "Kanad. Dollar (CAD/USD)", "USDCAD=X": "US-Dollar (in kanad. $)",
     "EURUSD=X": "Euro/US-Dollar", "USDJPY=X": "US-Dollar/Yen", "CNY=X": "US-Dollar/Yuan",
     "BZ=F": "Brent-Rohöl", "CL=F": "WTI-Rohöl", "GC=F": "Gold", "NG=F": "Erdgas",
     "HG=F": "Kupfer", "ZW=F": "Weizen",
@@ -878,8 +885,47 @@
     "LMT": "Lockheed Martin", "RTX": "RTX", "GM": "General Motors", "F": "Ford",
     "XOM": "ExxonMobil", "CVX": "Chevron", "TSLA": "Tesla", "AAPL": "Apple",
     "MUV2.DE": "Munich Re", "SREN.SW": "Swiss Re",
-    "RHM.DE": "Rheinmetall", "TSM": "TSMC", "NVDA": "Nvidia", "^HSI": "Hang Seng"
+    "RHM.DE": "Rheinmetall", "TSM": "TSMC", "NVDA": "Nvidia", "^HSI": "Hang Seng",
+    "ALI=F": "Aluminium", "LBR=F": "Bauholz", "HRC=F": "Stahl (Walzstahl)", "DC=F": "Milchpreis",
+    "KMB": "Kimberly-Clark", "NUE": "Nucor (Stahl)", "SOXX": "Chip-Aktien (ETF)"
   };
+  /* Kurz erklaert: Was ist das eigentlich? (Anzeige im Block "Warum dieser Wert?") */
+  var MARKET_INFO = {
+    "CADUSD=X": "Preis von 1 kanadischem Dollar in US-Dollar (Börsenschreibweise CAD/USD). Fällt die Linie, wird der kanadische Dollar schwächer.",
+    "^GSPTSE": "Leitindex der Börse Toronto: bildet die größten kanadischen Unternehmen ab.",
+    "^GSPC": "S&P 500: Index der 500 größten US-Unternehmen, Maßstab für die US-Börse.",
+    "GM": "Einer der größten US-Autokonzerne (Chevrolet, Cadillac, GMC) mit Werken in Kanada und Mexiko und Lieferketten über die Grenze.",
+    "F": "US-Autokonzern mit Werken in Kanada und Mexiko und Lieferketten über die Grenze.",
+    "ALI=F": "Aluminium-Terminkontrakt (Future): Börsenpreis für Aluminium.",
+    "LBR=F": "Bauholz-Terminkontrakt (Future): Börsenpreis für Nutzholz.",
+    "HRC=F": "Walzstahl-Terminkontrakt (Future): Börsenpreis für Stahl.",
+    "DC=F": "Milch-Terminkontrakt (Future): Börsenpreis für Milch (Klasse III).",
+    "CL=F": "WTI-Rohöl: wichtigste US-Ölsorte (Terminkontrakt).",
+    "BZ=F": "Brent-Rohöl: wichtigste Ölsorte für den Weltmarkt (Terminkontrakt).",
+    "GC=F": "Gold (Terminkontrakt): gilt als sicherer Hafen in Krisen.",
+    "XOM": "Größter US-Ölkonzern.",
+    "KMB": "US-Hersteller von Papier- und Hygieneprodukten (Kleenex, Huggies), hier als Beispiel für Konsumgüter.",
+    "NUE": "Größter US-Stahlproduzent, hier als Beispiel für die US-Stahlbranche.",
+    "SOXX": "iShares Semiconductor ETF: Fonds auf große Chip-Unternehmen, hier als Beispiel für die Technologiebranche.",
+    "^TNX": "Rendite zehnjähriger US-Staatsanleihen. Sinkt sie, sind Anleihen gefragt (Zeichen von Unsicherheit)."
+  };
+  function eventLabelText(mc, story) {
+    var l = (mc && mc.event_label) || "";
+    if (!l) {
+      l = (story && story.title ? String(story.title) : "").split(/[:\u2013\u2014-]/)[0].trim();
+      if (l.length > 26) l = l.slice(0, 25).replace(/\s+\S*$/, "") + "\u2026";
+    }
+    return l || mcL("Auslöser", "Trigger");
+  }
+  function renderAbout(story, idx) {
+    var box = document.getElementById("mcAbout");
+    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    if (!box || !a) return;
+    var html = '<b>' + escapeHtml(marketLabel(a.ticker)) + '</b>';
+    if (MARKET_INFO[a.ticker]) html += ' \u2013 ' + escapeHtml(MARKET_INFO[a.ticker]);
+    if (a.reason) html += '<div style="margin-top:4px"><b>' + mcL("Warum hier?", "Why here?") + '</b> ' + escapeHtml(a.reason) + '</div>';
+    box.innerHTML = html;
+  }
   function marketLabel(l) { return MARKET_NAMES[l] || l; }
 
   var SERIES_COLORS = ["accent", "#4a90d9", "#3fa37a"];
@@ -933,6 +979,9 @@
       ".mc-tile-v{font-size:18px;font-weight:700;letter-spacing:-.01em}" +
       ".mc-verdict{font-size:13px;line-height:1.5;color:var(--ink);padding:10px 12px;border-radius:var(--radius-s);border:1px solid var(--border)}" +
       ".mc-verdict.hit{border-color:var(--cat-color);background:color-mix(in srgb, var(--cat-color) 10%, transparent)}" +
+      ".mc-label{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 6px}" +
+      ".mc-theory{margin:14px 0 4px;padding:12px 14px;border:1px dashed var(--border);border-radius:var(--radius-s);font-size:13.5px;line-height:1.55;color:var(--ink-secondary)}" +
+      ".mc-theory ul{margin:4px 0 0;padding-left:18px}" +
       ".mc-small{font-size:12.5px;color:var(--ink-muted);line-height:1.55;margin:10px 0 4px}" +
       ".mc-legend-line{display:inline-block;vertical-align:middle;margin-right:6px}";
     document.head.appendChild(st);
@@ -952,6 +1001,7 @@
     var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
     var box = document.getElementById("mcSummary"), meth = document.getElementById("mcMethod");
     if (!box || !a) return;
+    renderAbout(story, idx);
     var last = a.points[a.points.length - 1];
     var name = marketLabel(a.ticker);
     var accent = "var(--cat-color)";
@@ -1031,7 +1081,7 @@
     // Ereignislinie
     var ex = X(0).toFixed(1);
     body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="3 3"/>';
-    body += '<text x="' + ex + '" y="' + (padT - 10) + '" text-anchor="' + (X(0) < padL + 24 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + mcL("Ereignis", "Event") + '</text>';
+    body += '<text x="' + ex + '" y="' + (padT - 10) + '" text-anchor="' + (X(0) < padL + 90 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + escapeHtml(eventLabelText(mc, story)) + '</text>';
     // X-Achse: Handelstage
     var t0 = Math.ceil(dMin / 5) * 5;
     for (var d = t0; d <= dMax; d += 5) {
@@ -1162,7 +1212,7 @@
     if (evDate && isFinite(evT) && evT >= tMin && evT <= tMax) {
       var ex = X(evT).toFixed(1);
       body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="3 3"/>';
-      body += '<text x="' + ex + '" y="' + (padT - 9) + '" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + mcL("Ereignis", "Event") + '</text>';
+      body += '<text x="' + ex + '" y="' + (padT - 9) + '" text-anchor="' + (X(evT) < padL + 90 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + escapeHtml(eventLabelText(mc, story)) + '</text>';
     }
     body += '<text x="' + padL + '" y="' + (H - 8) + '" font-size="12" fill="var(--ink-muted)">' + mcDate(new Date(tMin).toISOString().slice(0, 10), false) + '</text>';
     body += '<text x="' + (W - padR) + '" y="' + (H - 8) + '" text-anchor="end" font-size="12" fill="var(--ink-muted)">' + mcDate(new Date(tMax).toISOString().slice(0, 10), false) + '</text>';

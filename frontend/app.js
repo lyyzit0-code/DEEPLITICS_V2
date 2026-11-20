@@ -577,10 +577,17 @@
       var theory = [];
       (mc.unmeasured || []).forEach(function (x) { theory.push(escapeHtml(x)); });
       (es.skipped || []).forEach(function (tk) { theory.push(mcL("<b>" + escapeHtml(marketLabel(tk)) + "</b>: Dafür waren keine ausreichenden Kursdaten verfügbar, die Wirkung bleibt hier Theorie.", "<b>" + escapeHtml(marketLabel(tk)) + "</b>: no sufficient price data available, so this effect remains theory here.")); });
-      var theoryHtml = theory.length ? '<div class="mc-theory"><div class="mc-label">' + mcL("Nur Theorie – nicht mit Kursen belegt", "Theory only – not backed by prices") + '</div><ul>' + theory.map(function (x) { return '<li>' + x + '</li>'; }).join("") + '</ul></div>' : '';
+      var theoryHtml = theory.length ? '<div class="mc-theory"><div class="mc-label">' + mcL("Weitere Überlegungen – nicht mit Kursen belegt", "Further considerations – not backed by prices") + '</div><ul>' + theory.map(function (x) { return '<li>' + x + '</li>'; }).join("") + '</ul></div>' : '';
+      var evTitle = mc.event_description || (story.title ? String(story.title) : "");
+      var evDate = es.event_date ? mcDate(es.event_date, true) : "";
+      var headHtml = '<div class="mc-label">' + mcL("Ereignis und Märkte", "Event and markets") + '</div>' +
+        '<div class="mc-head">' + mcL("Untersucht wird, wie sich Märkte seit diesem Ereignis entwickelt haben:", "This section examines how markets have moved since this event:") +
+        '<div class="mc-head-ev">' + escapeHtml(evTitle) + (evDate ? ' <span>(' + escapeHtml(evDate) + ')</span>' : '') + '</div></div>';
       return '<div class="chart-card">' +
-        (mc.explanation ? '<div class="mc-label">' + mcL("Einschätzung (Theorie)", "Assessment (theory)") + '</div><div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
-        '<div class="mc-label" style="margin-top:14px">' + mcL("Mit echten Kursen geprüft – Wert wählen", "Checked with real prices – pick an asset") + '</div>' +
+        headHtml +
+        '<div class="mc-label" style="margin-top:14px">' + mcL("Was die Kurse seit dem Ereignis zeigen", "What prices show since the event") + '</div>' +
+        observationHtml(es) +
+        '<div class="mc-label" style="margin-top:16px">' + mcL("Verlauf im Detail – Wert wählen", "Detail – pick an asset") + '</div>' +
         assetTabs +
         '<div class="mc-small" id="mcAbout" style="margin:8px 0"></div>' +
         marketLegendEventStudy() +
@@ -588,6 +595,7 @@
         '<div class="tooltip" id="mcTooltip"></div></div>' +
         '<div id="mcSummary"></div>' +
         '<div class="mc-small" id="mcMethod"></div>' +
+        (mc.explanation ? '<div class="mc-label" style="margin-top:18px">' + mcL("Einordnung und mögliche Erklärungen (Theorie)", "Interpretation and possible explanations (theory)") + '</div><div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
         theoryHtml +
         (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
       '</div>';
@@ -885,7 +893,7 @@
     "LMT": "Lockheed Martin", "RTX": "RTX", "GM": "General Motors", "F": "Ford",
     "XOM": "ExxonMobil", "CVX": "Chevron", "TSLA": "Tesla", "AAPL": "Apple",
     "MUV2.DE": "Munich Re", "SREN.SW": "Swiss Re",
-    "URTH": "Weltaktien (MSCI World)", "DBC": "Rohstoffkorb (ETF)", "DX-Y.NYB": "US-Dollar-Index",
+    "basket:commodity": "Durchschnitt anderer Rohstoffe (ohne diesen Wert)", "basket:equity": "Durchschnitt anderer Aktienindizes weltweit (ohne diesen Wert)", "DX-Y.NYB": "US-Dollar-Index",
     "RHM.DE": "Rheinmetall", "TSM": "TSMC", "NVDA": "Nvidia", "^HSI": "Hang Seng",
     "ALI=F": "Aluminium", "LBR=F": "Bauholz", "HRC=F": "Stahl (Walzstahl)", "DC=F": "Milchpreis",
     "KMB": "Kimberly-Clark", "NUE": "Nucor (Stahl)", "SOXX": "Chip-Aktien (ETF)"
@@ -966,6 +974,36 @@
   }
   function tickLabel(v, dec) { return v === 0 ? "0 %" : fmtPct(v, dec); }
 
+  /* Rein beschreibender Text aus den Kursdaten (keine Theorie): je Wert ein Satz */
+  function observationHtml(es) {
+    var items = [], hits = 0;
+    es.assets.forEach(function (a) {
+      var last = a.points[a.points.length - 1];
+      if (!last) return;
+      var name = escapeHtml(marketLabel(a.ticker));
+      var act = last.actual, exp = last.expected, diff = a.diff_pct;
+      var hit = a.t_stat !== null && a.t_stat !== undefined && Math.abs(a.t_stat) >= 2;
+      if (hit) hits++;
+      var flat = function (v) { return Math.abs(v) < 0.05; };
+      var moved = flat(act) ? mcL("praktisch unverändert geblieben", "stayed practically unchanged")
+        : mcL((act > 0 ? "um " : "um ") + fmtNum(Math.abs(act), 1) + " % " + (act > 0 ? "gestiegen" : "gefallen"), (act > 0 ? "risen " : "fallen ") + fmtNum(Math.abs(act), 1) + " %");
+      var expTxt = (exp === null || exp === undefined) ? "" : (flat(exp)
+        ? mcL("praktisch keine Veränderung", "practically no change")
+        : mcL((exp > 0 ? "ein Anstieg" : "ein Rückgang") + " um " + fmtNum(Math.abs(exp), 1) + " %", (exp > 0 ? "a rise" : "a fall") + " of " + fmtNum(Math.abs(exp), 1) + " %"));
+      var cmp;
+      if (flat(diff)) cmp = mcL("genau wie erwartet", "exactly as expected");
+      else cmp = mcL(fmtNum(Math.abs(diff), 1) + " Prozentpunkte " + (diff > 0 ? "stärker" : "schwächer") + " als erwartet", fmtNum(Math.abs(diff), 1) + " percentage points " + (diff > 0 ? "stronger" : "weaker") + " than expected");
+      var verdict = hit ? mcL("auffällig, mehr als die übliche Schwankung", "notable, more than usual fluctuation") : mcL("im Rahmen der üblichen Schwankung", "within usual fluctuation");
+      var n = last.day;
+      items.push('<li><b>' + name + '</b> ' + mcL("ist seit dem Ereignis (Tag +" + n + ") ", "has, since the event (day +" + n + "), ") + moved + '. ' +
+        (expTxt ? mcL("Nach dem üblichen Muster wäre " + expTxt + " zu erwarten gewesen", "By the usual pattern " + expTxt + " would have been expected") : "") +
+        ' (' + cmp + '; ' + verdict + ').</li>');
+    });
+    var head = hits === 0
+      ? mcL("Bei keinem der untersuchten Werte weicht der Kurs auffällig vom Erwartungsverlauf ab.", "For none of the examined assets does the price deviate notably from its expected path.")
+      : mcL("Bei " + hits + " von " + es.assets.length + " untersuchten Werten weicht der Kurs auffällig vom Erwartungsverlauf ab.", "For " + hits + " of " + es.assets.length + " examined assets the price deviates notably from its expected path.");
+    return '<div class="mc-obs"><div class="mc-obs-head">' + head + '</div><ul>' + items.join("") + '</ul></div>';
+  }
   function ensureMarketStyle() {
     if (document.getElementById("mcStyle")) return;
     var st = document.createElement("style");
@@ -981,6 +1019,12 @@
       ".mc-verdict{font-size:13px;line-height:1.5;color:var(--ink);padding:10px 12px;border-radius:var(--radius-s);border:1px solid var(--border)}" +
       ".mc-verdict.hit{border-color:var(--cat-color);background:color-mix(in srgb, var(--cat-color) 10%, transparent)}" +
       ".mc-label{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 6px}" +
+      ".mc-head{font-size:14.5px;line-height:1.5;color:var(--ink-secondary)}" +
+      ".mc-head-ev{margin-top:4px;font-size:17px;font-weight:700;color:var(--ink)}" +
+      ".mc-head-ev span{font-weight:500;font-size:14px;color:var(--ink-muted)}" +
+      ".mc-obs{font-size:14px;line-height:1.55;color:var(--ink-secondary)}" +
+      ".mc-obs-head{font-weight:600;color:var(--ink);margin-bottom:6px}" +
+      ".mc-obs ul{margin:0;padding-left:18px}.mc-obs li{margin:0 0 7px}" +
       ".mc-theory{margin:14px 0 4px;padding:12px 14px;border:1px dashed var(--border);border-radius:var(--radius-s);font-size:13.5px;line-height:1.55;color:var(--ink-secondary)}" +
       ".mc-theory ul{margin:4px 0 0;padding-left:18px}" +
       ".mc-small{font-size:12.5px;color:var(--ink-muted);line-height:1.55;margin:10px 0 4px}" +
@@ -1034,8 +1078,8 @@
       var txt;
       if (a.model === "market" && bench) {
         txt = mcL(
-          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte. Sie folgt dem Vergleichsmarkt " + bench + ", und zwar so stark wie in den " + a.n_est + " Handelstagen davor (Faktor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). Einen eigenen Trend nimmt sie nicht an.",
-          "How to read: the dashed line estimates how " + name + " would have moved without the event. It follows the reference market " + bench + " as strongly as in the " + a.n_est + " trading days before (factor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). It assumes no trend of its own.");
+          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte. Als Vergleichsmarkt dient: " + bench + ". Die Linie folgt ihm so stark wie in den " + a.n_est + " Handelstagen davor (Faktor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). Einen eigenen Trend nimmt sie nicht an.",
+          "How to read: the dashed line estimates how " + name + " would have moved without the event. The reference market is: " + bench + ". The line follows it as strongly as in the " + a.n_est + " trading days before (factor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). It assumes no trend of its own.");
         if (a.r2 < 0.1) txt += mcL(" " + name + " hängt kaum mit " + bench + " zusammen; deshalb verläuft die Linie fast flach: Ohne Ereignis erwarten wir hier keine bestimmte Bewegung.", " " + name + " is barely related to " + bench + ", so the line is almost flat: without the event no particular move is expected.");
       } else {
         txt = mcL(

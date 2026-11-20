@@ -568,13 +568,31 @@
         (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
       '</div>';
     }
+    // Event Study: tatsaechlich vs. erwartet ohne Ereignis (s. drawMarketChart)
+    var es = mc.event_study;
+    if (es && es.assets && es.assets.length) {
+      var assetTabs = es.assets.length > 1 ? '<div class="mc-assets">' + es.assets.map(function (a, i) {
+        return '<button class="mc-asset-btn' + (i === 0 ? ' active' : '') + '" data-mc-asset="' + i + '">' + escapeHtml(marketLabel(a.ticker)) + '</button>';
+      }).join("") + '</div>' : '';
+      return '<div class="chart-card">' +
+        (mc.explanation ? '<div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
+        assetTabs +
+        marketLegendEventStudy() +
+        '<div style="position:relative"><svg id="mcChart" viewBox="0 0 480 290" width="100%" style="overflow:visible;display:block;touch-action:pan-y"></svg>' +
+        '<div class="tooltip" id="mcTooltip"></div></div>' +
+        '<div id="mcSummary"></div>' +
+        '<div class="mc-small" id="mcMethod"></div>' +
+        (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
+      '</div>';
+    }
     var legend = mc.series.length > 1 ? '<div class="legend-row">' + mc.series.map(function (s, i) {
-      return '<div class="legend-item"><span class="legend-swatch" style="background:' + (i === 0 ? "var(--cat-color)" : "var(--ink-muted)") + '"></span>' + escapeHtml(s.label) + '</div>';
+      var col = SERIES_COLORS[i % 3] === "accent" ? "var(--cat-color)" : SERIES_COLORS[i % 3];
+      return '<div class="legend-item"><span class="legend-swatch" style="background:' + col + '"></span>' + escapeHtml(marketLabel(s.label)) + '</div>';
     }).join("") + '</div>' : '';
     return '<div class="chart-card">' +
       (mc.explanation ? '<div class="chart-sub">' + escapeHtml(mc.explanation) + '</div>' : '') +
       legend +
-      '<div style="position:relative"><svg id="mcChart" viewBox="0 0 640 240" width="100%" height="240" style="overflow:visible"></svg>' +
+      '<div style="position:relative"><svg id="mcChart" viewBox="0 0 480 270" width="100%" style="overflow:visible;display:block"></svg>' +
       '<div class="tooltip" id="mcTooltip"></div></div>' +
       (mc.note ? '<div class="chart-note">' + escapeHtml(mc.note) + '</div>' : '') +
     '</div>';
@@ -841,132 +859,380 @@
     document.getElementById("entityScrim").classList.remove("open");
   }
 
-  /* ---------------- market chart v2 (Prozent seit Ereignis/Beginn, zeitbasierte X-Achse) ---------------- */
-var MARKET_NAMES = {
-  "CADUSD=X": "Kanad. Dollar (CAD/USD)",
-  "USDCAD=X": "US-Dollar/Kanad. Dollar",
-  "EURUSD=X": "Euro/US-Dollar",
-  "BZ=F": "Brent-Rohöl",
-  "CL=F": "WTI-Rohöl",
-  "GC=F": "Gold",
-  "^GSPC": "S&P 500",
-  "^IXIC": "Nasdaq",
-  "^DJI": "Dow Jones",
-  "^VIX": "VIX (Schwankung)",
-  "^GSPTSE": "S&P/TSX (Kanada)",
-  "LMT": "Lockheed Martin"
-};
-function marketLabel(l) { return MARKET_NAMES[l] || l; }
+  /* ---------------- market chart v3 ----------------
+     Zwei Darstellungen:
+     (1) Event Study (mc.event_study, s. pipeline/event_study.py): Prozent
+         seit dem Ereignis, TATSAECHLICHER Verlauf gegen den GESCHAETZTEN
+         Verlauf ohne Ereignis, dazwischen die Abweichung als Flaeche.
+     (2) Rueckfall ohne Event Study (nur mc.series): Prozent-Veraenderung
+         der Rohkurse seit dem Ereignistag/Beginn.
+     Beide mit runden Achsenwerten, Klarnamen statt Tickern, Endwerten. */
+  var MARKET_NAMES = {
+    "CADUSD=X": "Kanad. Dollar (CAD/USD)", "USDCAD=X": "US-Dollar/Kanad. Dollar",
+    "EURUSD=X": "Euro/US-Dollar", "USDJPY=X": "US-Dollar/Yen", "CNY=X": "US-Dollar/Yuan",
+    "BZ=F": "Brent-Rohöl", "CL=F": "WTI-Rohöl", "GC=F": "Gold", "NG=F": "Erdgas",
+    "HG=F": "Kupfer", "ZW=F": "Weizen",
+    "^GSPC": "S&P 500", "^IXIC": "Nasdaq", "^DJI": "Dow Jones", "^VIX": "VIX (Schwankung)",
+    "^GSPTSE": "S&P/TSX (Kanada)", "^STOXX50E": "Euro Stoxx 50", "^GDAXI": "DAX",
+    "^FTSE": "FTSE 100", "^N225": "Nikkei 225", "^TNX": "US-Rendite 10 J.",
+    "LMT": "Lockheed Martin", "RTX": "RTX", "GM": "General Motors", "F": "Ford",
+    "XOM": "ExxonMobil", "CVX": "Chevron", "TSLA": "Tesla", "AAPL": "Apple",
+    "MUV2.DE": "Munich Re", "SREN.SW": "Swiss Re",
+    "RHM.DE": "Rheinmetall", "TSM": "TSMC", "NVDA": "Nvidia", "^HSI": "Hang Seng"
+  };
+  function marketLabel(l) { return MARKET_NAMES[l] || l; }
 
-function drawMarketChart(story) {
-  var mc = story.market_correlation;
-  var svg = document.getElementById("mcChart");
-  if (!svg || !mc || !mc.series || !mc.series.length) return;
+  var SERIES_COLORS = ["accent", "#4a90d9", "#3fa37a"];
+  var SERIES_DASH = ["", "7 4", "2 4"];
 
-  var evDate = mc.event_date || "";
-  var evT = evDate ? Date.parse(evDate) : NaN;
+  function mcL(de, en) { return state.lang === "de" ? de : en; }
+  function fmtNum(v, d) {
+    var s = Math.abs(v).toFixed(d);
+    return state.lang === "de" ? s.replace(".", ",") : s;
+  }
+  function fmtPct(v, d) {
+    if (Math.abs(v) < Math.pow(10, -d) / 2) return fmtNum(0, d) + " %";
+    return (v > 0 ? "+" : "−") + fmtNum(v, d) + " %";
+  }
+  function fmtSigned(v, d) { return (v < 0 ? "−" : "") + fmtNum(v, d); }
+  function mcDate(iso, withYear) {
+    var d = new Date(iso + "T00:00:00Z");
+    var o = { day: "2-digit", month: "2-digit", timeZone: "UTC" };
+    if (withYear) o.year = "numeric";
+    return d.toLocaleDateString(state.lang === "de" ? "de-DE" : "en-GB", o);
+  }
 
-  // 1) Rohkurse -> Prozent-Veraenderung relativ zum Ereignistag (sonst zum ersten Punkt)
-  var series = [];
-  mc.series.forEach(function (s) {
-    var pts = (s.points || []).filter(function (p) {
-      return p && typeof p.value === "number" && isFinite(p.value) && isFinite(Date.parse(p.date));
-    });
-    if (pts.length < 2) return;
-    var baseIdx = 0;
-    if (evDate && isFinite(evT)) {
-      for (var k = 0; k < pts.length; k++) { if (Date.parse(pts[k].date) <= evT) baseIdx = k; }
+  /* Runde Achsenwerte: 1/2/2.5/5 x 10^n, beide Raender auf Schritte gerundet. */
+  function niceScale(vMin, vMax, want) {
+    want = want || 5;
+    if (vMax - vMin < 1e-9) { vMin -= 0.5; vMax += 0.5; }
+    var raw = (vMax - vMin) / (want - 1);
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var steps = [1, 2, 2.5, 5, 10], step = mag * 10;
+    for (var i = 0; i < steps.length; i++) { if (steps[i] * mag >= raw) { step = steps[i] * mag; break; } }
+    var lo = Math.floor(vMin / step + 1e-9) * step, hi = Math.ceil(vMax / step - 1e-9) * step;
+    var ticks = [];
+    for (var v = lo; v <= hi + step * 1e-6; v += step) ticks.push(Math.abs(v) < step * 1e-6 ? 0 : v);
+    var dec = 0;
+    while (dec < 4 && Math.abs(step * Math.pow(10, dec) - Math.round(step * Math.pow(10, dec))) > 1e-6) dec++;
+    return { min: lo, max: hi, ticks: ticks, dec: dec };
+  }
+  function tickLabel(v, dec) { return v === 0 ? "0 %" : fmtPct(v, dec); }
+
+  function ensureMarketStyle() {
+    if (document.getElementById("mcStyle")) return;
+    var st = document.createElement("style");
+    st.id = "mcStyle";
+    st.textContent =
+      ".mc-assets{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 12px}" +
+      ".mc-asset-btn{border:1px solid var(--border);background:transparent;color:var(--ink-secondary);border-radius:var(--radius-s);padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer}" +
+      ".mc-asset-btn.active{background:var(--cat-color);color:#fff;border-color:transparent}" +
+      ".mc-tiles{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px}" +
+      ".mc-tile{flex:1 1 92px;border:1px solid var(--border);border-radius:var(--radius-s);padding:10px 12px}" +
+      ".mc-tile-l{font-size:11.5px;font-weight:600;color:var(--ink-muted);margin-bottom:3px}" +
+      ".mc-tile-v{font-size:18px;font-weight:700;letter-spacing:-.01em}" +
+      ".mc-verdict{font-size:13px;line-height:1.5;color:var(--ink);padding:10px 12px;border-radius:var(--radius-s);border:1px solid var(--border)}" +
+      ".mc-verdict.hit{border-color:var(--cat-color);background:color-mix(in srgb, var(--cat-color) 10%, transparent)}" +
+      ".mc-small{font-size:12.5px;color:var(--ink-muted);line-height:1.55;margin:10px 0 4px}" +
+      ".mc-legend-line{display:inline-block;vertical-align:middle;margin-right:6px}";
+    document.head.appendChild(st);
+  }
+
+  function marketLegendEventStudy() {
+    function line(dash, cssColor, w) {
+      return '<svg class="mc-legend-line" width="26" height="8" aria-hidden="true"><line x1="0" y1="4" x2="26" y2="4" style="stroke:' + cssColor + '" stroke-width="' + w + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/></svg>';
     }
-    var base = pts[baseIdx].value;
-    if (!base) return;
-    series.push({
-      label: marketLabel(s.label),
-      points: pts.map(function (p) {
-        return { t: Date.parse(p.date), date: p.date, value: (p.value / base - 1) * 100 };
-      })
-    });
-  });
-  if (!series.length) return;
-
-  // 2) Skalen
-  var W = 640, H = 240, padL = 52, padR = 12, padT = 22, padB = 26;
-  var tMin = Infinity, tMax = -Infinity, vMin = 0, vMax = 0;
-  series.forEach(function (s) {
-    s.points.forEach(function (p) {
-      if (p.t < tMin) tMin = p.t;
-      if (p.t > tMax) tMax = p.t;
-      if (p.value < vMin) vMin = p.value;
-      if (p.value > vMax) vMax = p.value;
-    });
-  });
-  var span = vMax - vMin;
-  if (span < 1) { vMin -= 0.5; vMax += 0.5; span = vMax - vMin; }
-  var decimals = span < 5 ? 1 : 0;
-  var vPad = span * 0.12;
-  vMin -= vPad; vMax += vPad;
-  function X(t) { return padL + (t - tMin) / ((tMax - tMin) || 1) * (W - padL - padR); }
-  function Y(v) { return padT + (1 - (v - vMin) / (vMax - vMin)) * (H - padT - padB); }
-  function fmt(v, d) { return (v > 0 ? "+" : "") + v.toFixed(d) + " %"; }
-  function dm(t) {
-    var d = new Date(t);
-    return ("0" + d.getUTCDate()).slice(-2) + "." + ("0" + (d.getUTCMonth() + 1)).slice(-2) + ".";
+    return '<div class="legend-row">' +
+      '<div class="legend-item">' + line("", "var(--cat-color)", 3) + mcL("Tatsächlich", "Actual") + '</div>' +
+      '<div class="legend-item">' + line("6 4", "var(--ink-secondary)", 2.2) + mcL("Erwartet ohne Ereignis (Schätzung)", "Expected without the event (estimate)") + '</div>' +
+    '</div>';
   }
-  var accent = getComputedStyle(document.documentElement).getPropertyValue("--cat-" + story.theme_category).trim() || "#0a84ff";
-  var muted = getComputedStyle(document.documentElement).getPropertyValue("--ink-muted").trim() || "#7b7b83";
 
-  // 3) Gitter, Nulllinie, Ereignislinie, Datumsbeschriftung
-  var body = "";
-  for (var g = 0; g <= 4; g++) {
-    var gv = vMax - (g / 4) * (vMax - vMin);
-    var yy = Y(gv);
-    body += '<line x1="' + padL + '" y1="' + yy.toFixed(1) + '" x2="' + (W - padR) + '" y2="' + yy.toFixed(1) + '" stroke="var(--border)" stroke-width="1"/>';
-    body += '<text x="' + (padL - 6) + '" y="' + (yy + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="var(--ink-muted)">' + fmt(gv, decimals) + '</text>';
+  function renderEventSummary(story, idx) {
+    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    var box = document.getElementById("mcSummary"), meth = document.getElementById("mcMethod");
+    if (!box || !a) return;
+    var last = a.points[a.points.length - 1];
+    var name = marketLabel(a.ticker);
+    var accent = "var(--cat-color)";
+    var hit = a.t_stat !== null && a.t_stat !== undefined && Math.abs(a.t_stat) >= 2;
+    var tNum = (a.t_stat === null || a.t_stat === undefined) ? "" : fmtSigned(a.t_stat, 1);
+    var verdict = "";
+    if (tNum !== "") {
+      verdict = hit
+        ? mcL("Auffällig (t = " + tNum + "): Die Abweichung ist größer als das übliche Auf und Ab dieses Kurses.",
+              "Notable (t = " + tNum + "): the gap is larger than this price's usual ups and downs.")
+        : mcL("Im Rahmen der üblichen Schwankung (t = " + tNum + "): Aus diesem Kursverlauf allein lässt sich keine Wirkung des Ereignisses ablesen.",
+              "Within normal fluctuation (t = " + tNum + "): this price path alone does not show an effect of the event.");
+    }
+    var base = a.points.filter(function (p) { return p.day === 0; })[0];
+    var dateInfo = mcL("Stichtag: ", "Event date: ") + mcDate(es.event_date, true) +
+      (es.event_date_source === "story_date" ? mcL(" (Datum der Meldung, nicht zwingend der Tag des Ereignisses)", " (date of the report, not necessarily the day of the event)") : "") +
+      (base ? mcL(" · Basis (0 %) ist der Schlusskurs vom ", " · baseline (0 %) is the close of ") + mcDate(base.date, true) : "") + ".";
+    var n = a.n_post;
+    box.innerHTML =
+      '<div class="mc-tiles">' +
+        '<div class="mc-tile"><div class="mc-tile-l">' + mcL("Tatsächlich (Tag +" + n + ")", "Actual (day +" + n + ")") + '</div><div class="mc-tile-v" style="color:' + accent + '">' + fmtPct(last.actual, 1) + '</div></div>' +
+        '<div class="mc-tile"><div class="mc-tile-l">' + mcL("Erwartet (Tag +" + n + ")", "Expected (day +" + n + ")") + '</div><div class="mc-tile-v" style="color:var(--ink-secondary)">' + fmtPct(last.expected, 1) + '</div></div>' +
+        '<div class="mc-tile"><div class="mc-tile-l">' + mcL("Abweichung", "Difference") + '</div><div class="mc-tile-v">' + fmtPct(a.diff_pct, 1).replace(" %", mcL(" Pkt.", " pp")) + '</div></div>' +
+      '</div>' +
+      (verdict ? '<div class="mc-verdict' + (hit ? ' hit' : '') + '">' + escapeHtml(verdict) + '</div>' : '') +
+      '<div class="mc-small">' + escapeHtml(dateInfo) + '</div>';
+    if (meth) {
+      var bench = a.benchmark ? marketLabel(a.benchmark) : "";
+      var txt;
+      if (a.model === "market" && bench) {
+        txt = mcL(
+          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte. Grundlage sind die " + a.n_est + " Handelstage davor: Damals bewegte sich " + name + " typischerweise mit dem Faktor " + fmtSigned(a.beta, 2) + " im Verhältnis zu " + bench + " (R² = " + fmtNum(a.r2, 2) + ").",
+          "How to read: the dashed line estimates how " + name + " would have moved without the event. It is based on the " + a.n_est + " trading days before: back then " + name + " typically moved by a factor of " + fmtSigned(a.beta, 2) + " relative to " + bench + " (R² = " + fmtNum(a.r2, 2) + ").");
+        if (a.r2 < 0.1) txt += mcL(" " + name + " hängt kaum mit " + bench + " zusammen, die Schätzung ist daher grob.", " " + name + " is barely related to " + bench + ", so the estimate is rough.");
+      } else {
+        txt = mcL(
+          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte, nämlich mit der durchschnittlichen Tagesbewegung der " + a.n_est + " Handelstage davor.",
+          "How to read: the dashed line estimates how " + name + " would have moved without the event, using its average daily move over the " + a.n_est + " trading days before.");
+      }
+      txt += mcL(" Das zeigt, ob der Kurs ungewöhnlich lief. Es beweist nicht, dass das Ereignis die Ursache ist.", " This shows whether the price moved unusually. It does not prove that the event was the cause.");
+      meth.textContent = txt;
+    }
   }
-  var y0 = Y(0).toFixed(1);
-  body += '<line x1="' + padL + '" y1="' + y0 + '" x2="' + (W - padR) + '" y2="' + y0 + '" stroke="var(--ink-muted)" stroke-width="1.5"/>';
-  if (evDate && isFinite(evT) && evT >= tMin && evT <= tMax) {
-    var ex = X(evT).toFixed(1);
-    body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="3 3"/>';
-    body += '<text x="' + ex + '" y="' + (padT - 8) + '" text-anchor="middle" font-size="11" fill="var(--ink-muted)">Ereignis</text>';
-  }
-  body += '<text x="' + padL + '" y="' + (H - 6) + '" font-size="11" fill="var(--ink-muted)">' + dm(tMin) + '</text>';
-  body += '<text x="' + (W - padR) + '" y="' + (H - 6) + '" text-anchor="end" font-size="11" fill="var(--ink-muted)">' + dm(tMax) + '</text>';
-  body += '<text x="' + ((padL + W - padR) / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="var(--ink-muted)">' +
-    (evDate ? "Veränderung seit Ereignistag" : "Veränderung seit Beginn") + '</text>';
 
-  // 4) Linien und Punkte
-  var allDots = [];
-  series.forEach(function (s, si) {
-    var color = si === 0 ? accent : muted;
-    var dash = si === 0 ? "" : ' stroke-dasharray="5 4"';
-    var path = s.points.map(function (p, i) {
-      return (i === 0 ? "M" : "L") + X(p.t).toFixed(1) + "," + Y(p.value).toFixed(1);
-    }).join(" ");
-    body += '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2.5"' + dash + '/>';
-    s.points.forEach(function (p) {
-      allDots.push({ x: X(p.t), y: Y(p.value), color: color, date: p.date, label: s.label, value: p.value });
+  function drawEventStudy(story, idx) {
+    var mc = story.market_correlation, es = mc.event_study, a = es.assets[idx];
+    var svg = document.getElementById("mcChart");
+    if (!svg || !a || !a.points || a.points.length < 2) return;
+    var pts = a.points;
+    var W = 480, H = 290, padL = 46, padR = 64, padT = 30, padB = 42;
+    var dMin = pts[0].day, dMax = pts[pts.length - 1].day;
+    var vals = [0];
+    pts.forEach(function (p) {
+      vals.push(p.actual);
+      if (p.expected !== null && p.expected !== undefined) vals.push(p.expected);
     });
-  });
-  body += allDots.map(function (d, idx) {
-    return '<circle cx="' + d.x.toFixed(1) + '" cy="' + d.y.toFixed(1) + '" r="3" fill="var(--bg-elevated)" stroke="' + d.color + '" stroke-width="2" data-idx="' + idx + '"/>';
-  }).join("");
-  svg.innerHTML = body;
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    var pad = (hi - lo) * 0.1 || 0.5;
+    var sc = niceScale(lo - pad, hi + pad, 5);
+    var plotW = W - padL - padR;
+    function X(d) { return padL + (d - dMin) / ((dMax - dMin) || 1) * plotW; }
+    function Y(v) { return padT + (1 - (v - sc.min) / (sc.max - sc.min)) * (H - padT - padB); }
+    var cs = getComputedStyle(document.documentElement);
+    var accent = cs.getPropertyValue("--cat-" + story.theme_category).trim() || "#0a84ff";
+    var expCol = cs.getPropertyValue("--ink-secondary").trim() || "#9a9a9a";
 
-  // 5) Tooltip
-  var tooltip = document.getElementById("mcTooltip");
-  svg.querySelectorAll("circle").forEach(function (c) {
-    c.style.cursor = "pointer";
-    c.addEventListener("mouseenter", function () {
-      var d = allDots[parseInt(c.getAttribute("data-idx"), 10)];
-      tooltip.textContent = d.date + " · " + d.label + ": " + fmt(d.value, 2);
+    var body = "";
+    // Bereich nach dem Ereignis leicht hinterlegt
+    body += '<rect x="' + X(0).toFixed(1) + '" y="' + padT + '" width="' + (X(dMax) - X(0)).toFixed(1) + '" height="' + (H - padT - padB) + '" fill="' + accent + '" fill-opacity="0.05"/>';
+    // Gitter + Y-Beschriftung
+    sc.ticks.forEach(function (v) {
+      var yy = Y(v).toFixed(1);
+      body += '<line x1="' + padL + '" y1="' + yy + '" x2="' + (W - padR) + '" y2="' + yy + '" stroke="var(--border)" stroke-width="' + (v === 0 ? 0 : 1) + '"/>';
+      body += '<text x="' + (padL - 7) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end" font-size="12" fill="var(--ink-muted)">' + tickLabel(v, sc.dec) + '</text>';
+    });
+    body += '<line x1="' + padL + '" y1="' + Y(0).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + Y(0).toFixed(1) + '" stroke="var(--ink-muted)" stroke-width="1.4"/>';
+    // Ereignislinie
+    var ex = X(0).toFixed(1);
+    body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="3 3"/>';
+    body += '<text x="' + ex + '" y="' + (padT - 10) + '" text-anchor="' + (X(0) < padL + 24 ? "start" : "middle") + '" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + mcL("Ereignis", "Event") + '</text>';
+    // X-Achse: Handelstage
+    var t0 = Math.ceil(dMin / 5) * 5;
+    for (var d = t0; d <= dMax; d += 5) {
+      var lab = d === 0 ? "0" : (d > 0 ? "+" : "−") + Math.abs(d);
+      body += '<text x="' + X(d).toFixed(1) + '" y="' + (H - padB + 16) + '" text-anchor="middle" font-size="12" fill="var(--ink-muted)">' + lab + '</text>';
+    }
+    body += '<text x="' + (padL + plotW / 2).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="12" fill="var(--ink-muted)">' + mcL("Handelstage seit dem Ereignis", "Trading days since the event") + '</text>';
+
+    // Abweichungsflaeche zwischen tatsaechlich und erwartet
+    var post = pts.filter(function (p) { return p.day >= 0 && p.expected !== null && p.expected !== undefined; });
+    var poly = post.map(function (p) { return X(p.day).toFixed(1) + "," + Y(p.actual).toFixed(1); })
+      .concat(post.slice().reverse().map(function (p) { return X(p.day).toFixed(1) + "," + Y(p.expected).toFixed(1); })).join(" ");
+    body += '<polygon points="' + poly + '" fill="' + accent + '" fill-opacity="0.17" stroke="none"/>';
+    // Erwartet (gestrichelt) + tatsaechlich
+    var ePath = post.map(function (p, i) { return (i === 0 ? "M" : "L") + X(p.day).toFixed(1) + "," + Y(p.expected).toFixed(1); }).join(" ");
+    body += '<path d="' + ePath + '" fill="none" stroke="' + expCol + '" stroke-width="2.2" stroke-dasharray="6 4" stroke-linecap="round"/>';
+    var aPath = pts.map(function (p, i) { return (i === 0 ? "M" : "L") + X(p.day).toFixed(1) + "," + Y(p.actual).toFixed(1); }).join(" ");
+    body += '<path d="' + aPath + '" fill="none" stroke="' + accent + '" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>';
+    pts.forEach(function (p) {
+      body += '<circle cx="' + X(p.day).toFixed(1) + '" cy="' + Y(p.actual).toFixed(1) + '" r="2.6" fill="var(--bg-elevated)" stroke="' + accent + '" stroke-width="1.8"/>';
+    });
+    // Endwerte rechts
+    var last = pts[pts.length - 1];
+    var yA = Y(last.actual), yE = Y(last.expected);
+    if (Math.abs(yA - yE) < 15) {
+      var mid = (yA + yE) / 2;
+      if (yA <= yE) { yA = mid - 8; yE = mid + 8; } else { yA = mid + 8; yE = mid - 8; }
+    }
+    var xl = (X(dMax) + 9).toFixed(1);
+    body += '<text x="' + xl + '" y="' + (yA + 4).toFixed(1) + '" font-size="14" font-weight="700" fill="' + accent + '">' + fmtPct(last.actual, 1) + '</text>';
+    body += '<text x="' + xl + '" y="' + (yE + 4).toFixed(1) + '" font-size="13" font-weight="600" fill="' + expCol + '">' + fmtPct(last.expected, 1) + '</text>';
+    // Hover-Elemente (anfangs versteckt)
+    body += '<g id="mcHover" style="display:none"><line id="mcHx" y1="' + padT + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1"/>' +
+      '<circle id="mcHa" r="4.5" fill="' + accent + '" stroke="var(--bg-elevated)" stroke-width="2"/>' +
+      '<circle id="mcHe" r="4" fill="' + expCol + '" stroke="var(--bg-elevated)" stroke-width="2"/></g>';
+    body += '<rect id="mcOverlay" x="' + padL + '" y="' + padT + '" width="' + plotW + '" height="' + (H - padT - padB) + '" fill="transparent" style="cursor:crosshair"/>';
+    svg.innerHTML = body;
+
+    var tooltip = document.getElementById("mcTooltip");
+    var overlay = document.getElementById("mcOverlay");
+    var hov = document.getElementById("mcHover");
+    function show(clientX) {
       var rect = svg.getBoundingClientRect();
-      tooltip.style.left = ((d.x / W) * rect.width) + "px";
-      tooltip.style.top = (((d.y / H) * rect.height) - 40) + "px";
+      var sx = (clientX - rect.left) / rect.width * W;
+      var day = dMin + (sx - padL) / plotW * (dMax - dMin);
+      var best = pts[0];
+      pts.forEach(function (p) { if (Math.abs(p.day - day) < Math.abs(best.day - day)) best = p; });
+      var px = X(best.day), ya = Y(best.actual);
+      var hasE = best.expected !== null && best.expected !== undefined;
+      var ye = hasE ? Y(best.expected) : ya;
+      var hx = document.getElementById("mcHx"), ha = document.getElementById("mcHa"), he = document.getElementById("mcHe");
+      hx.setAttribute("x1", px); hx.setAttribute("x2", px);
+      ha.setAttribute("cx", px); ha.setAttribute("cy", ya);
+      he.setAttribute("cx", px); he.setAttribute("cy", ye); he.style.display = hasE ? "" : "none";
+      hov.style.display = "";
+      var dayTxt = best.day === 0 ? mcL("Basis", "Baseline") : mcL("Tag ", "Day ") + (best.day > 0 ? "+" : "−") + Math.abs(best.day);
+      tooltip.innerHTML = '<b>' + dayTxt + ' · ' + mcDate(best.date, false) + '</b><br>' +
+        mcL("Tatsächlich ", "Actual ") + '<b>' + fmtPct(best.actual, 2) + '</b>' +
+        (hasE && best.day !== 0 ? '<br>' + mcL("Erwartet ", "Expected ") + '<b>' + fmtPct(best.expected, 2) + '</b>' : '');
+      var left = px / W * rect.width;
+      left = Math.max(70, Math.min(rect.width - 70, left));
+      var top = Math.min(ya, ye) / H * rect.height - 70;
+      if (top < 0) top = Math.max(ya, ye) / H * rect.height + 14;
+      tooltip.style.transform = "translateX(-50%)";
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
       tooltip.classList.add("show");
+    }
+    function hide() { hov.style.display = "none"; tooltip.classList.remove("show"); }
+    overlay.addEventListener("mousemove", function (e) { show(e.clientX); });
+    overlay.addEventListener("mouseleave", hide);
+    overlay.addEventListener("touchstart", function (e) { e.stopPropagation(); show(e.touches[0].clientX); }, { passive: true });
+    overlay.addEventListener("touchmove", function (e) { e.stopPropagation(); show(e.touches[0].clientX); }, { passive: true });
+    overlay.addEventListener("touchend", function (e) { e.stopPropagation(); }, { passive: true });
+  }
+
+  /* Rueckfall ohne Event Study: Rohkurse -> Prozent seit Ereignistag/Beginn */
+  function drawSeriesChart(story) {
+    var mc = story.market_correlation;
+    var svg = document.getElementById("mcChart");
+    if (!svg || !mc || !mc.series || !mc.series.length) return;
+    var evDate = mc.event_date || "";
+    var evT = evDate ? Date.parse(evDate) : NaN;
+    var series = [];
+    mc.series.forEach(function (s) {
+      var pts = (s.points || []).filter(function (p) {
+        return p && typeof p.value === "number" && isFinite(p.value) && isFinite(Date.parse(p.date));
+      });
+      if (pts.length < 2) return;
+      var baseIdx = 0;
+      if (evDate && isFinite(evT)) {
+        // Basis = letzter Schluss VOR dem Ereignisdatum (gleich wie in der Event Study)
+        for (var k = 0; k < pts.length; k++) { if (Date.parse(pts[k].date) < evT) baseIdx = k; }
+      }
+      var base = pts[baseIdx].value;
+      if (!base) return;
+      series.push({
+        label: marketLabel(s.label),
+        points: pts.map(function (p) { return { t: Date.parse(p.date), date: p.date, value: (p.value / base - 1) * 100 }; })
+      });
     });
-    c.addEventListener("mouseleave", function () { tooltip.classList.remove("show"); });
-  });
-}
+    if (!series.length) return;
+
+    var W = 480, H = 270, padL = 46, padR = 64, padT = 28, padB = 32;
+    var tMin = Infinity, tMax = -Infinity, vMin = 0, vMax = 0;
+    series.forEach(function (s) {
+      s.points.forEach(function (p) {
+        if (p.t < tMin) tMin = p.t; if (p.t > tMax) tMax = p.t;
+        if (p.value < vMin) vMin = p.value; if (p.value > vMax) vMax = p.value;
+      });
+    });
+    var pad = (vMax - vMin) * 0.1 || 0.5;
+    var sc = niceScale(vMin - pad, vMax + pad, 5);
+    var plotW = W - padL - padR;
+    function X(t) { return padL + (t - tMin) / ((tMax - tMin) || 1) * plotW; }
+    function Y(v) { return padT + (1 - (v - sc.min) / (sc.max - sc.min)) * (H - padT - padB); }
+    var cs = getComputedStyle(document.documentElement);
+    var accent = cs.getPropertyValue("--cat-" + story.theme_category).trim() || "#0a84ff";
+    function colorOf(i) { return SERIES_COLORS[i % 3] === "accent" ? accent : SERIES_COLORS[i % 3]; }
+
+    var body = "";
+    sc.ticks.forEach(function (v) {
+      var yy = Y(v).toFixed(1);
+      body += '<line x1="' + padL + '" y1="' + yy + '" x2="' + (W - padR) + '" y2="' + yy + '" stroke="var(--border)" stroke-width="' + (v === 0 ? 0 : 1) + '"/>';
+      body += '<text x="' + (padL - 7) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end" font-size="12" fill="var(--ink-muted)">' + tickLabel(v, sc.dec) + '</text>';
+    });
+    body += '<line x1="' + padL + '" y1="' + Y(0).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + Y(0).toFixed(1) + '" stroke="var(--ink-muted)" stroke-width="1.4"/>';
+    if (evDate && isFinite(evT) && evT >= tMin && evT <= tMax) {
+      var ex = X(evT).toFixed(1);
+      body += '<line x1="' + ex + '" y1="' + padT + '" x2="' + ex + '" y2="' + (H - padB) + '" stroke="var(--ink-muted)" stroke-width="1.4" stroke-dasharray="3 3"/>';
+      body += '<text x="' + ex + '" y="' + (padT - 9) + '" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink-secondary)">' + mcL("Ereignis", "Event") + '</text>';
+    }
+    body += '<text x="' + padL + '" y="' + (H - 8) + '" font-size="12" fill="var(--ink-muted)">' + mcDate(new Date(tMin).toISOString().slice(0, 10), false) + '</text>';
+    body += '<text x="' + (W - padR) + '" y="' + (H - 8) + '" text-anchor="end" font-size="12" fill="var(--ink-muted)">' + mcDate(new Date(tMax).toISOString().slice(0, 10), false) + '</text>';
+
+    var allDots = [], ends = [];
+    series.forEach(function (s, si) {
+      var color = colorOf(si), dash = SERIES_DASH[si % 3];
+      var path = s.points.map(function (p, i) { return (i === 0 ? "M" : "L") + X(p.t).toFixed(1) + "," + Y(p.value).toFixed(1); }).join(" ");
+      body += '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
+      s.points.forEach(function (p) { allDots.push({ x: X(p.t), y: Y(p.value), color: color, date: p.date, label: s.label, value: p.value }); });
+      var lp = s.points[s.points.length - 1];
+      ends.push({ y: Y(lp.value), color: color, text: fmtPct(lp.value, 1) });
+    });
+    // Endwerte rechts, ueberlappungsfrei (Mindestabstand 15 px)
+    ends.sort(function (p, q) { return p.y - q.y; });
+    for (var i = 1; i < ends.length; i++) { if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15; }
+    ends.forEach(function (e) {
+      body += '<text x="' + (W - padR + 9) + '" y="' + (e.y + 4).toFixed(1) + '" font-size="13.5" font-weight="700" fill="' + e.color + '">' + e.text + '</text>';
+    });
+    body += allDots.map(function (d, idx) {
+      return '<circle cx="' + d.x.toFixed(1) + '" cy="' + d.y.toFixed(1) + '" r="3" fill="var(--bg-elevated)" stroke="' + d.color + '" stroke-width="2" data-idx="' + idx + '"/>';
+    }).join("");
+    svg.innerHTML = body;
+    svg.addEventListener("touchstart", function (e) { e.stopPropagation(); }, { passive: true });
+    svg.addEventListener("touchend", function (e) { e.stopPropagation(); }, { passive: true });
+
+    var tooltip = document.getElementById("mcTooltip");
+    svg.querySelectorAll("circle").forEach(function (c) {
+      c.style.cursor = "pointer";
+      c.addEventListener("mouseenter", function () {
+        var d = allDots[parseInt(c.getAttribute("data-idx"), 10)];
+        tooltip.textContent = mcDate(d.date, false) + " · " + d.label + ": " + fmtPct(d.value, 2);
+        var rect = svg.getBoundingClientRect();
+        tooltip.style.transform = "translateX(-50%)";
+        tooltip.style.left = Math.max(80, Math.min(rect.width - 80, (d.x / W) * rect.width)) + "px";
+        tooltip.style.top = (((d.y / H) * rect.height) - 40) + "px";
+        tooltip.classList.add("show");
+      });
+      c.addEventListener("mouseleave", function () { tooltip.classList.remove("show"); });
+    });
+  }
+
+  function drawMarketChart(story) {
+    var mc = story.market_correlation;
+    if (!mc) return;
+    ensureMarketStyle();
+    var es = mc.event_study;
+    if (es && es.assets && es.assets.length) {
+      var current = 0;
+      var svg = document.getElementById("mcChart");
+      if (svg) {
+        svg.addEventListener("touchstart", function (e) { e.stopPropagation(); }, { passive: true });
+        svg.addEventListener("touchend", function (e) { e.stopPropagation(); }, { passive: true });
+      }
+      var paint = function () {
+        drawEventStudy(story, current);
+        renderEventSummary(story, current);
+        document.querySelectorAll("[data-mc-asset]").forEach(function (b) {
+          b.classList.toggle("active", parseInt(b.getAttribute("data-mc-asset"), 10) === current);
+        });
+      };
+      document.querySelectorAll("[data-mc-asset]").forEach(function (b) {
+        b.onclick = function () { current = parseInt(b.getAttribute("data-mc-asset"), 10); paint(); };
+      });
+      paint();
+      return;
+    }
+    drawSeriesChart(story);
+  }
+
   /* ---------------- profile panel ---------------- */
   function renderProfilePanel() {
     var panel = document.getElementById("profilePanel");

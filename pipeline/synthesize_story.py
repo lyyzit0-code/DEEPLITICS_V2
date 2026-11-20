@@ -244,6 +244,8 @@ STORY_JSON_SCHEMA_HINT_MARKET_LITE = """
     "ticker_reasons": {"<ticker>": "EIN kurzer Satz (deutsch): Warum steht dieser Wert hier, was erwartest du von ihm? Ein Eintrag je Ticker in 'tickers'."},
     "event_description": "EIN konkreter Satz (max. 15 Wörter): WELCHES Ereignis untersucht wird, mit Akteur und Maßnahme, z.B. 'USA verhängen 50-%-Strafzölle auf kanadische Waren'. Steht als Überschrift über der Marktanalyse; nicht allgemein ('Handelskonflikt'), sondern das konkrete Ereignis.",
     "event_label": "2-4 Wörter, die das Ereignis KONKRET benennen, z.B. '50-%-Zölle in Kraft' oder 'Iran-Sanktionen verhängt' -- niemals nur 'Ereignis'. Erscheint als Beschriftung der Ereignislinie im Chart.",
+    "announce_date": "YYYY-MM-DD, OPTIONAL: Tag, an dem die Maßnahme zuerst angekündigt oder angedroht wurde, falls deutlich VOR 'event_date' (z.B. Zollankündigung vor dem Inkrafttreten). Sonst weglassen. Die Märkte reagieren oft schon auf die Ankündigung.",
+    "announce_label": "OPTIONAL, 2-5 Wörter: was an 'announce_date' geschah, z.B. 'Zölle verkündet'.",
     "event_date": "YYYY-MM-DD: der TAG DES EREIGNISSES, das den Markt bewegt haben koennte (z.B. Tag der Zollankuendigung, des Angriffs, der Zentralbankentscheidung) -- NICHT automatisch das Veroeffentlichungsdatum der Artikel, falls das Ereignis frueher stattfand. Nur angeben, wenn du dir bei dem Datum sicher bist, sonst weglassen (dann wird das Datum der Meldung genommen).",
     "benchmark": "EIN Yahoo-Finance-Ticker des breiten Vergleichsmarkts, gegen den der 'normale' Kursverlauf geschaetzt wird: '^GSPC' (S&P 500) fuer USA-/Welt-Themen, '^STOXX50E' (Euro Stoxx 50) fuer Europa-Themen, '^GSPTSE' fuer rein kanadische Themen. Im Zweifel '^GSPC'. NICHT zusaetzlich in 'tickers' nennen.",
     "note": "kurzer Hinweis, dass dies eine Einschätzung aus Allgemeinwissen ist, keine live abgefragten Kursdaten"
@@ -390,6 +392,11 @@ ANALYTICAL_INSTRUCTIONS_LITE_NOTE = """\
    eine Branche), MUSS in `tickers` stehen -- bis zu 7. Zu jedem Ticker
    gehört ein Satz in `ticker_reasons`. Nenne in `explanation` nichts, was
    du nicht auch messen willst. Gib außerdem `event_label` an.
+   `explanation` steht im Frontend UNTER der automatisch erzeugten
+   Beschreibung der Kursbewegungen und erklärt sie auf theoretischer Ebene:
+   WARUM könnte das Ereignis diese Märkte bewegen (Wirkungskette je Markt,
+   kurz). Schreibe KEINE Sätze wie 'die Kurse unten zeigen ...' oder 'das ist
+   eine Einschätzung aus Allgemeinwissen' -- solche Verweise werden gelöscht.
    AUFBAU: Die Kursbewegungen beschreibt das System selbst aus den Daten
    (gestiegen/gefallen gegenüber dem Erwartungsverlauf). `explanation` ist
    deshalb NICHT Beschreibung, sondern die EINORDNUNG: mögliche Erklärungen

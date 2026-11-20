@@ -38,6 +38,7 @@ Absturz bringen, die Story bleibt dann bei ihrer qualitativen Einschaetzung.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -52,10 +53,19 @@ DEFAULT_BENCHMARK = "^GSPC"
 OVERRIDES_PATH = Path(__file__).resolve().parent.parent / "data" / "market_overrides.json"
 TOPICS_PATH = Path(__file__).resolve().parent.parent / "data" / "market_topics.json"
 
-VERIFIED_NOTE = (
-    "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. "
-    "Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance)."
-)
+VERIFIED_NOTE = "Kursdaten: Tagesschlusskurse von Yahoo Finance."
+
+
+_POINTER_RE = re.compile(r"\bunten\b|Allgemeinwissen|Kursvergleich|Kurse zeigen", re.I)
+
+
+def _strip_pointers(text: str) -> str:
+    """Entfernt Saetze, die nur auf die Kurse verweisen ("die Kurse unten zeigen ...",
+    "Einschaetzung aus Allgemeinwissen"): Die Kursbewegungen stehen schon oben im
+    Beobachtungstext, die Erklaerung soll nur noch erklaeren."""
+    parts = re.split(r"(?<=[.!?])\s+", text.strip())
+    kept = [x for x in parts if not _POINTER_RE.search(x)]
+    return " ".join(kept) if kept else text.strip()
 
 
 def _load_overrides() -> dict:
@@ -229,6 +239,8 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
     raw_unm = override.get("unmeasured") or mc.get("unmeasured_effects") or mc.get("unmeasured") or []
     mc["unmeasured"] = [x.strip() for x in raw_unm if isinstance(x, str) and x.strip()][:6] if isinstance(raw_unm, list) else []
     mc.pop("unmeasured_effects", None)
+    if isinstance(mc.get("explanation"), str):
+        mc["explanation"] = _strip_pointers(mc["explanation"])
     if isinstance(override.get("explanation_text"), str) and override["explanation_text"].strip():
         mc["explanation"] = override["explanation_text"].strip()
 
@@ -245,6 +257,18 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
     event = model_date or story_day
     date_source = "model" if model_date else "story_date"
 
+    def _finish(st: dict, day: date, source: str) -> None:
+        for a in st["assets"]:
+            for p in a["points"]:
+                p.pop("close", None)
+            if reasons.get(a["ticker"]):
+                a["reason"] = reasons[a["ticker"]]
+        got = {a["ticker"] for a in st["assets"]}
+        # Angeforderte Werte ohne ausreichende Kursdaten: nicht verschweigen, das Frontend nennt sie
+        st["skipped"] = [t for t in tickers if t not in got]
+        st["event_date"] = day.isoformat()
+        st["event_date_source"] = source
+
     study = None
     try:
         study = build_event_study(tickers, benchmark, event)
@@ -253,18 +277,25 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
 
     if study:
         series = _series_from_study(study)
-        for a in study["assets"]:
-            for p in a["points"]:
-                p.pop("close", None)
-        got = {a["ticker"] for a in study["assets"]}
-        for a in study["assets"]:
-            if reasons.get(a["ticker"]):
-                a["reason"] = reasons[a["ticker"]]
-        # Angeforderte Werte ohne ausreichende Kursdaten: nicht verschweigen, das Frontend nennt sie
-        study["skipped"] = [t for t in tickers if t not in got]
-        study["event_date"] = event.isoformat()
-        study["event_date_source"] = date_source
+        _finish(study, event, date_source)
         mc["event_study"] = study
+        # Zweiter Bezugstag: Ankuendigung (frueher als die Meldung/Inkraftsetzung).
+        # Beide Auswertungen werden angeboten, das Frontend schaltet um.
+        mc.pop("event_study_alt", None)
+        ann = parse_date(override.get("announce_date")) or parse_date(mc.get("announce_date"))
+        mc.pop("announce_date", None)
+        ann_label = override.get("announce_label") or mc.get("announce_label") or ""
+        mc.pop("announce_label", None)
+        if ann and event - timedelta(days=120) <= ann <= event - timedelta(days=1):
+            try:
+                alt = build_event_study(tickers, benchmark, ann)
+            except Exception as exc:  # noqa: BLE001
+                alt = None
+                print(f"    [warn] Event Study (Ankuendigung) fehlgeschlagen: {exc}", file=sys.stderr)
+            if alt:
+                _finish(alt, ann, "announce")
+                alt["label"] = ann_label.strip()[:50] if isinstance(ann_label, str) else ""
+                mc["event_study_alt"] = alt
     else:
         if mc.get("event_study"):
             return False  # Neuberechnung fehlgeschlagen: bestehende gute Auswertung behalten

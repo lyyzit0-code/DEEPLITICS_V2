@@ -223,6 +223,7 @@ class MarketCorrelation:
     event_date: str = ""
     event_date_source: str = ""
     event_label: str = ""  # 2-4 Woerter, benennt das Ereignis im Chart
+    announce_date: str = ""  # optional: frueherer Ankuendigungstag (zweite Auswertung = event_study_alt)
     event_description: str = ""  # ein konkreter Satz: welches Ereignis wird untersucht
     unmeasured: list[str] = field(default_factory=list)  # nur theoretische Wirkungen, nicht mit Kursen belegt
     event_study: EventStudy | None = None

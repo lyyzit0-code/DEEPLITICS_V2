@@ -534,8 +534,8 @@
     },
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "In der Theorie belasten die Zölle und Gegenzölle den kanadischen Dollar, weil Kanada weniger in die USA verkaufen kann. Auch kanadische und US-Aktien sowie Autohersteller mit Werken beiderseits der Grenze könnten leiden. Bei Aluminium, Bauholz und Öl, die zwischen beiden Ländern intensiv gehandelt werden, sind stärkere Preisschwankungen denkbar. Das ist eine Einschätzung; die Kurse unten zeigen, ob sich diese Werte nach dem Ereignis tatsächlich auffällig bewegten.",
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "explanation": "Zölle und Gegenzölle machen kanadische Exporte in die USA teurer; Kanada verkauft weniger, was den kanadischen Dollar und die Börse in Toronto belasten kann. Autohersteller mit Werken beiderseits der Grenze trifft ein Handelsstreit besonders, weil Teile mehrfach die Grenze queren. Bei Aluminium, Bauholz und Öl, die zwischen beiden Ländern intensiv gehandelt werden, sind stärkere Preisschwankungen denkbar. Auch die Unsicherheit über die Zukunft des Handelsabkommens USMCA könnte sich an den Aktienbörsen niederschlagen.",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "verified_live": true,
       "series": [
         {
@@ -2190,6 +2190,1016 @@
       "unmeasured": [
         "Wie stabil das Handelsabkommen USMCA bleibt, lässt sich nicht als Kurs messen. Gezeigt werden nur die möglichen Folgen an den Börsen (S&P/TSX, S&P 500)."
       ],
+      "event_study_alt": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0256,
+            "beta": -0.124,
+            "r2": 0.027,
+            "n_est": 120,
+            "resid_sd_pct": 0.251,
+            "n_post": 15,
+            "car_pct": 0.565,
+            "diff_pct": 0.561,
+            "t_stat": 0.58,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.459,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.354,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.509,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.412,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.016,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.203,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.429,
+                "expected": 0.093
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.641,
+                "expected": 0.106
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.558,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.209,
+                "expected": 0.09
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.242,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.038,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.131,
+                "expected": -0.007
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.212,
+                "expected": 0.027
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.135,
+                "expected": -0.003
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.176,
+                "expected": 0.01
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.179,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.582,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.469,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.669,
+                "expected": 0.109
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "DX-Y.NYB",
+            "reason": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0202,
+            "beta": 0.693,
+            "r2": 0.516,
+            "n_est": 120,
+            "resid_sd_pct": 0.644,
+            "n_post": 15,
+            "car_pct": -0.75,
+            "diff_pct": -0.774,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.297,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.809,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.076,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.996,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.825,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.093,
+                "expected": 0.146
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.007,
+                "expected": -0.455
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.694,
+                "expected": -0.156
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.952,
+                "expected": -0.349
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 1.621,
+                "expected": -0.129
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 1.226,
+                "expected": -0.143
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 1.282,
+                "expected": 0.355
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.511,
+                "expected": 0.182
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.268,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.491,
+                "expected": -0.541
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.76,
+                "expected": -0.224
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.729,
+                "expected": 0.507
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.401,
+                "expected": 0.246
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.673,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -1.268,
+                "expected": -0.495
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC",
+            "reason": "Zeigt, wie die Börse die Folgen für Kanadas Wirtschaft einschätzt."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0585,
+            "beta": 0.555,
+            "r2": 0.292,
+            "n_est": 120,
+            "resid_sd_pct": 0.772,
+            "n_post": 15,
+            "car_pct": 0.293,
+            "diff_pct": 0.274,
+            "t_stat": 0.1,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.474,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.394,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 1.222,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.693,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.211,
+                "expected": -0.309
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.658,
+                "expected": -0.185
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": -0.226,
+                "expected": 0.134
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": -0.506,
+                "expected": -0.084
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": -0.188,
+                "expected": 0.115
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -0.209,
+                "expected": 0.21
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.51,
+                "expected": 0.055
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.26,
+                "expected": 0.216
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.073,
+                "expected": -0.137
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -0.784,
+                "expected": -0.554
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.327,
+                "expected": -0.839
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.727,
+                "expected": -0.601
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.349,
+                "expected": -0.326
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.237,
+                "expected": -0.487
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -0.72,
+                "expected": -0.995
+              }
+            ],
+            "ticker": "^GSPC",
+            "benchmark": "basket:equity",
+            "reason": "Zeigt, ob die Unsicherheit über das Handelsabkommen USMCA auch US-Aktien belastet."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0121,
+            "beta": 1.236,
+            "r2": 0.295,
+            "n_est": 120,
+            "resid_sd_pct": 1.753,
+            "n_post": 15,
+            "car_pct": 1.294,
+            "diff_pct": 1.163,
+            "t_stat": 0.19,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 6.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 3.644,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 3.202,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 3.655,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.788,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.493,
+                "expected": 0.261
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 2.915,
+                "expected": -0.814
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 5.041,
+                "expected": -0.281
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 3.906,
+                "expected": -0.626
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.509,
+                "expected": -0.234
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 3.13,
+                "expected": -0.26
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 2.951,
+                "expected": 0.628
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 3.058,
+                "expected": 0.319
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 3.118,
+                "expected": -0.093
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.294,
+                "expected": -0.971
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.386,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.193,
+                "expected": 0.894
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 5.055,
+                "expected": 0.426
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.697,
+                "expected": -0.299
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.267,
+                "expected": -0.896
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC",
+            "reason": "Autohersteller mit Werken beiderseits der Grenze trifft der Streit besonders."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0929,
+            "beta": 0.397,
+            "r2": 0.049,
+            "n_est": 120,
+            "resid_sd_pct": 2.0,
+            "n_post": 15,
+            "car_pct": 3.687,
+            "diff_pct": 3.624,
+            "t_stat": 0.48,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 4.22,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 2.808,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.847,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.781,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 2.936,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.631,
+                "expected": 0.591
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.158,
+                "expected": 0.854
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 4.595,
+                "expected": 1.123
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 2.298,
+                "expected": 1.185
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.696,
+                "expected": 0.963
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.42,
+                "expected": 1.244
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.841,
+                "expected": 1.65
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 1.464,
+                "expected": 1.435
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 1.412,
+                "expected": 1.637
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.523,
+                "expected": 1.926
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 2.696,
+                "expected": 1.786
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.01,
+                "expected": 1.628
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 3.296,
+                "expected": 1.466
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 4.595,
+                "expected": 1.608
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 5.459,
+                "expected": 1.834
+              }
+            ],
+            "ticker": "ALI=F",
+            "benchmark": "basket:commodity",
+            "reason": "Aluminium wird zwischen beiden Ländern intensiv gehandelt."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.012,
+            "beta": -0.02,
+            "r2": 0.0,
+            "n_est": 120,
+            "resid_sd_pct": 1.131,
+            "n_post": 15,
+            "car_pct": 1.656,
+            "diff_pct": 1.584,
+            "t_stat": 0.38,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 1.84,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.876,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.263,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.438,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.438,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.84,
+                "expected": -0.03
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 1.315,
+                "expected": -0.044
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.613,
+                "expected": -0.058
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.701,
+                "expected": -0.061
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.351,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -0.701,
+                "expected": -0.064
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -1.928,
+                "expected": -0.084
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": -0.526,
+                "expected": -0.074
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.263,
+                "expected": -0.084
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.315,
+                "expected": -0.098
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -1.227,
+                "expected": -0.091
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.613,
+                "expected": -0.083
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": -0.351,
+                "expected": -0.075
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.088,
+                "expected": -0.082
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 1.49,
+                "expected": -0.094
+              }
+            ],
+            "ticker": "LBR=F",
+            "benchmark": "basket:commodity",
+            "reason": "Bauholz ist ein weiteres wichtiges Handelsgut zwischen den Ländern."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.2448,
+            "beta": 0.022,
+            "r2": 0.0,
+            "n_est": 120,
+            "resid_sd_pct": 4.57,
+            "n_post": 15,
+            "car_pct": 12.592,
+            "diff_pct": 13.012,
+            "t_stat": 0.71,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -2.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -1.966,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -4.344,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -2.99,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.518,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.048,
+                "expected": 0.035
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 3.402,
+                "expected": 0.042
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 2.496,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.082,
+                "expected": 0.074
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": -3.037,
+                "expected": 0.074
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -3.19,
+                "expected": 0.095
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -1.66,
+                "expected": 0.113
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": -1.813,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 0.965,
+                "expected": 0.104
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 6.216,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 7.146,
+                "expected": 0.089
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 7.488,
+                "expected": 0.078
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 7.7,
+                "expected": 0.066
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 9.524,
+                "expected": 0.067
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 13.08,
+                "expected": 0.068
+              }
+            ],
+            "ticker": "CL=F",
+            "benchmark": "basket:commodity",
+            "reason": "Kanada ist ein wichtiger Öllieferant der USA, Energie gehört zum Streit."
+          }
+        ],
+        "skipped": [],
+        "event_date": "2026-08-19",
+        "event_date_source": "announce",
+        "label": "Zölle verkündet, dann ausgesetzt"
+      },
       "event_label": "50-%-Zölle in Kraft",
       "event_description": "USA erheben 50-%-Strafzölle auf kanadische Waren"
     },
@@ -2767,8 +3777,8 @@
     },
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "In der Theorie geraten Kanadas Exportwirtschaft und der kanadische Dollar durch die Gegenzölle unter Druck. US-Konsumgüterhersteller (hier: Kimberly-Clark) könnten Margendruck bekommen, US-Stahlproduzenten (hier: Nucor) von weniger kanadischen Importen profitieren, und Molkereiprodukte könnten auf Gegenzölle negativ reagieren. Auch die nordamerikanischen Börsen könnten schwanken. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "explanation": "Gegenzölle verteuern Importe und belasten Kanadas Exportwirtschaft, was den kanadischen Dollar schwächen kann. US-Konsumgüterhersteller (hier: Kimberly-Clark) könnten höhere Rohstoffkosten schwer weitergeben, US-Stahlproduzenten (hier: Nucor) von weniger kanadischen Importen profitieren. Molkereiprodukte gelten als typisches Ziel von Gegenzöllen und könnten darauf negativ reagieren. Die Unsicherheit könnte zusätzlich die nordamerikanischen Börsen schwanken lassen.",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "verified_live": true,
       "event_study": {
         "benchmark": "^GSPC",
@@ -4189,6 +5199,873 @@
       "unmeasured": [
         "Dass höhere Rohstoffkosten schwer an Kunden weitergegeben werden können, ist eine Annahme zur Preissetzung und lässt sich nicht direkt als Kurs messen."
       ],
+      "event_study_alt": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0256,
+            "beta": -0.124,
+            "r2": 0.027,
+            "n_est": 120,
+            "resid_sd_pct": 0.251,
+            "n_post": 15,
+            "car_pct": 0.565,
+            "diff_pct": 0.561,
+            "t_stat": 0.58,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.459,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.354,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.509,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.412,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.016,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.203,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.429,
+                "expected": 0.093
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.641,
+                "expected": 0.106
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.558,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.209,
+                "expected": 0.09
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.242,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.038,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.131,
+                "expected": -0.007
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.212,
+                "expected": 0.027
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.135,
+                "expected": -0.003
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.176,
+                "expected": 0.01
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.179,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.582,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.469,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.669,
+                "expected": 0.109
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "DX-Y.NYB",
+            "reason": "Handelsbarrieren belasten Kanadas Exportwirtschaft, der kanadische Dollar steht unter Abwertungsdruck."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0202,
+            "beta": 0.693,
+            "r2": 0.516,
+            "n_est": 120,
+            "resid_sd_pct": 0.644,
+            "n_post": 15,
+            "car_pct": -0.75,
+            "diff_pct": -0.774,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.297,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.809,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.076,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.996,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.825,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.093,
+                "expected": 0.146
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.007,
+                "expected": -0.455
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.694,
+                "expected": -0.156
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.952,
+                "expected": -0.349
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 1.621,
+                "expected": -0.129
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 1.226,
+                "expected": -0.143
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 1.282,
+                "expected": 0.355
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.511,
+                "expected": 0.182
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.268,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.491,
+                "expected": -0.541
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.76,
+                "expected": -0.224
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.729,
+                "expected": 0.507
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.401,
+                "expected": 0.246
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.673,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -1.268,
+                "expected": -0.495
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC",
+            "reason": "Der Text erwartet Schwankungen an den nordamerikanischen Börsen; hier die kanadische."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0585,
+            "beta": 0.555,
+            "r2": 0.292,
+            "n_est": 120,
+            "resid_sd_pct": 0.772,
+            "n_post": 15,
+            "car_pct": 0.293,
+            "diff_pct": 0.274,
+            "t_stat": 0.1,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.474,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.394,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 1.222,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.693,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.211,
+                "expected": -0.309
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.658,
+                "expected": -0.185
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": -0.226,
+                "expected": 0.134
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": -0.506,
+                "expected": -0.084
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": -0.188,
+                "expected": 0.115
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -0.209,
+                "expected": 0.21
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.51,
+                "expected": 0.055
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.26,
+                "expected": 0.216
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.073,
+                "expected": -0.137
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -0.784,
+                "expected": -0.554
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.327,
+                "expected": -0.839
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.727,
+                "expected": -0.601
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.349,
+                "expected": -0.326
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.237,
+                "expected": -0.487
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -0.72,
+                "expected": -0.995
+              }
+            ],
+            "ticker": "^GSPC",
+            "benchmark": "basket:equity",
+            "reason": "Der Text erwartet Schwankungen an den nordamerikanischen Börsen; hier die US-amerikanische."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0659,
+            "beta": 0.147,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 1.718,
+            "n_post": 15,
+            "car_pct": -7.239,
+            "diff_pct": -7.171,
+            "t_stat": -1.09,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.789,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 1.123,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 2.766,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 2.479,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.176,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 2.005,
+                "expected": 0.031
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.9,
+                "expected": -0.096
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 1.476,
+                "expected": -0.033
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 3.388,
+                "expected": -0.074
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 3.063,
+                "expected": -0.027
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 2.432,
+                "expected": -0.03
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 2.098,
+                "expected": 0.076
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 1.699,
+                "expected": 0.039
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 0.214,
+                "expected": -0.01
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -0.594,
+                "expected": -0.114
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.457,
+                "expected": -0.047
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.214,
+                "expected": 0.109
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": -1.393,
+                "expected": 0.054
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -3.3,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -7.274,
+                "expected": -0.103
+              }
+            ],
+            "ticker": "KMB",
+            "benchmark": "^GSPC",
+            "reason": "Stellvertreter für US-Konsumgüter aus Haushalts- und Papierprodukten, die unter höheren Rohstoffkosten leiden könnten."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.2366,
+            "beta": 0.915,
+            "r2": 0.163,
+            "n_est": 120,
+            "resid_sd_pct": 1.905,
+            "n_post": 15,
+            "car_pct": -1.352,
+            "diff_pct": -1.719,
+            "t_stat": -0.18,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 2.937,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 2.884,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 3.066,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 1.787,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 3.214,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -5.848,
+                "expected": 0.193
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -8.975,
+                "expected": -0.602
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": -7.782,
+                "expected": -0.207
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": -7.4,
+                "expected": -0.463
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": -6.298,
+                "expected": -0.172
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -4.311,
+                "expected": -0.191
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -4.474,
+                "expected": 0.467
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": -5.182,
+                "expected": 0.239
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -5.507,
+                "expected": -0.066
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -4.644,
+                "expected": -0.717
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.083,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": -0.651,
+                "expected": 0.667
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": -1.181,
+                "expected": 0.321
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -2.949,
+                "expected": -0.215
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -2.377,
+                "expected": -0.658
+              }
+            ],
+            "ticker": "NUE",
+            "benchmark": "^GSPC",
+            "reason": "Stellvertreter für US-Stahlproduzenten, die von weniger kanadischen Importen profitieren könnten."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.039,
+            "beta": -0.057,
+            "r2": 0.002,
+            "n_est": 120,
+            "resid_sd_pct": 1.465,
+            "n_post": 15,
+            "car_pct": -1.91,
+            "diff_pct": -1.917,
+            "t_stat": -0.34,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.544,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.726,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 0.363,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.06,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.181,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.181,
+                "expected": -0.085
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.605,
+                "expected": -0.122
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.665,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.544,
+                "expected": -0.169
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.484,
+                "expected": -0.138
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.423,
+                "expected": -0.178
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.847,
+                "expected": -0.235
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.786,
+                "expected": -0.205
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 0.847,
+                "expected": -0.233
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.786,
+                "expected": -0.274
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -1.21,
+                "expected": -0.254
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": -1.21,
+                "expected": -0.232
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": -2.117,
+                "expected": -0.209
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -2.541,
+                "expected": -0.229
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -2.178,
+                "expected": -0.261
+              }
+            ],
+            "ticker": "DC=F",
+            "benchmark": "basket:commodity",
+            "reason": "Stellvertreter für Molkereiprodukte, die laut Text auf Gegenzölle negativ reagieren."
+          }
+        ],
+        "skipped": [],
+        "event_date": "2026-08-19",
+        "event_date_source": "announce",
+        "label": "Zölle verkündet, dann ausgesetzt"
+      },
       "event_label": "50-%-Zölle in Kraft",
       "event_description": "Kanada kündigt Gegenzölle auf US-Waren im Wert von 20 Mrd. USD an"
     },
@@ -5073,8 +6950,8 @@
     },
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "In der Theorie reagieren Rohöl (Brent) und Ölkonzerne wie ExxonMobil auf Versorgungsrisiken in der Golfregion, Gold gilt als Krisenanlage. Chinas mögliche Exportkontrollen für Seltene Erden könnten Chip- und Technologiewerte belasten. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "explanation": "Sanktionen und Risiken in der Straße von Hormus verknappen möglicherweise das Ölangebot und treiben Rohöl und Ölkonzerne wie ExxonMobil. Gold gilt in Krisen als sicherer Hafen. Chinas mögliche Exportkontrollen für Seltene Erden könnten außerdem Chip- und Technologiewerte belasten.",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "verified_live": true,
       "event_study": {
         "benchmark": "^GSPC",
@@ -6661,8 +8538,8 @@
     },
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "In der Theorie fließt bei Handelsunsicherheit Kapital ab und der kanadische Dollar gibt nach. Betroffen wären die stark verflochtene Autoindustrie (hier: GM und Ford), die Preise für Stahl und Aluminium sowie die Börse in Toronto. Als sicherer Hafen könnten US-Staatsanleihen gefragt sein, dann fiele ihre Rendite. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "explanation": "Bei Handelsunsicherheit fließt Kapital eher ab, der kanadische Dollar kann nachgeben. Die eng verflochtene Autoindustrie (hier: GM und Ford) ist direkt betroffen, ebenso die Preise für Stahl und Aluminium, die durch Zölle steigen könnten. Als sicherer Hafen könnten US-Staatsanleihen gefragt sein, dann fiele ihre Rendite.",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "verified_live": true,
       "event_study": {
         "benchmark": "^GSPC",
@@ -8315,6 +10192,1016 @@
       "event_date": "2026-08-22",
       "event_date_source": "model",
       "unmeasured": [],
+      "event_study_alt": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0256,
+            "beta": -0.124,
+            "r2": 0.027,
+            "n_est": 120,
+            "resid_sd_pct": 0.251,
+            "n_post": 15,
+            "car_pct": 0.565,
+            "diff_pct": 0.561,
+            "t_stat": 0.58,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.459,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.354,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.509,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.412,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.016,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.203,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.429,
+                "expected": 0.093
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.641,
+                "expected": 0.106
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.558,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.209,
+                "expected": 0.09
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.242,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.038,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.131,
+                "expected": -0.007
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.212,
+                "expected": 0.027
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.135,
+                "expected": -0.003
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.176,
+                "expected": 0.01
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.179,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.582,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.469,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.669,
+                "expected": 0.109
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "DX-Y.NYB",
+            "reason": "Handelsunsicherheit könnte Kapital abfließen lassen und den kanadischen Dollar drücken."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0202,
+            "beta": 0.693,
+            "r2": 0.516,
+            "n_est": 120,
+            "resid_sd_pct": 0.644,
+            "n_post": 15,
+            "car_pct": -0.75,
+            "diff_pct": -0.774,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.297,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.809,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.076,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.996,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.825,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.093,
+                "expected": 0.146
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.007,
+                "expected": -0.455
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.694,
+                "expected": -0.156
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.952,
+                "expected": -0.349
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 1.621,
+                "expected": -0.129
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 1.226,
+                "expected": -0.143
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 1.282,
+                "expected": 0.355
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.511,
+                "expected": 0.182
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.268,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.491,
+                "expected": -0.541
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.76,
+                "expected": -0.224
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.729,
+                "expected": 0.507
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.401,
+                "expected": 0.246
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.673,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -1.268,
+                "expected": -0.495
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC",
+            "reason": "Kanadischer Leitindex als Gesamtbild der Folgen für Kanadas Wirtschaft."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0121,
+            "beta": 1.236,
+            "r2": 0.295,
+            "n_est": 120,
+            "resid_sd_pct": 1.753,
+            "n_post": 15,
+            "car_pct": 1.294,
+            "diff_pct": 1.163,
+            "t_stat": 0.19,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 6.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 3.644,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 3.202,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 3.655,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.788,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.493,
+                "expected": 0.261
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 2.915,
+                "expected": -0.814
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 5.041,
+                "expected": -0.281
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 3.906,
+                "expected": -0.626
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.509,
+                "expected": -0.234
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 3.13,
+                "expected": -0.26
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 2.951,
+                "expected": 0.628
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 3.058,
+                "expected": 0.319
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 3.118,
+                "expected": -0.093
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.294,
+                "expected": -0.971
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.386,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.193,
+                "expected": 0.894
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 5.055,
+                "expected": 0.426
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.697,
+                "expected": -0.299
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.267,
+                "expected": -0.896
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC",
+            "reason": "Die stark verflochtene nordamerikanische Autoindustrie ist direkt von den Zöllen betroffen."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0225,
+            "beta": 1.26,
+            "r2": 0.174,
+            "n_est": 120,
+            "resid_sd_pct": 2.516,
+            "n_post": 15,
+            "car_pct": -2.148,
+            "diff_pct": -2.532,
+            "t_stat": -0.22,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.359,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.718,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.287,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 3.159,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.861,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 4.092,
+                "expected": 0.266
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.431,
+                "expected": -0.829
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 3.446,
+                "expected": -0.286
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.0,
+                "expected": -0.638
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.144,
+                "expected": -0.239
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -0.215,
+                "expected": -0.265
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.144,
+                "expected": 0.64
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": -0.359,
+                "expected": 0.325
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 0.072,
+                "expected": -0.095
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -0.646,
+                "expected": -0.99
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.508,
+                "expected": -0.416
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 3.446,
+                "expected": 0.911
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 4.953,
+                "expected": 0.433
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.503,
+                "expected": -0.305
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -3.446,
+                "expected": -0.913
+              }
+            ],
+            "ticker": "F",
+            "benchmark": "^GSPC",
+            "reason": "Zweiter großer US-Autohersteller mit grenzüberschreitenden Lieferketten."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.1717,
+            "beta": -0.017,
+            "r2": 0.001,
+            "n_est": 120,
+            "resid_sd_pct": 0.8,
+            "n_post": 15,
+            "car_pct": 3.215,
+            "diff_pct": 3.256,
+            "t_stat": 1.04,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.084,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.0,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 0.0,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.0,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.0,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.167,
+                "expected": -0.026
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.167,
+                "expected": -0.037
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": -0.167,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.0,
+                "expected": -0.051
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.0,
+                "expected": -0.042
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.251,
+                "expected": -0.054
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.585,
+                "expected": -0.071
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.753,
+                "expected": -0.062
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 0.92,
+                "expected": -0.071
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 1.338,
+                "expected": -0.083
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 2.258,
+                "expected": -0.077
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 2.258,
+                "expected": -0.07
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 2.508,
+                "expected": -0.063
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.843,
+                "expected": -0.07
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 3.177,
+                "expected": -0.079
+              }
+            ],
+            "ticker": "HRC=F",
+            "benchmark": "basket:commodity",
+            "reason": "Der Text erwartet steigende Stahlpreise in Nordamerika durch die Zölle."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0929,
+            "beta": 0.397,
+            "r2": 0.049,
+            "n_est": 120,
+            "resid_sd_pct": 2.0,
+            "n_post": 15,
+            "car_pct": 3.687,
+            "diff_pct": 3.624,
+            "t_stat": 0.48,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 4.22,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 2.808,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.847,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.781,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 2.936,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.631,
+                "expected": 0.591
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.158,
+                "expected": 0.854
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 4.595,
+                "expected": 1.123
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 2.298,
+                "expected": 1.185
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.696,
+                "expected": 0.963
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.42,
+                "expected": 1.244
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 0.841,
+                "expected": 1.65
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 1.464,
+                "expected": 1.435
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 1.412,
+                "expected": 1.637
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.523,
+                "expected": 1.926
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 2.696,
+                "expected": 1.786
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.01,
+                "expected": 1.628
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 3.296,
+                "expected": 1.466
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 4.595,
+                "expected": 1.608
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 5.459,
+                "expected": 1.834
+              }
+            ],
+            "ticker": "ALI=F",
+            "benchmark": "basket:commodity",
+            "reason": "Der Text erwartet steigende Aluminiumpreise in Nordamerika durch die Zölle."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.1404,
+            "beta": -0.466,
+            "r2": 0.18,
+            "n_est": 120,
+            "resid_sd_pct": 0.913,
+            "n_post": 15,
+            "car_pct": 2.466,
+            "diff_pct": 2.461,
+            "t_stat": 0.7,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.467,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.51,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -1.381,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.212,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.382,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -1.126,
+                "expected": -0.098
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.212,
+                "expected": 0.306
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.68,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": -0.042,
+                "expected": 0.233
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": -1.424,
+                "expected": 0.084
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": -0.892,
+                "expected": 0.094
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.722,
+                "expected": -0.243
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.297,
+                "expected": -0.127
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 1.105,
+                "expected": 0.028
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 1.912,
+                "expected": 0.36
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.912,
+                "expected": 0.144
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 1.19,
+                "expected": -0.35
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 1.657,
+                "expected": -0.175
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.125,
+                "expected": 0.097
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 2.784,
+                "expected": 0.323
+              }
+            ],
+            "ticker": "^TNX",
+            "benchmark": "^GSPC",
+            "reason": "Anleihen könnten als sicherer Hafen gefragt sein: Dann fällt die Rendite."
+          }
+        ],
+        "skipped": [],
+        "event_date": "2026-08-19",
+        "event_date_source": "announce",
+        "label": "Zölle verkündet, dann ausgesetzt"
+      },
       "event_label": "50-%-Zölle in Kraft",
       "event_description": "Verhandlungen zwischen USA und Kanada scheitern, Handelskrieg wird offen"
     },
@@ -9021,7 +11908,7 @@
     "primary_sources": [],
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "Weitreichende US-Sanktionen gegen Iran und die angedrohte Blockade von Ölexporten aus der Golfregion betreffen direkt den Ölpreis (Brent), Gold als Krisenanlage und Energiekonzerne wie ExxonMobil. Märkte reagieren auf Angebotsrisiken im Ölhandel oft schon auf Drohungen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob und wie stark das tatsächlich passierte.",
+      "explanation": "Weitreichende US-Sanktionen gegen Iran und die angedrohte Blockade von Ölexporten aus der Golfregion betreffen direkt den Ölpreis (Brent), Gold als Krisenanlage und Energiekonzerne wie ExxonMobil. Märkte reagieren auf Angebotsrisiken im Ölhandel oft schon auf Drohungen.",
       "series": [
         {
           "label": "BZ=F",
@@ -9297,7 +12184,7 @@
           "source_url": "https://finance.yahoo.com/quote/XOM"
         }
       ],
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "event_study": {
         "benchmark": "^GSPC",
         "assets": [
@@ -10039,7 +12926,7 @@
     "primary_sources": [],
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "Höhere US-Zölle auf kanadische Fahrzeuge und Stahl treffen die eng verflochtene nordamerikanische Autoindustrie: Der kanadische Dollar und kanadische Exportwerte stehen unter Druck, US-Hersteller wie General Motors mit Produktion in Kanada könnten höhere Kosten haben. Der Starttermin liegt erst im Jahr 2027, die Märkte können das aber schon heute einpreisen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob das tatsächlich geschah.",
+      "explanation": "Höhere US-Zölle auf kanadische Fahrzeuge und Stahl treffen die eng verflochtene nordamerikanische Autoindustrie: Der kanadische Dollar und kanadische Exportwerte stehen unter Druck, US-Hersteller wie General Motors mit Produktion in Kanada könnten höhere Kosten haben. Der Starttermin liegt erst im Jahr 2027, die Märkte können das aber schon heute einpreisen.",
       "series": [
         {
           "label": "CADUSD=X",
@@ -10406,7 +13293,7 @@
           "source_url": "https://finance.yahoo.com/quote/HRC=F"
         }
       ],
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "event_study": {
         "benchmark": "^GSPC",
         "assets": [
@@ -11533,7 +14420,7 @@
     "primary_sources": [],
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "Die 50-Prozent-Zölle auf kanadische Waren im Wert von rund 20 Milliarden Dollar und die angekündigten Gegenzölle belasten typischerweise den kanadischen Dollar und kanadische Exporteure. Exponiert sind außerdem der kanadische Leitindex (S&P/TSX) und US-Autohersteller wie General Motors, deren Lieferketten über die Grenze laufen. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten.",
+      "explanation": "Die 50-Prozent-Zölle auf kanadische Waren im Wert von rund 20 Milliarden Dollar und die angekündigten Gegenzölle belasten typischerweise den kanadischen Dollar und kanadische Exporteure. Exponiert sind außerdem der kanadische Leitindex (S&P/TSX) und US-Autohersteller wie General Motors, deren Lieferketten über die Grenze laufen.",
       "series": [
         {
           "label": "CADUSD=X",
@@ -11809,7 +14696,7 @@
           "source_url": "https://finance.yahoo.com/quote/GM"
         }
       ],
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "event_study": {
         "benchmark": "^GSPC",
         "assets": [
@@ -12251,6 +15138,444 @@
       "event_date_source": "model",
       "verified_live": true,
       "unmeasured": [],
+      "event_study_alt": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0256,
+            "beta": -0.124,
+            "r2": 0.027,
+            "n_est": 120,
+            "resid_sd_pct": 0.251,
+            "n_post": 15,
+            "car_pct": 0.565,
+            "diff_pct": 0.561,
+            "t_stat": 0.58,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.459,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.354,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.509,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.412,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.016,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.203,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.429,
+                "expected": 0.093
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.641,
+                "expected": 0.106
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.558,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.209,
+                "expected": 0.09
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.242,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.038,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.131,
+                "expected": -0.007
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.212,
+                "expected": 0.027
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.135,
+                "expected": -0.003
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.176,
+                "expected": 0.01
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.179,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.582,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.469,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.669,
+                "expected": 0.109
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "DX-Y.NYB",
+            "reason": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0202,
+            "beta": 0.693,
+            "r2": 0.516,
+            "n_est": 120,
+            "resid_sd_pct": 0.644,
+            "n_post": 15,
+            "car_pct": -0.75,
+            "diff_pct": -0.774,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.297,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.809,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.076,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.996,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.825,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.093,
+                "expected": 0.146
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.007,
+                "expected": -0.455
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.694,
+                "expected": -0.156
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.952,
+                "expected": -0.349
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 1.621,
+                "expected": -0.129
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 1.226,
+                "expected": -0.143
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 1.282,
+                "expected": 0.355
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.511,
+                "expected": 0.182
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.268,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.491,
+                "expected": -0.541
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.76,
+                "expected": -0.224
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.729,
+                "expected": 0.507
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.401,
+                "expected": 0.246
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.673,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -1.268,
+                "expected": -0.495
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC",
+            "reason": "Kanadischer Leitindex: zeigt, ob Kanadas Exportunternehmen an der Börse leiden."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0121,
+            "beta": 1.236,
+            "r2": 0.295,
+            "n_est": 120,
+            "resid_sd_pct": 1.753,
+            "n_post": 15,
+            "car_pct": 1.294,
+            "diff_pct": 1.163,
+            "t_stat": 0.19,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 6.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 3.644,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 3.202,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 3.655,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.788,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.493,
+                "expected": 0.261
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 2.915,
+                "expected": -0.814
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 5.041,
+                "expected": -0.281
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 3.906,
+                "expected": -0.626
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.509,
+                "expected": -0.234
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 3.13,
+                "expected": -0.26
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 2.951,
+                "expected": 0.628
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 3.058,
+                "expected": 0.319
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 3.118,
+                "expected": -0.093
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.294,
+                "expected": -0.971
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.386,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.193,
+                "expected": 0.894
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 5.055,
+                "expected": 0.426
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.697,
+                "expected": -0.299
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.267,
+                "expected": -0.896
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC",
+            "reason": "Autohersteller mit Lieferketten über die Grenze sind besonders exponiert."
+          }
+        ],
+        "skipped": [],
+        "event_date": "2026-08-19",
+        "event_date_source": "announce",
+        "label": "Zölle verkündet, dann ausgesetzt"
+      },
       "event_label": "50-%-Zölle in Kraft",
       "event_description": "Gespräche USA–Kanada scheitern, beide Seiten verhängen Strafzölle"
     },
@@ -12526,7 +15851,7 @@
     "primary_sources": [],
     "market_correlation": {
       "has_correlation": true,
-      "explanation": "Mit den 50-Prozent-Zöllen auf kanadische Güter und der angekündigten Vergeltung Ottawas steigt der Druck auf den kanadischen Dollar und auf Unternehmen, die stark vom Export in die USA abhängen. Betroffen sein können der kanadische Leitindex (S&P/TSX) und Autohersteller mit grenzüberschreitenden Lieferketten wie General Motors. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten.",
+      "explanation": "Mit den 50-Prozent-Zöllen auf kanadische Güter und der angekündigten Vergeltung Ottawas steigt der Druck auf den kanadischen Dollar und auf Unternehmen, die stark vom Export in die USA abhängen. Betroffen sein können der kanadische Leitindex (S&P/TSX) und Autohersteller mit grenzüberschreitenden Lieferketten wie General Motors.",
       "series": [
         {
           "label": "CADUSD=X",
@@ -12802,7 +16127,7 @@
           "source_url": "https://finance.yahoo.com/quote/GM"
         }
       ],
-      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "note": "Kursdaten: Tagesschlusskurse von Yahoo Finance.",
       "event_study": {
         "benchmark": "^GSPC",
         "assets": [
@@ -13244,6 +16569,444 @@
       "event_date_source": "model",
       "verified_live": true,
       "unmeasured": [],
+      "event_study_alt": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0256,
+            "beta": -0.124,
+            "r2": 0.027,
+            "n_est": 120,
+            "resid_sd_pct": 0.251,
+            "n_post": 15,
+            "car_pct": 0.565,
+            "diff_pct": 0.561,
+            "t_stat": 0.58,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": -0.459,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": -0.354,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": -0.509,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": -0.412,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": -0.016,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": -0.203,
+                "expected": 0.102
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 0.429,
+                "expected": 0.093
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.641,
+                "expected": 0.106
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.558,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 0.209,
+                "expected": 0.09
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 0.242,
+                "expected": 0.059
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": -0.038,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.131,
+                "expected": -0.007
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.212,
+                "expected": 0.027
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 0.135,
+                "expected": -0.003
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.176,
+                "expected": 0.01
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.179,
+                "expected": 0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.582,
+                "expected": 0.06
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 0.469,
+                "expected": 0.1
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.669,
+                "expected": 0.109
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "DX-Y.NYB",
+            "reason": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0202,
+            "beta": 0.693,
+            "r2": 0.516,
+            "n_est": 120,
+            "resid_sd_pct": 0.644,
+            "n_post": 15,
+            "car_pct": -0.75,
+            "diff_pct": -0.774,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 0.297,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 0.809,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 1.076,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 0.996,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.825,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 0.093,
+                "expected": 0.146
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": -0.007,
+                "expected": -0.455
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 0.694,
+                "expected": -0.156
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 0.952,
+                "expected": -0.349
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 1.621,
+                "expected": -0.129
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 1.226,
+                "expected": -0.143
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 1.282,
+                "expected": 0.355
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 0.511,
+                "expected": 0.182
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": -0.268,
+                "expected": -0.049
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": -1.491,
+                "expected": -0.541
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": -0.76,
+                "expected": -0.224
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 0.729,
+                "expected": 0.507
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 0.401,
+                "expected": 0.246
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": -0.673,
+                "expected": -0.16
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": -1.268,
+                "expected": -0.495
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC",
+            "reason": "Kanadischer Leitindex: zeigt, ob Kanadas Exportunternehmen an der Börse leiden."
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0121,
+            "beta": 1.236,
+            "r2": 0.295,
+            "n_est": 120,
+            "resid_sd_pct": 1.753,
+            "n_post": 15,
+            "car_pct": 1.294,
+            "diff_pct": 1.163,
+            "t_stat": 0.19,
+            "points": [
+              {
+                "date": "2026-08-11",
+                "day": -5,
+                "actual": 6.738,
+                "expected": null
+              },
+              {
+                "date": "2026-08-12",
+                "day": -4,
+                "actual": 3.644,
+                "expected": null
+              },
+              {
+                "date": "2026-08-13",
+                "day": -3,
+                "actual": 3.202,
+                "expected": null
+              },
+              {
+                "date": "2026-08-14",
+                "day": -2,
+                "actual": 3.655,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -1,
+                "actual": 0.788,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-19",
+                "day": 1,
+                "actual": 1.493,
+                "expected": 0.261
+              },
+              {
+                "date": "2026-08-20",
+                "day": 2,
+                "actual": 2.915,
+                "expected": -0.814
+              },
+              {
+                "date": "2026-08-21",
+                "day": 3,
+                "actual": 5.041,
+                "expected": -0.281
+              },
+              {
+                "date": "2026-08-24",
+                "day": 4,
+                "actual": 3.906,
+                "expected": -0.626
+              },
+              {
+                "date": "2026-08-25",
+                "day": 5,
+                "actual": 2.509,
+                "expected": -0.234
+              },
+              {
+                "date": "2026-08-26",
+                "day": 6,
+                "actual": 3.13,
+                "expected": -0.26
+              },
+              {
+                "date": "2026-08-27",
+                "day": 7,
+                "actual": 2.951,
+                "expected": 0.628
+              },
+              {
+                "date": "2026-08-28",
+                "day": 8,
+                "actual": 3.058,
+                "expected": 0.319
+              },
+              {
+                "date": "2026-08-31",
+                "day": 9,
+                "actual": 3.118,
+                "expected": -0.093
+              },
+              {
+                "date": "2026-09-01",
+                "day": 10,
+                "actual": 2.294,
+                "expected": -0.971
+              },
+              {
+                "date": "2026-09-02",
+                "day": 11,
+                "actual": 1.386,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-09-03",
+                "day": 12,
+                "actual": 4.193,
+                "expected": 0.894
+              },
+              {
+                "date": "2026-09-04",
+                "day": 13,
+                "actual": 5.055,
+                "expected": 0.426
+              },
+              {
+                "date": "2026-09-08",
+                "day": 14,
+                "actual": 2.697,
+                "expected": -0.299
+              },
+              {
+                "date": "2026-09-09",
+                "day": 15,
+                "actual": 0.267,
+                "expected": -0.896
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC",
+            "reason": "Autohersteller mit Lieferketten über die Grenze sind besonders exponiert."
+          }
+        ],
+        "skipped": [],
+        "event_date": "2026-08-19",
+        "event_date_source": "announce",
+        "label": "Zölle verkündet, dann ausgesetzt"
+      },
       "event_label": "50-%-Zölle in Kraft",
       "event_description": "USA verhängen 50-%-Strafzölle auf kanadische Waren"
     },

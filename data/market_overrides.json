@@ -1,0 +1,83 @@
+{
+  "_hinweis": "Von Hand gepflegte Ticker fuer Storys, bei denen das Modell keine genannt hat. Schluessel = Story-ID (steht in data/stories.json als 'id'). Felder: explanation (Begruendung; setzt 'Marktbezug ja', wenn das Modell keinen gesehen hat), tickers (max. 3, echte Yahoo-Finance-Symbole), benchmark (Vergleichsmarkt, Standard ^GSPC), event_date (YYYY-MM-DD, Standard = Datum der Story; bei Storys ohne Datum bitte angeben). Nach Aenderungen: python pipeline/backfill_market_data.py, dann python pipeline/build_frontend.py",
+  "bf41dcc6": {
+    "_story": "Trump benennt Lake Ontario um / US-Kanada-Handelskrieg",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC"
+  },
+  "17557223": {
+    "_story": "US-Kanada Handelskrieg: Gegenzoelle auf 20 Mrd. USD Waren",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC",
+    "event_date": "2026-08-22"
+  },
+  "f221d616": {
+    "_story": "US-Kanada offener Handelskrieg nach geplatzten Verhandlungen",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC",
+    "event_date": "2026-08-22"
+  },
+  "903283a0": {
+    "_story": "Iran-Sanktionen / Strasse von Hormus",
+    "tickers": [
+      "BZ=F",
+      "GC=F",
+      "XOM"
+    ],
+    "benchmark": "^GSPC"
+  },
+  "dfd45e61": {
+    "_story": "USA-Kanada: Gespraeche gescheitert, gegenseitige Strafzoelle",
+    "event_date": "2026-08-22",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC",
+    "explanation": "Die 50-Prozent-Zölle auf kanadische Waren im Wert von rund 20 Milliarden Dollar und die angekündigten Gegenzölle belasten typischerweise den kanadischen Dollar und kanadische Exporteure. Exponiert sind außerdem der kanadische Leitindex (S&P/TSX) und US-Autohersteller wie General Motors, deren Lieferketten über die Grenze laufen. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten."
+  },
+  "3e059306": {
+    "_story": "USA verhaengen 50%-Strafzoelle auf kanadische Waren",
+    "event_date": "2026-08-22",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC",
+    "explanation": "Mit den 50-Prozent-Zöllen auf kanadische Güter und der angekündigten Vergeltung Ottawas steigt der Druck auf den kanadischen Dollar und auf Unternehmen, die stark vom Export in die USA abhängen. Betroffen sein können der kanadische Leitindex (S&P/TSX) und Autohersteller mit grenzüberschreitenden Lieferketten wie General Motors. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten."
+  },
+  "8d35f0ea": {
+    "_story": "USA-Kanada: 50%-Autozoelle ab 2027",
+    "tickers": [
+      "CADUSD=X",
+      "^GSPTSE",
+      "GM"
+    ],
+    "benchmark": "^GSPC",
+    "explanation": "Höhere US-Zölle auf kanadische Fahrzeuge und Stahl treffen die eng verflochtene nordamerikanische Autoindustrie: Der kanadische Dollar und kanadische Exportwerte stehen unter Druck, US-Hersteller wie General Motors mit Produktion in Kanada könnten höhere Kosten haben. Der Starttermin liegt erst im Jahr 2027, die Märkte können das aber schon heute einpreisen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob das tatsächlich geschah."
+  },
+  "f296da25": {
+    "_story": "USA: umfassendste Wirtschaftssanktionen gegen Iran",
+    "tickers": [
+      "BZ=F",
+      "GC=F",
+      "XOM"
+    ],
+    "benchmark": "^GSPC",
+    "explanation": "Weitreichende US-Sanktionen gegen Iran und die angedrohte Blockade von Ölexporten aus der Golfregion betreffen direkt den Ölpreis (Brent), Gold als Krisenanlage und Energiekonzerne wie ExxonMobil. Märkte reagieren auf Angebotsrisiken im Ölhandel oft schon auf Drohungen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob und wie stark das tatsächlich passierte."
+  }
+}

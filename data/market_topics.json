@@ -1,0 +1,119 @@
+{
+  "_hinweis": "Stichwort-Tabelle fuer die automatische Ticker-Wahl. Greift nur, wenn das Sprachmodell Marktbezug bejaht hat, aber keine Ticker nannte und fuer die Story kein Eintrag in market_overrides.json steht. Die ERSTE passende Regel gilt. 'any' = mindestens eins der Woerter muss im Text (Titel/Kurzfassung/Zusammenfassung) vorkommen, 'all' = alle muessen vorkommen. Tickers = echte Yahoo-Finance-Symbole (max. 3), benchmark = Vergleichsmarkt.",
+  "rules": [
+    {
+      "name": "US-Kanada-Handel",
+      "all": [
+        "kanad"
+      ],
+      "any": [
+        "zoll",
+        "zölle",
+        "handelskrieg",
+        "tarif"
+      ],
+      "tickers": [
+        "CADUSD=X",
+        "^GSPTSE",
+        "GM"
+      ],
+      "benchmark": "^GSPC"
+    },
+    {
+      "name": "Iran/Golf/Oel",
+      "any": [
+        "iran",
+        "hormus",
+        "opec",
+        "ölexport",
+        "ölpreis",
+        "golfregion"
+      ],
+      "tickers": [
+        "BZ=F",
+        "GC=F",
+        "XOM"
+      ],
+      "benchmark": "^GSPC"
+    },
+    {
+      "name": "Russland/Ukraine/Energie",
+      "any": [
+        "russland",
+        "ukraine",
+        "nord stream",
+        "gasleitung",
+        "erdgas"
+      ],
+      "tickers": [
+        "NG=F",
+        "BZ=F",
+        "RHM.DE"
+      ],
+      "benchmark": "^STOXX50E"
+    },
+    {
+      "name": "China/Taiwan/Chips",
+      "any": [
+        "taiwan",
+        "halbleiter",
+        "chipexport",
+        "seltene erden",
+        "exportkontroll"
+      ],
+      "tickers": [
+        "TSM",
+        "NVDA",
+        "^HSI"
+      ],
+      "benchmark": "^GSPC"
+    },
+    {
+      "name": "Zentralbanken/Zinsen",
+      "any": [
+        "leitzins",
+        "zinsentscheid",
+        "federal reserve",
+        "ezb-",
+        "zinssenkung",
+        "zinserhöhung"
+      ],
+      "tickers": [
+        "^TNX",
+        "GC=F",
+        "^IXIC"
+      ],
+      "benchmark": "^GSPC"
+    },
+    {
+      "name": "Ruestung/NATO",
+      "any": [
+        "nato",
+        "rüstung",
+        "verteidigungshaushalt",
+        "raketenabwehr"
+      ],
+      "tickers": [
+        "LMT",
+        "RTX",
+        "RHM.DE"
+      ],
+      "benchmark": "^GSPC"
+    },
+    {
+      "name": "Zoelle allgemein (EU/China/Welt)",
+      "any": [
+        "strafzoll",
+        "zollerhöhung",
+        "handelskrieg",
+        "zölle auf"
+      ],
+      "tickers": [
+        "^GSPC",
+        "^STOXX50E",
+        "CNY=X"
+      ],
+      "benchmark": "^IXIC"
+    }
+  ]
+}

@@ -535,131 +535,718 @@
     "market_correlation": {
       "has_correlation": true,
       "explanation": "Der eskalierende Handelskrieg zwischen USA und Kanada mit 50-prozentigen US-Zöllen auf kanadische Waren und angekündigten kanadischen Gegenzöllen belastet typischerweise den kanadischen Dollar (CAD) gegenüber dem US-Dollar und dürfte Aktien von Unternehmen mit starker grenzüberschreitender Lieferkette treffen, besonders in der Automobilindustrie und im Rohstoffsektor. Unsicherheit über USMCA-Stabilität könnte nordamerikanische Börsenindizes belasten. Rohstoffe wie Holz, Aluminium und Energie, die zwischen beiden Ländern intensiv gehandelt werden, könnten Preisvolatilität zeigen.",
-      "note": "Einschätzung aus Allgemeinwissen über typische Marktreaktionen auf Handelskonflikte, keine Live-Kursdaten. Kursdaten via Yahoo Finance (yfinance), echte Tagesschlusskurse.",
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
       "verified_live": true,
       "series": [
         {
           "label": "CADUSD=X",
-          "raw_unit": "USD",
+          "raw_unit": "",
           "points": [
             {
-              "date": "2026-08-18",
-              "value": 0.72
-            },
-            {
-              "date": "2026-08-19",
-              "value": 0.72
-            },
-            {
               "date": "2026-08-20",
-              "value": 0.72
+              "value": 0.7241
             },
             {
               "date": "2026-08-21",
-              "value": 0.73
+              "value": 0.7256
             },
             {
               "date": "2026-08-24",
-              "value": 0.73
+              "value": 0.725
             },
             {
               "date": "2026-08-25",
-              "value": 0.72
+              "value": 0.7225
             },
             {
               "date": "2026-08-26",
-              "value": 0.72
+              "value": 0.7227
             },
             {
               "date": "2026-08-27",
-              "value": 0.72
+              "value": 0.7207
             },
             {
               "date": "2026-08-28",
-              "value": 0.72
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            },
+            {
+              "date": "2026-09-15",
+              "value": 0.7194
+            },
+            {
+              "date": "2026-09-16",
+              "value": 0.7182
+            },
+            {
+              "date": "2026-09-17",
+              "value": 0.7149
+            },
+            {
+              "date": "2026-09-18",
+              "value": 0.7148
             }
           ],
           "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
         },
         {
           "label": "^GSPTSE",
-          "raw_unit": "USD",
+          "raw_unit": "",
           "points": [
             {
-              "date": "2026-08-18",
-              "value": 36367.9
-            },
-            {
-              "date": "2026-08-19",
-              "value": 36401.8
-            },
-            {
               "date": "2026-08-20",
-              "value": 36365.4
+              "value": 36365.3984
             },
             {
               "date": "2026-08-21",
-              "value": 36620.2
+              "value": 36620.1992
             },
             {
               "date": "2026-08-24",
-              "value": 36714.1
+              "value": 36714.1016
             },
             {
               "date": "2026-08-25",
-              "value": 36957.6
+              "value": 36957.6016
             },
             {
               "date": "2026-08-26",
-              "value": 36813.7
+              "value": 36813.6992
             },
             {
               "date": "2026-08-27",
-              "value": 36834.3
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            },
+            {
+              "date": "2026-09-15",
+              "value": 35582.1016
+            },
+            {
+              "date": "2026-09-16",
+              "value": 35491.3008
+            },
+            {
+              "date": "2026-09-17",
+              "value": 35874.3008
+            },
+            {
+              "date": "2026-09-18",
+              "value": 35806.6992
             }
           ],
           "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
         },
         {
-          "label": "^GSPC",
-          "raw_unit": "USD",
+          "label": "GM",
+          "raw_unit": "",
           "points": [
             {
-              "date": "2026-08-18",
-              "value": 7691.76
-            },
-            {
-              "date": "2026-08-19",
-              "value": 7707.98
-            },
-            {
               "date": "2026-08-20",
-              "value": 7641.16
+              "value": 85.9722
             },
             {
               "date": "2026-08-21",
-              "value": 7674.37
+              "value": 87.7485
             },
             {
               "date": "2026-08-24",
-              "value": 7652.86
+              "value": 86.8005
             },
             {
               "date": "2026-08-25",
-              "value": 7677.28
+              "value": 85.6329
             },
             {
               "date": "2026-08-26",
-              "value": 7675.7
+              "value": 86.1518
             },
             {
               "date": "2026-08-27",
-              "value": 7730.99
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            },
+            {
+              "date": "2026-09-15",
+              "value": 85.37
+            },
+            {
+              "date": "2026-09-16",
+              "value": 84.29
+            },
+            {
+              "date": "2026-09-17",
+              "value": 86.62
+            },
+            {
+              "date": "2026-09-18",
+              "value": 82.2
             }
           ],
-          "source_url": "https://finance.yahoo.com/quote/^GSPC"
+          "source_url": "https://finance.yahoo.com/quote/GM"
         }
-      ]
+      ],
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0168,
+            "beta": 0.017,
+            "r2": 0.004,
+            "n_est": 120,
+            "resid_sd_pct": 0.257,
+            "n_post": 15,
+            "car_pct": -0.553,
+            "diff_pct": -0.556,
+            "t_stat": -0.55,
+            "points": [
+              {
+                "date": "2026-08-20",
+                "day": -5,
+                "actual": 0.468,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -4,
+                "actual": 0.679,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": -3,
+                "actual": 0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-25",
+                "day": -2,
+                "actual": 0.247,
+                "expected": null
+              },
+              {
+                "date": "2026-08-26",
+                "day": -1,
+                "actual": 0.28,
+                "expected": null
+              },
+              {
+                "date": "2026-08-27",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-28",
+                "day": 1,
+                "actual": 0.17,
+                "expected": -0.021
+              },
+              {
+                "date": "2026-08-31",
+                "day": 2,
+                "actual": -0.173,
+                "expected": -0.043
+              },
+              {
+                "date": "2026-09-01",
+                "day": 3,
+                "actual": 0.173,
+                "expected": -0.072
+              },
+              {
+                "date": "2026-09-02",
+                "day": 4,
+                "actual": -0.137,
+                "expected": -0.081
+              },
+              {
+                "date": "2026-09-03",
+                "day": 5,
+                "actual": 0.217,
+                "expected": -0.08
+              },
+              {
+                "date": "2026-09-04",
+                "day": 6,
+                "actual": 0.62,
+                "expected": -0.103
+              },
+              {
+                "date": "2026-09-08",
+                "day": 7,
+                "actual": 0.508,
+                "expected": -0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 8,
+                "actual": 0.708,
+                "expected": -0.155
+              },
+              {
+                "date": "2026-09-10",
+                "day": 9,
+                "actual": 0.509,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-09-11",
+                "day": 10,
+                "actual": 0.287,
+                "expected": -0.184
+              },
+              {
+                "date": "2026-09-14",
+                "day": 11,
+                "actual": 0.058,
+                "expected": -0.208
+              },
+              {
+                "date": "2026-09-15",
+                "day": 12,
+                "actual": -0.178,
+                "expected": -0.233
+              },
+              {
+                "date": "2026-09-16",
+                "day": 13,
+                "actual": -0.352,
+                "expected": -0.257
+              },
+              {
+                "date": "2026-09-17",
+                "day": 14,
+                "actual": -0.809,
+                "expected": -0.255
+              },
+              {
+                "date": "2026-09-18",
+                "day": 15,
+                "actual": -0.824,
+                "expected": -0.268
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0208,
+            "beta": 0.666,
+            "r2": 0.519,
+            "n_est": 120,
+            "resid_sd_pct": 0.598,
+            "n_post": 15,
+            "car_pct": -2.414,
+            "diff_pct": -2.413,
+            "t_stat": -1.04,
+            "points": [
+              {
+                "date": "2026-08-20",
+                "day": -5,
+                "actual": -1.273,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -4,
+                "actual": -0.581,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": -3,
+                "actual": -0.326,
+                "expected": null
+              },
+              {
+                "date": "2026-08-25",
+                "day": -2,
+                "actual": 0.335,
+                "expected": null
+              },
+              {
+                "date": "2026-08-26",
+                "day": -1,
+                "actual": -0.056,
+                "expected": null
+              },
+              {
+                "date": "2026-08-27",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-28",
+                "day": 1,
+                "actual": -0.761,
+                "expected": -0.145
+              },
+              {
+                "date": "2026-08-31",
+                "day": 2,
+                "actual": -1.531,
+                "expected": -0.345
+              },
+              {
+                "date": "2026-09-01",
+                "day": 3,
+                "actual": -2.738,
+                "expected": -0.796
+              },
+              {
+                "date": "2026-09-02",
+                "day": 4,
+                "actual": -2.016,
+                "expected": -0.471
+              },
+              {
+                "date": "2026-09-03",
+                "day": 5,
+                "actual": -0.546,
+                "expected": 0.25
+              },
+              {
+                "date": "2026-09-04",
+                "day": 6,
+                "actual": -0.87,
+                "expected": 0.021
+              },
+              {
+                "date": "2026-09-08",
+                "day": 7,
+                "actual": -1.931,
+                "expected": -0.347
+              },
+              {
+                "date": "2026-09-09",
+                "day": 8,
+                "actual": -2.519,
+                "expected": -0.648
+              },
+              {
+                "date": "2026-09-10",
+                "day": 9,
+                "actual": -3.605,
+                "expected": -1.014
+              },
+              {
+                "date": "2026-09-11",
+                "day": 10,
+                "actual": -3.086,
+                "expected": -0.427
+              },
+              {
+                "date": "2026-09-14",
+                "day": 11,
+                "actual": -3.073,
+                "expected": -0.726
+              },
+              {
+                "date": "2026-09-15",
+                "day": 12,
+                "actual": -3.4,
+                "expected": -1.002
+              },
+              {
+                "date": "2026-09-16",
+                "day": 13,
+                "actual": -3.646,
+                "expected": -1.276
+              },
+              {
+                "date": "2026-09-17",
+                "day": 14,
+                "actual": -2.606,
+                "expected": -0.508
+              },
+              {
+                "date": "2026-09-18",
+                "day": 15,
+                "actual": -2.79,
+                "expected": -0.377
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0564,
+            "beta": 1.238,
+            "r2": 0.288,
+            "n_est": 120,
+            "resid_sd_pct": 1.764,
+            "n_post": 15,
+            "car_pct": -2.054,
+            "diff_pct": -2.292,
+            "t_stat": -0.3,
+            "points": [
+              {
+                "date": "2026-08-20",
+                "day": -5,
+                "actual": -0.035,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -4,
+                "actual": 2.031,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": -3,
+                "actual": 0.928,
+                "expected": null
+              },
+              {
+                "date": "2026-08-25",
+                "day": -2,
+                "actual": -0.429,
+                "expected": null
+              },
+              {
+                "date": "2026-08-26",
+                "day": -1,
+                "actual": 0.174,
+                "expected": null
+              },
+              {
+                "date": "2026-08-27",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-28",
+                "day": 1,
+                "actual": 0.104,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-08-31",
+                "day": 2,
+                "actual": 0.162,
+                "expected": -0.831
+              },
+              {
+                "date": "2026-09-01",
+                "day": 3,
+                "actual": -0.638,
+                "expected": -1.76
+              },
+              {
+                "date": "2026-09-02",
+                "day": 4,
+                "actual": -1.52,
+                "expected": -1.256
+              },
+              {
+                "date": "2026-09-03",
+                "day": 5,
+                "actual": 1.207,
+                "expected": -0.017
+              },
+              {
+                "date": "2026-09-04",
+                "day": 6,
+                "actual": 2.044,
+                "expected": -0.539
+              },
+              {
+                "date": "2026-09-08",
+                "day": 7,
+                "actual": -0.247,
+                "expected": -1.315
+              },
+              {
+                "date": "2026-09-09",
+                "day": 8,
+                "actual": -2.607,
+                "expected": -1.962
+              },
+              {
+                "date": "2026-09-10",
+                "day": 9,
+                "actual": 0.137,
+                "expected": -2.728
+              },
+              {
+                "date": "2026-09-11",
+                "day": 10,
+                "actual": -0.444,
+                "expected": -1.747
+              },
+              {
+                "date": "2026-09-14",
+                "day": 11,
+                "actual": 1.346,
+                "expected": -2.39
+              },
+              {
+                "date": "2026-09-15",
+                "day": 12,
+                "actual": -0.735,
+                "expected": -2.988
+              },
+              {
+                "date": "2026-09-16",
+                "day": 13,
+                "actual": -1.991,
+                "expected": -3.58
+              },
+              {
+                "date": "2026-09-17",
+                "day": 14,
+                "actual": 0.718,
+                "expected": -2.276
+              },
+              {
+                "date": "2026-09-18",
+                "day": 15,
+                "actual": -4.421,
+                "expected": -2.129
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-28",
+        "event_date_source": "model"
+      },
+      "event_date": "2026-08-28",
+      "event_date_source": "model"
     },
     "connections": [
       {
@@ -1236,8 +1823,718 @@
     "market_correlation": {
       "has_correlation": true,
       "explanation": "Der Handelskrieg zwischen USA und Kanada dürfte mehrere Marktbereiche betreffen. Der kanadische Dollar (CAD) steht unter Abwertungsdruck gegenüber dem US-Dollar, da Handelsbarrieren die kanadische Exportwirtschaft belasten. US-Konsumgüteraktien, insbesondere im Bereich Haushaltswaren und Papierprodukte, könnten unter Margendruck geraten, da höhere Rohstoffkosten schwer weitergegeben werden können. Agraraktien und landwirtschaftliche Rohstoffe (insbesondere Molkereiprodukte) reagieren typischerweise negativ auf Gegenzölle. Umgekehrt könnten US-Stahlproduzenten kurzfristig von reduzierten kanadischen Importen profitieren. Volatilität in nordamerikanischen Aktienindizes ist wahrscheinlich, da Unsicherheit über weitere Eskalation besteht.",
-      "note": "Einschätzung basiert auf allgemeinem Marktwissen über typische Reaktionen bei Handelskonflikten, keine aktuellen Kursdaten",
-      "verified_live": false
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "verified_live": true,
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0263,
+            "beta": 0.021,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 0.256,
+            "n_post": 15,
+            "car_pct": -0.205,
+            "diff_pct": -0.209,
+            "t_stat": -0.21,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.046,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -0.652,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.637,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.838,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.21,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.083,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -0.429,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.396,
+                "expected": -0.079
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.675,
+                "expected": -0.09
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.506,
+                "expected": -0.121
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.847,
+                "expected": -0.154
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.502,
+                "expected": -0.196
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.811,
+                "expected": -0.212
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.459,
+                "expected": -0.216
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.059,
+                "expected": -0.25
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -0.17,
+                "expected": -0.289
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 0.028,
+                "expected": -0.325
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -0.17,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -0.39,
+                "expected": -0.372
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.617,
+                "expected": -0.408
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0122,
+            "beta": 0.688,
+            "r2": 0.512,
+            "n_est": 120,
+            "resid_sd_pct": 0.634,
+            "n_post": 15,
+            "car_pct": -2.201,
+            "diff_pct": -2.205,
+            "t_stat": -0.9,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": 0.301,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": 0.13,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.689,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.696,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.256,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.921,
+                "expected": 0.051
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": 0.528,
+                "expected": 0.049
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": 0.585,
+                "expected": 0.557
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.181,
+                "expected": 0.397
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.955,
+                "expected": 0.18
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.17,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -1.443,
+                "expected": 0.029
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 0.035,
+                "expected": 0.77
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.291,
+                "expected": 0.521
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -1.357,
+                "expected": 0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -1.949,
+                "expected": -0.192
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -3.042,
+                "expected": -0.581
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.52,
+                "expected": 0.019
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -2.506,
+                "expected": -0.301
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.05,
+            "beta": 1.276,
+            "r2": 0.303,
+            "n_est": 120,
+            "resid_sd_pct": 1.752,
+            "n_post": 15,
+            "car_pct": 1.13,
+            "diff_pct": 0.982,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.319,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -4.799,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -3.378,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.024,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -1.08,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.411,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -1.82,
+                "expected": -0.128
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -1.99,
+                "expected": 0.739
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -1.888,
+                "expected": 0.369
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -1.831,
+                "expected": -0.106
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.616,
+                "expected": -1.062
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -3.48,
+                "expected": -0.531
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.807,
+                "expected": 0.762
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 0.013,
+                "expected": 0.228
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.232,
+                "expected": -0.569
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.545,
+                "expected": -1.232
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -1.856,
+                "expected": -2.019
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.426,
+                "expected": -0.993
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.671,
+                "expected": -1.653
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-22",
+        "event_date_source": "model"
+      },
+      "series": [
+        {
+          "label": "CADUSD=X",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 0.718
+            },
+            {
+              "date": "2026-08-17",
+              "value": 0.7209
+            },
+            {
+              "date": "2026-08-18",
+              "value": 0.721
+            },
+            {
+              "date": "2026-08-19",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-08-20",
+              "value": 0.7241
+            },
+            {
+              "date": "2026-08-21",
+              "value": 0.7256
+            },
+            {
+              "date": "2026-08-24",
+              "value": 0.725
+            },
+            {
+              "date": "2026-08-25",
+              "value": 0.7225
+            },
+            {
+              "date": "2026-08-26",
+              "value": 0.7227
+            },
+            {
+              "date": "2026-08-27",
+              "value": 0.7207
+            },
+            {
+              "date": "2026-08-28",
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
+        },
+        {
+          "label": "^GSPTSE",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 36730.3008
+            },
+            {
+              "date": "2026-08-17",
+              "value": 36667.8984
+            },
+            {
+              "date": "2026-08-18",
+              "value": 36367.8984
+            },
+            {
+              "date": "2026-08-19",
+              "value": 36401.8008
+            },
+            {
+              "date": "2026-08-20",
+              "value": 36365.3984
+            },
+            {
+              "date": "2026-08-21",
+              "value": 36620.1992
+            },
+            {
+              "date": "2026-08-24",
+              "value": 36714.1016
+            },
+            {
+              "date": "2026-08-25",
+              "value": 36957.6016
+            },
+            {
+              "date": "2026-08-26",
+              "value": 36813.6992
+            },
+            {
+              "date": "2026-08-27",
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
+        },
+        {
+          "label": "GM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 86.5909
+            },
+            {
+              "date": "2026-08-17",
+              "value": 84.1959
+            },
+            {
+              "date": "2026-08-18",
+              "value": 83.5372
+            },
+            {
+              "date": "2026-08-19",
+              "value": 84.7847
+            },
+            {
+              "date": "2026-08-20",
+              "value": 85.9722
+            },
+            {
+              "date": "2026-08-21",
+              "value": 87.7485
+            },
+            {
+              "date": "2026-08-24",
+              "value": 86.8005
+            },
+            {
+              "date": "2026-08-25",
+              "value": 85.6329
+            },
+            {
+              "date": "2026-08-26",
+              "value": 86.1518
+            },
+            {
+              "date": "2026-08-27",
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GM"
+        }
+      ],
+      "event_date": "2026-08-22",
+      "event_date_source": "model"
     },
     "connections": [
       {
@@ -2121,8 +3418,718 @@
     "market_correlation": {
       "has_correlation": true,
       "explanation": "Umfassende Sanktionen gegen einen wichtigen Ölexporteur und die Blockade der Straße von Hormus haben direkte Auswirkungen auf globale Energiemärkte. Rohölpreise reagieren typischerweise sensibel auf Versorgungsunsicherheiten in dieser Region. Chinas Drohung mit möglichen Exportkontrollen für Seltene Erden könnte Technologieaktien belasten, da diese Materialien für Halbleiter und Batterien unverzichtbar sind. Der sinkende Wert der iranischen Währung reflektiert Kapitalflucht und Inflationserwartungen. Eskalationsrisiken in einem ölreichen Gebiet stützen tendenziell defensive Anlagen wie Gold.",
-      "note": "Einschätzung aus Allgemeinwissen über typische Marktreaktionen auf Sanktionen und Nahostkonflikte, keine tagesaktuellen Kursdaten",
-      "verified_live": false
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "verified_live": true,
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.5607,
+            "beta": -2.203,
+            "r2": 0.194,
+            "n_est": 120,
+            "resid_sd_pct": 4.065,
+            "n_post": 15,
+            "car_pct": 6.818,
+            "diff_pct": 7.31,
+            "t_stat": 0.43,
+            "points": [
+              {
+                "date": "2026-08-17",
+                "day": -5,
+                "actual": -1.41,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -4,
+                "actual": -1.248,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -3,
+                "actual": -0.597,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -2,
+                "actual": 1.747,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -1,
+                "actual": 2.409,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-25",
+                "day": 1,
+                "actual": -3.895,
+                "expected": -0.142
+              },
+              {
+                "date": "2026-08-26",
+                "day": 2,
+                "actual": -4.698,
+                "expected": 0.463
+              },
+              {
+                "date": "2026-08-27",
+                "day": 3,
+                "actual": -2.68,
+                "expected": -0.568
+              },
+              {
+                "date": "2026-08-28",
+                "day": 4,
+                "actual": -3.103,
+                "expected": 0.534
+              },
+              {
+                "date": "2026-08-31",
+                "day": 5,
+                "actual": -1.823,
+                "expected": 1.834
+              },
+              {
+                "date": "2026-09-01",
+                "day": 6,
+                "actual": 2.691,
+                "expected": 4.0
+              },
+              {
+                "date": "2026-09-02",
+                "day": 7,
+                "actual": 3.754,
+                "expected": 3.529
+              },
+              {
+                "date": "2026-09-03",
+                "day": 8,
+                "actual": 3.635,
+                "expected": 1.696
+              },
+              {
+                "date": "2026-09-04",
+                "day": 9,
+                "actual": 4.459,
+                "expected": 3.108
+              },
+              {
+                "date": "2026-09-08",
+                "day": 10,
+                "actual": 6.238,
+                "expected": 5.013
+              },
+              {
+                "date": "2026-09-09",
+                "day": 11,
+                "actual": 9.808,
+                "expected": 6.722
+              },
+              {
+                "date": "2026-09-10",
+                "day": 12,
+                "actual": 16.773,
+                "expected": 8.695
+              },
+              {
+                "date": "2026-09-11",
+                "day": 13,
+                "actual": 13.497,
+                "expected": 7.246
+              },
+              {
+                "date": "2026-09-14",
+                "day": 14,
+                "actual": 14.658,
+                "expected": 8.988
+              },
+              {
+                "date": "2026-09-15",
+                "day": 15,
+                "actual": 17.989,
+                "expected": 10.679
+              }
+            ],
+            "ticker": "BZ=F",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.1544,
+            "beta": 0.762,
+            "r2": 0.158,
+            "n_est": 120,
+            "resid_sd_pct": 1.596,
+            "n_post": 15,
+            "car_pct": -4.977,
+            "diff_pct": -4.828,
+            "t_stat": -0.8,
+            "points": [
+              {
+                "date": "2026-08-17",
+                "day": -5,
+                "actual": -4.77,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -4,
+                "actual": -5.901,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -3,
+                "actual": -3.246,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -2,
+                "actual": -2.691,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -1,
+                "actual": -0.366,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-25",
+                "day": 1,
+                "actual": -0.07,
+                "expected": 0.089
+              },
+              {
+                "date": "2026-08-26",
+                "day": 2,
+                "actual": -0.947,
+                "expected": -0.081
+              },
+              {
+                "date": "2026-08-27",
+                "day": 3,
+                "actual": -0.719,
+                "expected": 0.313
+              },
+              {
+                "date": "2026-08-28",
+                "day": 4,
+                "actual": -3.574,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-31",
+                "day": 5,
+                "actual": -4.604,
+                "expected": -0.44
+              },
+              {
+                "date": "2026-09-01",
+                "day": 6,
+                "actual": -6.416,
+                "expected": -1.133
+              },
+              {
+                "date": "2026-09-02",
+                "day": 7,
+                "actual": -6.028,
+                "expected": -0.939
+              },
+              {
+                "date": "2026-09-03",
+                "day": 8,
+                "actual": -3.361,
+                "expected": -0.293
+              },
+              {
+                "date": "2026-09-04",
+                "day": 9,
+                "actual": -4.709,
+                "expected": -0.732
+              },
+              {
+                "date": "2026-09-08",
+                "day": 10,
+                "actual": -5.509,
+                "expected": -1.328
+              },
+              {
+                "date": "2026-09-09",
+                "day": 11,
+                "actual": -5.047,
+                "expected": -1.844
+              },
+              {
+                "date": "2026-09-10",
+                "day": 12,
+                "actual": -6.184,
+                "expected": -2.434
+              },
+              {
+                "date": "2026-09-11",
+                "day": 13,
+                "actual": -6.15,
+                "expected": -1.945
+              },
+              {
+                "date": "2026-09-14",
+                "day": 14,
+                "actual": -7.363,
+                "expected": -2.457
+              },
+              {
+                "date": "2026-09-15",
+                "day": 15,
+                "actual": -7.77,
+                "expected": -2.942
+              }
+            ],
+            "ticker": "GC=F",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.1969,
+            "beta": -0.929,
+            "r2": 0.21,
+            "n_est": 120,
+            "resid_sd_pct": 1.635,
+            "n_post": 15,
+            "car_pct": -0.402,
+            "diff_pct": -0.583,
+            "t_stat": -0.06,
+            "points": [
+              {
+                "date": "2026-08-17",
+                "day": -5,
+                "actual": -1.579,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -4,
+                "actual": 0.92,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -3,
+                "actual": 0.439,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -2,
+                "actual": 1.28,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": -1,
+                "actual": 0.646,
+                "expected": null
+              },
+              {
+                "date": "2026-08-24",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-25",
+                "day": 1,
+                "actual": -2.079,
+                "expected": -0.1
+              },
+              {
+                "date": "2026-08-26",
+                "day": 2,
+                "actual": -3.572,
+                "expected": 0.116
+              },
+              {
+                "date": "2026-08-27",
+                "day": 3,
+                "actual": -4.639,
+                "expected": -0.357
+              },
+              {
+                "date": "2026-08-28",
+                "day": 4,
+                "actual": -4.474,
+                "expected": 0.07
+              },
+              {
+                "date": "2026-08-31",
+                "day": 5,
+                "actual": -1.89,
+                "expected": 0.576
+              },
+              {
+                "date": "2026-09-01",
+                "day": 6,
+                "actual": 0.305,
+                "expected": 1.439
+              },
+              {
+                "date": "2026-09-02",
+                "day": 7,
+                "actual": 0.061,
+                "expected": 1.205
+              },
+              {
+                "date": "2026-09-03",
+                "day": 8,
+                "actual": -1.122,
+                "expected": 0.409
+              },
+              {
+                "date": "2026-09-04",
+                "day": 9,
+                "actual": -2.792,
+                "expected": 0.957
+              },
+              {
+                "date": "2026-09-08",
+                "day": 10,
+                "actual": -2.066,
+                "expected": 1.704
+              },
+              {
+                "date": "2026-09-09",
+                "day": 11,
+                "actual": 0.11,
+                "expected": 2.362
+              },
+              {
+                "date": "2026-09-10",
+                "day": 12,
+                "actual": 0.719,
+                "expected": 3.12
+              },
+              {
+                "date": "2026-09-11",
+                "day": 13,
+                "actual": 1.183,
+                "expected": 2.499
+              },
+              {
+                "date": "2026-09-14",
+                "day": 14,
+                "actual": 0.628,
+                "expected": 3.161
+              },
+              {
+                "date": "2026-09-15",
+                "day": 15,
+                "actual": 3.212,
+                "expected": 3.795
+              }
+            ],
+            "ticker": "XOM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-25",
+        "event_date_source": "model"
+      },
+      "series": [
+        {
+          "label": "BZ=F",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-17",
+              "value": 90.87
+            },
+            {
+              "date": "2026-08-18",
+              "value": 91.02
+            },
+            {
+              "date": "2026-08-19",
+              "value": 91.62
+            },
+            {
+              "date": "2026-08-20",
+              "value": 93.78
+            },
+            {
+              "date": "2026-08-21",
+              "value": 94.39
+            },
+            {
+              "date": "2026-08-24",
+              "value": 92.17
+            },
+            {
+              "date": "2026-08-25",
+              "value": 88.58
+            },
+            {
+              "date": "2026-08-26",
+              "value": 87.84
+            },
+            {
+              "date": "2026-08-27",
+              "value": 89.7
+            },
+            {
+              "date": "2026-08-28",
+              "value": 89.31
+            },
+            {
+              "date": "2026-08-31",
+              "value": 90.49
+            },
+            {
+              "date": "2026-09-01",
+              "value": 94.65
+            },
+            {
+              "date": "2026-09-02",
+              "value": 95.63
+            },
+            {
+              "date": "2026-09-03",
+              "value": 95.52
+            },
+            {
+              "date": "2026-09-04",
+              "value": 96.28
+            },
+            {
+              "date": "2026-09-08",
+              "value": 97.92
+            },
+            {
+              "date": "2026-09-09",
+              "value": 101.21
+            },
+            {
+              "date": "2026-09-10",
+              "value": 107.63
+            },
+            {
+              "date": "2026-09-11",
+              "value": 104.61
+            },
+            {
+              "date": "2026-09-14",
+              "value": 105.68
+            },
+            {
+              "date": "2026-09-15",
+              "value": 108.75
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/BZ=F"
+        },
+        {
+          "label": "GC=F",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-17",
+              "value": 4473.7002
+            },
+            {
+              "date": "2026-08-18",
+              "value": 4420.6001
+            },
+            {
+              "date": "2026-08-19",
+              "value": 4545.2998
+            },
+            {
+              "date": "2026-08-20",
+              "value": 4571.3999
+            },
+            {
+              "date": "2026-08-21",
+              "value": 4680.6001
+            },
+            {
+              "date": "2026-08-24",
+              "value": 4697.7998
+            },
+            {
+              "date": "2026-08-25",
+              "value": 4694.5
+            },
+            {
+              "date": "2026-08-26",
+              "value": 4653.2998
+            },
+            {
+              "date": "2026-08-27",
+              "value": 4664.0
+            },
+            {
+              "date": "2026-08-28",
+              "value": 4529.8999
+            },
+            {
+              "date": "2026-08-31",
+              "value": 4481.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 4396.3999
+            },
+            {
+              "date": "2026-09-02",
+              "value": 4414.6001
+            },
+            {
+              "date": "2026-09-03",
+              "value": 4539.8999
+            },
+            {
+              "date": "2026-09-04",
+              "value": 4476.6001
+            },
+            {
+              "date": "2026-09-08",
+              "value": 4439.0
+            },
+            {
+              "date": "2026-09-09",
+              "value": 4460.7002
+            },
+            {
+              "date": "2026-09-10",
+              "value": 4407.2998
+            },
+            {
+              "date": "2026-09-11",
+              "value": 4408.8999
+            },
+            {
+              "date": "2026-09-14",
+              "value": 4351.8999
+            },
+            {
+              "date": "2026-09-15",
+              "value": 4332.7998
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GC=F"
+        },
+        {
+          "label": "XOM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-17",
+              "value": 160.4473
+            },
+            {
+              "date": "2026-08-18",
+              "value": 164.5215
+            },
+            {
+              "date": "2026-08-19",
+              "value": 163.7365
+            },
+            {
+              "date": "2026-08-20",
+              "value": 165.1078
+            },
+            {
+              "date": "2026-08-21",
+              "value": 164.0744
+            },
+            {
+              "date": "2026-08-24",
+              "value": 163.021
+            },
+            {
+              "date": "2026-08-25",
+              "value": 159.6324
+            },
+            {
+              "date": "2026-08-26",
+              "value": 157.1978
+            },
+            {
+              "date": "2026-08-27",
+              "value": 155.4588
+            },
+            {
+              "date": "2026-08-28",
+              "value": 155.7271
+            },
+            {
+              "date": "2026-08-31",
+              "value": 159.9405
+            },
+            {
+              "date": "2026-09-01",
+              "value": 163.5179
+            },
+            {
+              "date": "2026-09-02",
+              "value": 163.1204
+            },
+            {
+              "date": "2026-09-03",
+              "value": 161.1926
+            },
+            {
+              "date": "2026-09-04",
+              "value": 158.4697
+            },
+            {
+              "date": "2026-09-08",
+              "value": 159.6523
+            },
+            {
+              "date": "2026-09-09",
+              "value": 163.1999
+            },
+            {
+              "date": "2026-09-10",
+              "value": 164.1936
+            },
+            {
+              "date": "2026-09-11",
+              "value": 164.9489
+            },
+            {
+              "date": "2026-09-14",
+              "value": 164.0446
+            },
+            {
+              "date": "2026-09-15",
+              "value": 168.258
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/XOM"
+        }
+      ],
+      "event_date": "2026-08-25",
+      "event_date_source": "model"
     },
     "connections": [
       {
@@ -2756,8 +4763,718 @@
     "market_correlation": {
       "has_correlation": true,
       "explanation": "Ein eskalierender Handelskrieg zwischen den USA und Kanada hat erhebliche Auswirkungen auf mehrere Marktsegmente. Die nordamerikanische Automobilindustrie ist direkt betroffen, da 50%-Zölle auf Fahrzeuge und Komponenten die Produktionskosten drastisch erhöhen und die stark integrierten Lieferketten stören würden, was Aktien von Automobilherstellern und Zulieferern belastet. Der kanadische Dollar dürfte unter Druck geraten, da Handelsunsicherheit Kapitalabflüsse auslöst. Energiemärkte könnten volatil reagieren, insbesondere wenn Kanadas Drohung, Stromlieferungen zu kürzen, umgesetzt wird, was regionale Strompreise beeinflussen würde. Stahl- und Aluminiumpreise in Nordamerika könnten durch die angekündigten Zölle steigen. Anleihen könnten als sicherer Hafen profitieren, wenn Investoren wirtschaftliche Instabilität erwarten.",
-      "note": "Diese Einschätzung basiert auf allgemeinem Wissen über typische Marktreaktionen auf Handelskonflikte, nicht auf aktuellen Kursdaten.",
-      "verified_live": false
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "verified_live": true,
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0263,
+            "beta": 0.021,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 0.256,
+            "n_post": 15,
+            "car_pct": -0.205,
+            "diff_pct": -0.209,
+            "t_stat": -0.21,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.046,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -0.652,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.637,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.838,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.21,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.083,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -0.429,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.396,
+                "expected": -0.079
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.675,
+                "expected": -0.09
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.506,
+                "expected": -0.121
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.847,
+                "expected": -0.154
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.502,
+                "expected": -0.196
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.811,
+                "expected": -0.212
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.459,
+                "expected": -0.216
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.059,
+                "expected": -0.25
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -0.17,
+                "expected": -0.289
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 0.028,
+                "expected": -0.325
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -0.17,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -0.39,
+                "expected": -0.372
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.617,
+                "expected": -0.408
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0122,
+            "beta": 0.688,
+            "r2": 0.512,
+            "n_est": 120,
+            "resid_sd_pct": 0.634,
+            "n_post": 15,
+            "car_pct": -2.201,
+            "diff_pct": -2.205,
+            "t_stat": -0.9,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": 0.301,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": 0.13,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.689,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.696,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.256,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.921,
+                "expected": 0.051
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": 0.528,
+                "expected": 0.049
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": 0.585,
+                "expected": 0.557
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.181,
+                "expected": 0.397
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.955,
+                "expected": 0.18
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.17,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -1.443,
+                "expected": 0.029
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 0.035,
+                "expected": 0.77
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.291,
+                "expected": 0.521
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -1.357,
+                "expected": 0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -1.949,
+                "expected": -0.192
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -3.042,
+                "expected": -0.581
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.52,
+                "expected": 0.019
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -2.506,
+                "expected": -0.301
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.05,
+            "beta": 1.276,
+            "r2": 0.303,
+            "n_est": 120,
+            "resid_sd_pct": 1.752,
+            "n_post": 15,
+            "car_pct": 1.13,
+            "diff_pct": 0.982,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.319,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -4.799,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -3.378,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.024,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -1.08,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.411,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -1.82,
+                "expected": -0.128
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -1.99,
+                "expected": 0.739
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -1.888,
+                "expected": 0.369
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -1.831,
+                "expected": -0.106
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.616,
+                "expected": -1.062
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -3.48,
+                "expected": -0.531
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.807,
+                "expected": 0.762
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 0.013,
+                "expected": 0.228
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.232,
+                "expected": -0.569
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.545,
+                "expected": -1.232
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -1.856,
+                "expected": -2.019
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.426,
+                "expected": -0.993
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.671,
+                "expected": -1.653
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-22",
+        "event_date_source": "model"
+      },
+      "series": [
+        {
+          "label": "CADUSD=X",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 0.718
+            },
+            {
+              "date": "2026-08-17",
+              "value": 0.7209
+            },
+            {
+              "date": "2026-08-18",
+              "value": 0.721
+            },
+            {
+              "date": "2026-08-19",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-08-20",
+              "value": 0.7241
+            },
+            {
+              "date": "2026-08-21",
+              "value": 0.7256
+            },
+            {
+              "date": "2026-08-24",
+              "value": 0.725
+            },
+            {
+              "date": "2026-08-25",
+              "value": 0.7225
+            },
+            {
+              "date": "2026-08-26",
+              "value": 0.7227
+            },
+            {
+              "date": "2026-08-27",
+              "value": 0.7207
+            },
+            {
+              "date": "2026-08-28",
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
+        },
+        {
+          "label": "^GSPTSE",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 36730.3008
+            },
+            {
+              "date": "2026-08-17",
+              "value": 36667.8984
+            },
+            {
+              "date": "2026-08-18",
+              "value": 36367.8984
+            },
+            {
+              "date": "2026-08-19",
+              "value": 36401.8008
+            },
+            {
+              "date": "2026-08-20",
+              "value": 36365.3984
+            },
+            {
+              "date": "2026-08-21",
+              "value": 36620.1992
+            },
+            {
+              "date": "2026-08-24",
+              "value": 36714.1016
+            },
+            {
+              "date": "2026-08-25",
+              "value": 36957.6016
+            },
+            {
+              "date": "2026-08-26",
+              "value": 36813.6992
+            },
+            {
+              "date": "2026-08-27",
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
+        },
+        {
+          "label": "GM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 86.5909
+            },
+            {
+              "date": "2026-08-17",
+              "value": 84.1959
+            },
+            {
+              "date": "2026-08-18",
+              "value": 83.5372
+            },
+            {
+              "date": "2026-08-19",
+              "value": 84.7847
+            },
+            {
+              "date": "2026-08-20",
+              "value": 85.9722
+            },
+            {
+              "date": "2026-08-21",
+              "value": 87.7485
+            },
+            {
+              "date": "2026-08-24",
+              "value": 86.8005
+            },
+            {
+              "date": "2026-08-25",
+              "value": 85.6329
+            },
+            {
+              "date": "2026-08-26",
+              "value": 86.1518
+            },
+            {
+              "date": "2026-08-27",
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GM"
+        }
+      ],
+      "event_date": "2026-08-22",
+      "event_date_source": "model"
     },
     "connections": [
       {
@@ -3460,7 +6177,722 @@
       "https://www.cbsnews.com/live-updates/iran-war-us-trump-sanctions-strait-of-hormuz/"
     ],
     "primary_sources": [],
-    "market_correlation": null,
+    "market_correlation": {
+      "has_correlation": true,
+      "explanation": "Weitreichende US-Sanktionen gegen Iran und die angedrohte Blockade von Ölexporten aus der Golfregion betreffen direkt den Ölpreis (Brent), Gold als Krisenanlage und Energiekonzerne wie ExxonMobil. Märkte reagieren auf Angebotsrisiken im Ölhandel oft schon auf Drohungen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob und wie stark das tatsächlich passierte.",
+      "series": [
+        {
+          "label": "BZ=F",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 88.52
+            },
+            {
+              "date": "2026-08-17",
+              "value": 90.87
+            },
+            {
+              "date": "2026-08-18",
+              "value": 91.02
+            },
+            {
+              "date": "2026-08-19",
+              "value": 91.62
+            },
+            {
+              "date": "2026-08-20",
+              "value": 93.78
+            },
+            {
+              "date": "2026-08-21",
+              "value": 94.39
+            },
+            {
+              "date": "2026-08-24",
+              "value": 92.17
+            },
+            {
+              "date": "2026-08-25",
+              "value": 88.58
+            },
+            {
+              "date": "2026-08-26",
+              "value": 87.84
+            },
+            {
+              "date": "2026-08-27",
+              "value": 89.7
+            },
+            {
+              "date": "2026-08-28",
+              "value": 89.31
+            },
+            {
+              "date": "2026-08-31",
+              "value": 90.49
+            },
+            {
+              "date": "2026-09-01",
+              "value": 94.65
+            },
+            {
+              "date": "2026-09-02",
+              "value": 95.63
+            },
+            {
+              "date": "2026-09-03",
+              "value": 95.52
+            },
+            {
+              "date": "2026-09-04",
+              "value": 96.28
+            },
+            {
+              "date": "2026-09-08",
+              "value": 97.92
+            },
+            {
+              "date": "2026-09-09",
+              "value": 101.21
+            },
+            {
+              "date": "2026-09-10",
+              "value": 107.63
+            },
+            {
+              "date": "2026-09-11",
+              "value": 104.61
+            },
+            {
+              "date": "2026-09-14",
+              "value": 105.68
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/BZ=F"
+        },
+        {
+          "label": "GC=F",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 4437.2998
+            },
+            {
+              "date": "2026-08-17",
+              "value": 4473.7002
+            },
+            {
+              "date": "2026-08-18",
+              "value": 4420.6001
+            },
+            {
+              "date": "2026-08-19",
+              "value": 4545.2998
+            },
+            {
+              "date": "2026-08-20",
+              "value": 4571.3999
+            },
+            {
+              "date": "2026-08-21",
+              "value": 4680.6001
+            },
+            {
+              "date": "2026-08-24",
+              "value": 4697.7998
+            },
+            {
+              "date": "2026-08-25",
+              "value": 4694.5
+            },
+            {
+              "date": "2026-08-26",
+              "value": 4653.2998
+            },
+            {
+              "date": "2026-08-27",
+              "value": 4664.0
+            },
+            {
+              "date": "2026-08-28",
+              "value": 4529.8999
+            },
+            {
+              "date": "2026-08-31",
+              "value": 4481.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 4396.3999
+            },
+            {
+              "date": "2026-09-02",
+              "value": 4414.6001
+            },
+            {
+              "date": "2026-09-03",
+              "value": 4539.8999
+            },
+            {
+              "date": "2026-09-04",
+              "value": 4476.6001
+            },
+            {
+              "date": "2026-09-08",
+              "value": 4439.0
+            },
+            {
+              "date": "2026-09-09",
+              "value": 4460.7002
+            },
+            {
+              "date": "2026-09-10",
+              "value": 4407.2998
+            },
+            {
+              "date": "2026-09-11",
+              "value": 4408.8999
+            },
+            {
+              "date": "2026-09-14",
+              "value": 4351.8999
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GC=F"
+        },
+        {
+          "label": "XOM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 158.0723
+            },
+            {
+              "date": "2026-08-17",
+              "value": 160.4473
+            },
+            {
+              "date": "2026-08-18",
+              "value": 164.5215
+            },
+            {
+              "date": "2026-08-19",
+              "value": 163.7365
+            },
+            {
+              "date": "2026-08-20",
+              "value": 165.1078
+            },
+            {
+              "date": "2026-08-21",
+              "value": 164.0744
+            },
+            {
+              "date": "2026-08-24",
+              "value": 163.021
+            },
+            {
+              "date": "2026-08-25",
+              "value": 159.6324
+            },
+            {
+              "date": "2026-08-26",
+              "value": 157.1978
+            },
+            {
+              "date": "2026-08-27",
+              "value": 155.4588
+            },
+            {
+              "date": "2026-08-28",
+              "value": 155.7271
+            },
+            {
+              "date": "2026-08-31",
+              "value": 159.9405
+            },
+            {
+              "date": "2026-09-01",
+              "value": 163.5179
+            },
+            {
+              "date": "2026-09-02",
+              "value": 163.1204
+            },
+            {
+              "date": "2026-09-03",
+              "value": 161.1926
+            },
+            {
+              "date": "2026-09-04",
+              "value": 158.4697
+            },
+            {
+              "date": "2026-09-08",
+              "value": 159.6523
+            },
+            {
+              "date": "2026-09-09",
+              "value": 163.1999
+            },
+            {
+              "date": "2026-09-10",
+              "value": 164.1936
+            },
+            {
+              "date": "2026-09-11",
+              "value": 164.9489
+            },
+            {
+              "date": "2026-09-14",
+              "value": 164.0446
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/XOM"
+        }
+      ],
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.5172,
+            "beta": -2.195,
+            "r2": 0.195,
+            "n_est": 120,
+            "resid_sd_pct": 4.046,
+            "n_post": 15,
+            "car_pct": 2.592,
+            "diff_pct": 2.406,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -6.219,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -3.729,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -3.57,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -2.935,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.646,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -2.352,
+                "expected": 1.132
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -6.155,
+                "expected": 0.947
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -6.939,
+                "expected": 1.515
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -4.969,
+                "expected": 0.434
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -5.382,
+                "expected": 1.502
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -4.132,
+                "expected": 2.767
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": 0.275,
+                "expected": 4.904
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": 1.314,
+                "expected": 4.386
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 1.197,
+                "expected": 2.501
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 2.002,
+                "expected": 3.877
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": 3.74,
+                "expected": 5.746
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 7.225,
+                "expected": 7.417
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": 14.027,
+                "expected": 9.352
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": 10.827,
+                "expected": 7.853
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": 11.961,
+                "expected": 9.555
+              }
+            ],
+            "ticker": "BZ=F",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.1825,
+            "beta": 0.764,
+            "r2": 0.155,
+            "n_est": 120,
+            "resid_sd_pct": 1.614,
+            "n_post": 15,
+            "car_pct": -3.876,
+            "diff_pct": -3.795,
+            "t_stat": -0.62,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -5.198,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.42,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -5.555,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -2.891,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.333,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.367,
+                "expected": -0.397
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.297,
+                "expected": -0.336
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.583,
+                "expected": -0.533
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.355,
+                "expected": -0.168
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -3.22,
+                "expected": -0.54
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -4.254,
+                "expected": -0.973
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -6.072,
+                "expected": -1.692
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -5.683,
+                "expected": -1.526
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -3.006,
+                "expected": -0.91
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -4.358,
+                "expected": -1.375
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -5.162,
+                "expected": -1.995
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.698,
+                "expected": -2.537
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -5.839,
+                "expected": -3.15
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -5.805,
+                "expected": -2.691
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -7.023,
+                "expected": -3.227
+              }
+            ],
+            "ticker": "GC=F",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.148,
+            "beta": -0.922,
+            "r2": 0.215,
+            "n_est": 120,
+            "resid_sd_pct": 1.595,
+            "n_post": 15,
+            "car_pct": -2.716,
+            "diff_pct": -2.889,
+            "t_stat": -0.44,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -3.658,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -2.211,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": 0.273,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.206,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": 0.63,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.642,
+                "expected": 0.406
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.707,
+                "expected": 0.26
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -4.191,
+                "expected": 0.427
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -5.251,
+                "expected": -0.092
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -5.088,
+                "expected": 0.285
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -2.52,
+                "expected": 0.741
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.339,
+                "expected": 1.551
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.581,
+                "expected": 1.27
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -1.756,
+                "expected": 0.432
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -3.416,
+                "expected": 0.928
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.695,
+                "expected": 1.621
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -0.533,
+                "expected": 2.225
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": 0.073,
+                "expected": 2.928
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": 0.533,
+                "expected": 2.264
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.018,
+                "expected": 2.871
+              }
+            ],
+            "ticker": "XOM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-24",
+        "event_date_source": "story_date"
+      },
+      "event_date": "2026-08-24",
+      "event_date_source": "story_date",
+      "verified_live": true
+    },
     "_pipeline_meta": {
       "model": "claude-sonnet-4-5",
       "research_depth": "lite",
@@ -3756,7 +7188,722 @@
       "https://www.theguardian.com/us-news/2026/aug/24/canada-tariff-increase-trump-auto"
     ],
     "primary_sources": [],
-    "market_correlation": null,
+    "market_correlation": {
+      "has_correlation": true,
+      "explanation": "Höhere US-Zölle auf kanadische Fahrzeuge und Stahl treffen die eng verflochtene nordamerikanische Autoindustrie: Der kanadische Dollar und kanadische Exportwerte stehen unter Druck, US-Hersteller wie General Motors mit Produktion in Kanada könnten höhere Kosten haben. Der Starttermin liegt erst im Jahr 2027, die Märkte können das aber schon heute einpreisen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob das tatsächlich geschah.",
+      "series": [
+        {
+          "label": "CADUSD=X",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 0.718
+            },
+            {
+              "date": "2026-08-17",
+              "value": 0.7209
+            },
+            {
+              "date": "2026-08-18",
+              "value": 0.721
+            },
+            {
+              "date": "2026-08-19",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-08-20",
+              "value": 0.7241
+            },
+            {
+              "date": "2026-08-21",
+              "value": 0.7256
+            },
+            {
+              "date": "2026-08-24",
+              "value": 0.725
+            },
+            {
+              "date": "2026-08-25",
+              "value": 0.7225
+            },
+            {
+              "date": "2026-08-26",
+              "value": 0.7227
+            },
+            {
+              "date": "2026-08-27",
+              "value": 0.7207
+            },
+            {
+              "date": "2026-08-28",
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
+        },
+        {
+          "label": "^GSPTSE",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 36730.3008
+            },
+            {
+              "date": "2026-08-17",
+              "value": 36667.8984
+            },
+            {
+              "date": "2026-08-18",
+              "value": 36367.8984
+            },
+            {
+              "date": "2026-08-19",
+              "value": 36401.8008
+            },
+            {
+              "date": "2026-08-20",
+              "value": 36365.3984
+            },
+            {
+              "date": "2026-08-21",
+              "value": 36620.1992
+            },
+            {
+              "date": "2026-08-24",
+              "value": 36714.1016
+            },
+            {
+              "date": "2026-08-25",
+              "value": 36957.6016
+            },
+            {
+              "date": "2026-08-26",
+              "value": 36813.6992
+            },
+            {
+              "date": "2026-08-27",
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
+        },
+        {
+          "label": "GM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 86.5909
+            },
+            {
+              "date": "2026-08-17",
+              "value": 84.1959
+            },
+            {
+              "date": "2026-08-18",
+              "value": 83.5372
+            },
+            {
+              "date": "2026-08-19",
+              "value": 84.7847
+            },
+            {
+              "date": "2026-08-20",
+              "value": 85.9722
+            },
+            {
+              "date": "2026-08-21",
+              "value": 87.7485
+            },
+            {
+              "date": "2026-08-24",
+              "value": 86.8005
+            },
+            {
+              "date": "2026-08-25",
+              "value": 85.6329
+            },
+            {
+              "date": "2026-08-26",
+              "value": 86.1518
+            },
+            {
+              "date": "2026-08-27",
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GM"
+        }
+      ],
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0263,
+            "beta": 0.021,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 0.256,
+            "n_post": 15,
+            "car_pct": -0.205,
+            "diff_pct": -0.209,
+            "t_stat": -0.21,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.046,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -0.652,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.637,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.838,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.21,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.083,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -0.429,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.396,
+                "expected": -0.079
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.675,
+                "expected": -0.09
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.506,
+                "expected": -0.121
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.847,
+                "expected": -0.154
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.502,
+                "expected": -0.196
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.811,
+                "expected": -0.212
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.459,
+                "expected": -0.216
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.059,
+                "expected": -0.25
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -0.17,
+                "expected": -0.289
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 0.028,
+                "expected": -0.325
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -0.17,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -0.39,
+                "expected": -0.372
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.617,
+                "expected": -0.408
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0122,
+            "beta": 0.688,
+            "r2": 0.512,
+            "n_est": 120,
+            "resid_sd_pct": 0.634,
+            "n_post": 15,
+            "car_pct": -2.201,
+            "diff_pct": -2.205,
+            "t_stat": -0.9,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": 0.301,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": 0.13,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.689,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.696,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.256,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.921,
+                "expected": 0.051
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": 0.528,
+                "expected": 0.049
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": 0.585,
+                "expected": 0.557
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.181,
+                "expected": 0.397
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.955,
+                "expected": 0.18
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.17,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -1.443,
+                "expected": 0.029
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 0.035,
+                "expected": 0.77
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.291,
+                "expected": 0.521
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -1.357,
+                "expected": 0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -1.949,
+                "expected": -0.192
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -3.042,
+                "expected": -0.581
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.52,
+                "expected": 0.019
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -2.506,
+                "expected": -0.301
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.05,
+            "beta": 1.276,
+            "r2": 0.303,
+            "n_est": 120,
+            "resid_sd_pct": 1.752,
+            "n_post": 15,
+            "car_pct": 1.13,
+            "diff_pct": 0.982,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.319,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -4.799,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -3.378,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.024,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -1.08,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.411,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -1.82,
+                "expected": -0.128
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -1.99,
+                "expected": 0.739
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -1.888,
+                "expected": 0.369
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -1.831,
+                "expected": -0.106
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.616,
+                "expected": -1.062
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -3.48,
+                "expected": -0.531
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.807,
+                "expected": 0.762
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 0.013,
+                "expected": 0.228
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.232,
+                "expected": -0.569
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.545,
+                "expected": -1.232
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -1.856,
+                "expected": -2.019
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.426,
+                "expected": -0.993
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.671,
+                "expected": -1.653
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-24",
+        "event_date_source": "story_date"
+      },
+      "event_date": "2026-08-24",
+      "event_date_source": "story_date",
+      "verified_live": true
+    },
     "_pipeline_meta": {
       "model": "claude-sonnet-4-5",
       "research_depth": "lite",
@@ -4294,7 +8441,722 @@
       "https://www.theguardian.com/us-news/2026/aug/23/donald-trump-lashes-out-after-us-canada-talks-devolve-into-trade-war"
     ],
     "primary_sources": [],
-    "market_correlation": null,
+    "market_correlation": {
+      "has_correlation": true,
+      "explanation": "Die 50-Prozent-Zölle auf kanadische Waren im Wert von rund 20 Milliarden Dollar und die angekündigten Gegenzölle belasten typischerweise den kanadischen Dollar und kanadische Exporteure. Exponiert sind außerdem der kanadische Leitindex (S&P/TSX) und US-Autohersteller wie General Motors, deren Lieferketten über die Grenze laufen. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten.",
+      "series": [
+        {
+          "label": "CADUSD=X",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 0.718
+            },
+            {
+              "date": "2026-08-17",
+              "value": 0.7209
+            },
+            {
+              "date": "2026-08-18",
+              "value": 0.721
+            },
+            {
+              "date": "2026-08-19",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-08-20",
+              "value": 0.7241
+            },
+            {
+              "date": "2026-08-21",
+              "value": 0.7256
+            },
+            {
+              "date": "2026-08-24",
+              "value": 0.725
+            },
+            {
+              "date": "2026-08-25",
+              "value": 0.7225
+            },
+            {
+              "date": "2026-08-26",
+              "value": 0.7227
+            },
+            {
+              "date": "2026-08-27",
+              "value": 0.7207
+            },
+            {
+              "date": "2026-08-28",
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
+        },
+        {
+          "label": "^GSPTSE",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 36730.3008
+            },
+            {
+              "date": "2026-08-17",
+              "value": 36667.8984
+            },
+            {
+              "date": "2026-08-18",
+              "value": 36367.8984
+            },
+            {
+              "date": "2026-08-19",
+              "value": 36401.8008
+            },
+            {
+              "date": "2026-08-20",
+              "value": 36365.3984
+            },
+            {
+              "date": "2026-08-21",
+              "value": 36620.1992
+            },
+            {
+              "date": "2026-08-24",
+              "value": 36714.1016
+            },
+            {
+              "date": "2026-08-25",
+              "value": 36957.6016
+            },
+            {
+              "date": "2026-08-26",
+              "value": 36813.6992
+            },
+            {
+              "date": "2026-08-27",
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
+        },
+        {
+          "label": "GM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 86.5909
+            },
+            {
+              "date": "2026-08-17",
+              "value": 84.1959
+            },
+            {
+              "date": "2026-08-18",
+              "value": 83.5372
+            },
+            {
+              "date": "2026-08-19",
+              "value": 84.7847
+            },
+            {
+              "date": "2026-08-20",
+              "value": 85.9722
+            },
+            {
+              "date": "2026-08-21",
+              "value": 87.7485
+            },
+            {
+              "date": "2026-08-24",
+              "value": 86.8005
+            },
+            {
+              "date": "2026-08-25",
+              "value": 85.6329
+            },
+            {
+              "date": "2026-08-26",
+              "value": 86.1518
+            },
+            {
+              "date": "2026-08-27",
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GM"
+        }
+      ],
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0263,
+            "beta": 0.021,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 0.256,
+            "n_post": 15,
+            "car_pct": -0.205,
+            "diff_pct": -0.209,
+            "t_stat": -0.21,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.046,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -0.652,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.637,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.838,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.21,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.083,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -0.429,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.396,
+                "expected": -0.079
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.675,
+                "expected": -0.09
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.506,
+                "expected": -0.121
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.847,
+                "expected": -0.154
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.502,
+                "expected": -0.196
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.811,
+                "expected": -0.212
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.459,
+                "expected": -0.216
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.059,
+                "expected": -0.25
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -0.17,
+                "expected": -0.289
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 0.028,
+                "expected": -0.325
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -0.17,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -0.39,
+                "expected": -0.372
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.617,
+                "expected": -0.408
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0122,
+            "beta": 0.688,
+            "r2": 0.512,
+            "n_est": 120,
+            "resid_sd_pct": 0.634,
+            "n_post": 15,
+            "car_pct": -2.201,
+            "diff_pct": -2.205,
+            "t_stat": -0.9,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": 0.301,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": 0.13,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.689,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.696,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.256,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.921,
+                "expected": 0.051
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": 0.528,
+                "expected": 0.049
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": 0.585,
+                "expected": 0.557
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.181,
+                "expected": 0.397
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.955,
+                "expected": 0.18
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.17,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -1.443,
+                "expected": 0.029
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 0.035,
+                "expected": 0.77
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.291,
+                "expected": 0.521
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -1.357,
+                "expected": 0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -1.949,
+                "expected": -0.192
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -3.042,
+                "expected": -0.581
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.52,
+                "expected": 0.019
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -2.506,
+                "expected": -0.301
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.05,
+            "beta": 1.276,
+            "r2": 0.303,
+            "n_est": 120,
+            "resid_sd_pct": 1.752,
+            "n_post": 15,
+            "car_pct": 1.13,
+            "diff_pct": 0.982,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.319,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -4.799,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -3.378,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.024,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -1.08,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.411,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -1.82,
+                "expected": -0.128
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -1.99,
+                "expected": 0.739
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -1.888,
+                "expected": 0.369
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -1.831,
+                "expected": -0.106
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.616,
+                "expected": -1.062
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -3.48,
+                "expected": -0.531
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.807,
+                "expected": 0.762
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 0.013,
+                "expected": 0.228
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.232,
+                "expected": -0.569
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.545,
+                "expected": -1.232
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -1.856,
+                "expected": -2.019
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.426,
+                "expected": -0.993
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.671,
+                "expected": -1.653
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-22",
+        "event_date_source": "model"
+      },
+      "event_date": "2026-08-22",
+      "event_date_source": "model",
+      "verified_live": true
+    },
     "_pipeline_meta": {
       "model": "claude-sonnet-4-5",
       "research_depth": "lite",
@@ -4565,7 +9427,722 @@
       "https://www.nytimes.com/2026/08/23/world/canada/canada-us-trade-war-trump-carney.html"
     ],
     "primary_sources": [],
-    "market_correlation": null,
+    "market_correlation": {
+      "has_correlation": true,
+      "explanation": "Mit den 50-Prozent-Zöllen auf kanadische Güter und der angekündigten Vergeltung Ottawas steigt der Druck auf den kanadischen Dollar und auf Unternehmen, die stark vom Export in die USA abhängen. Betroffen sein können der kanadische Leitindex (S&P/TSX) und Autohersteller mit grenzüberschreitenden Lieferketten wie General Motors. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten.",
+      "series": [
+        {
+          "label": "CADUSD=X",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 0.718
+            },
+            {
+              "date": "2026-08-17",
+              "value": 0.7209
+            },
+            {
+              "date": "2026-08-18",
+              "value": 0.721
+            },
+            {
+              "date": "2026-08-19",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-08-20",
+              "value": 0.7241
+            },
+            {
+              "date": "2026-08-21",
+              "value": 0.7256
+            },
+            {
+              "date": "2026-08-24",
+              "value": 0.725
+            },
+            {
+              "date": "2026-08-25",
+              "value": 0.7225
+            },
+            {
+              "date": "2026-08-26",
+              "value": 0.7227
+            },
+            {
+              "date": "2026-08-27",
+              "value": 0.7207
+            },
+            {
+              "date": "2026-08-28",
+              "value": 0.7219
+            },
+            {
+              "date": "2026-08-31",
+              "value": 0.7195
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.722
+            },
+            {
+              "date": "2026-09-02",
+              "value": 0.7197
+            },
+            {
+              "date": "2026-09-03",
+              "value": 0.7223
+            },
+            {
+              "date": "2026-09-04",
+              "value": 0.7252
+            },
+            {
+              "date": "2026-09-08",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-09",
+              "value": 0.7258
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.7244
+            },
+            {
+              "date": "2026-09-11",
+              "value": 0.7228
+            },
+            {
+              "date": "2026-09-14",
+              "value": 0.7211
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/CADUSD=X"
+        },
+        {
+          "label": "^GSPTSE",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 36730.3008
+            },
+            {
+              "date": "2026-08-17",
+              "value": 36667.8984
+            },
+            {
+              "date": "2026-08-18",
+              "value": 36367.8984
+            },
+            {
+              "date": "2026-08-19",
+              "value": 36401.8008
+            },
+            {
+              "date": "2026-08-20",
+              "value": 36365.3984
+            },
+            {
+              "date": "2026-08-21",
+              "value": 36620.1992
+            },
+            {
+              "date": "2026-08-24",
+              "value": 36714.1016
+            },
+            {
+              "date": "2026-08-25",
+              "value": 36957.6016
+            },
+            {
+              "date": "2026-08-26",
+              "value": 36813.6992
+            },
+            {
+              "date": "2026-08-27",
+              "value": 36834.3008
+            },
+            {
+              "date": "2026-08-28",
+              "value": 36553.8984
+            },
+            {
+              "date": "2026-08-31",
+              "value": 36270.5
+            },
+            {
+              "date": "2026-09-01",
+              "value": 35825.6992
+            },
+            {
+              "date": "2026-09-02",
+              "value": 36091.6016
+            },
+            {
+              "date": "2026-09-03",
+              "value": 36633.1016
+            },
+            {
+              "date": "2026-09-04",
+              "value": 36513.8008
+            },
+            {
+              "date": "2026-09-08",
+              "value": 36123.1016
+            },
+            {
+              "date": "2026-09-09",
+              "value": 35906.6016
+            },
+            {
+              "date": "2026-09-10",
+              "value": 35506.3008
+            },
+            {
+              "date": "2026-09-11",
+              "value": 35697.5
+            },
+            {
+              "date": "2026-09-14",
+              "value": 35702.5
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/^GSPTSE"
+        },
+        {
+          "label": "GM",
+          "raw_unit": "",
+          "points": [
+            {
+              "date": "2026-08-14",
+              "value": 86.5909
+            },
+            {
+              "date": "2026-08-17",
+              "value": 84.1959
+            },
+            {
+              "date": "2026-08-18",
+              "value": 83.5372
+            },
+            {
+              "date": "2026-08-19",
+              "value": 84.7847
+            },
+            {
+              "date": "2026-08-20",
+              "value": 85.9722
+            },
+            {
+              "date": "2026-08-21",
+              "value": 87.7485
+            },
+            {
+              "date": "2026-08-24",
+              "value": 86.8005
+            },
+            {
+              "date": "2026-08-25",
+              "value": 85.6329
+            },
+            {
+              "date": "2026-08-26",
+              "value": 86.1518
+            },
+            {
+              "date": "2026-08-27",
+              "value": 86.0021
+            },
+            {
+              "date": "2026-08-28",
+              "value": 86.092
+            },
+            {
+              "date": "2026-08-31",
+              "value": 86.1419
+            },
+            {
+              "date": "2026-09-01",
+              "value": 85.4533
+            },
+            {
+              "date": "2026-09-02",
+              "value": 84.6949
+            },
+            {
+              "date": "2026-09-03",
+              "value": 87.04
+            },
+            {
+              "date": "2026-09-04",
+              "value": 87.76
+            },
+            {
+              "date": "2026-09-08",
+              "value": 85.79
+            },
+            {
+              "date": "2026-09-09",
+              "value": 83.76
+            },
+            {
+              "date": "2026-09-10",
+              "value": 86.12
+            },
+            {
+              "date": "2026-09-11",
+              "value": 85.62
+            },
+            {
+              "date": "2026-09-14",
+              "value": 87.16
+            }
+          ],
+          "source_url": "https://finance.yahoo.com/quote/GM"
+        }
+      ],
+      "note": "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance).",
+      "event_study": {
+        "benchmark": "^GSPC",
+        "assets": [
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.0263,
+            "beta": 0.021,
+            "r2": 0.006,
+            "n_est": 120,
+            "resid_sd_pct": 0.256,
+            "n_post": 15,
+            "car_pct": -0.205,
+            "diff_pct": -0.209,
+            "t_stat": -0.21,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.046,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -0.652,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.637,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.838,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.21,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -0.083,
+                "expected": -0.032
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -0.429,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -0.396,
+                "expected": -0.079
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -0.675,
+                "expected": -0.09
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.506,
+                "expected": -0.121
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.847,
+                "expected": -0.154
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -0.502,
+                "expected": -0.196
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -0.811,
+                "expected": -0.212
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.459,
+                "expected": -0.216
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.059,
+                "expected": -0.25
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -0.17,
+                "expected": -0.289
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": 0.028,
+                "expected": -0.325
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -0.17,
+                "expected": -0.364
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -0.39,
+                "expected": -0.372
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.617,
+                "expected": -0.408
+              }
+            ],
+            "ticker": "CADUSD=X",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": 0.0122,
+            "beta": 0.688,
+            "r2": 0.512,
+            "n_est": 120,
+            "resid_sd_pct": 0.634,
+            "n_post": 15,
+            "car_pct": -2.201,
+            "diff_pct": -2.205,
+            "t_stat": -0.9,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": 0.301,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": 0.13,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -0.689,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -0.596,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -0.696,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": 0.256,
+                "expected": -0.181
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": 0.921,
+                "expected": 0.051
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": 0.528,
+                "expected": 0.049
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": 0.585,
+                "expected": 0.557
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -0.181,
+                "expected": 0.397
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -0.955,
+                "expected": 0.18
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.17,
+                "expected": -0.298
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -1.443,
+                "expected": 0.029
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": 0.035,
+                "expected": 0.77
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": -0.291,
+                "expected": 0.521
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -1.357,
+                "expected": 0.13
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -1.949,
+                "expected": -0.192
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -3.042,
+                "expected": -0.581
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.52,
+                "expected": 0.019
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -2.506,
+                "expected": -0.301
+              }
+            ],
+            "ticker": "^GSPTSE",
+            "benchmark": "^GSPC"
+          },
+          {
+            "model": "market",
+            "alpha_pct_daily": -0.05,
+            "beta": 1.276,
+            "r2": 0.303,
+            "n_est": 120,
+            "resid_sd_pct": 1.752,
+            "n_post": 15,
+            "car_pct": 1.13,
+            "diff_pct": 0.982,
+            "t_stat": 0.17,
+            "points": [
+              {
+                "date": "2026-08-14",
+                "day": -5,
+                "actual": -1.319,
+                "expected": null
+              },
+              {
+                "date": "2026-08-17",
+                "day": -4,
+                "actual": -4.049,
+                "expected": null
+              },
+              {
+                "date": "2026-08-18",
+                "day": -3,
+                "actual": -4.799,
+                "expected": null
+              },
+              {
+                "date": "2026-08-19",
+                "day": -2,
+                "actual": -3.378,
+                "expected": null
+              },
+              {
+                "date": "2026-08-20",
+                "day": -1,
+                "actual": -2.024,
+                "expected": null
+              },
+              {
+                "date": "2026-08-21",
+                "day": 0,
+                "actual": 0.0,
+                "expected": 0.0
+              },
+              {
+                "date": "2026-08-24",
+                "day": 1,
+                "actual": -1.08,
+                "expected": -0.408
+              },
+              {
+                "date": "2026-08-25",
+                "day": 2,
+                "actual": -2.411,
+                "expected": -0.052
+              },
+              {
+                "date": "2026-08-26",
+                "day": 3,
+                "actual": -1.82,
+                "expected": -0.128
+              },
+              {
+                "date": "2026-08-27",
+                "day": 4,
+                "actual": -1.99,
+                "expected": 0.739
+              },
+              {
+                "date": "2026-08-28",
+                "day": 5,
+                "actual": -1.888,
+                "expected": 0.369
+              },
+              {
+                "date": "2026-08-31",
+                "day": 6,
+                "actual": -1.831,
+                "expected": -0.106
+              },
+              {
+                "date": "2026-09-01",
+                "day": 7,
+                "actual": -2.616,
+                "expected": -1.062
+              },
+              {
+                "date": "2026-09-02",
+                "day": 8,
+                "actual": -3.48,
+                "expected": -0.531
+              },
+              {
+                "date": "2026-09-03",
+                "day": 9,
+                "actual": -0.807,
+                "expected": 0.762
+              },
+              {
+                "date": "2026-09-04",
+                "day": 10,
+                "actual": 0.013,
+                "expected": 0.228
+              },
+              {
+                "date": "2026-09-08",
+                "day": 11,
+                "actual": -2.232,
+                "expected": -0.569
+              },
+              {
+                "date": "2026-09-09",
+                "day": 12,
+                "actual": -4.545,
+                "expected": -1.232
+              },
+              {
+                "date": "2026-09-10",
+                "day": 13,
+                "actual": -1.856,
+                "expected": -2.019
+              },
+              {
+                "date": "2026-09-11",
+                "day": 14,
+                "actual": -2.426,
+                "expected": -0.993
+              },
+              {
+                "date": "2026-09-14",
+                "day": 15,
+                "actual": -0.671,
+                "expected": -1.653
+              }
+            ],
+            "ticker": "GM",
+            "benchmark": "^GSPC"
+          }
+        ],
+        "event_date": "2026-08-22",
+        "event_date_source": "model"
+      },
+      "event_date": "2026-08-22",
+      "event_date_source": "model",
+      "verified_live": true
+    },
     "_pipeline_meta": {
       "model": "claude-sonnet-4-5",
       "research_depth": "lite",

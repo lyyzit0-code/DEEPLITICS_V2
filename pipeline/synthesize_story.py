@@ -240,6 +240,8 @@ STORY_JSON_SCHEMA_HINT_MARKET_LITE = """
     "has_correlation": true,
     "explanation": "2-4 Sätze AUS DEINEM ALLGEMEINWISSEN (keine Live-Recherche): welche Märkte/Anlageklassen bei diesem Themenfeld typischerweise reagieren und warum (z.B. bei neuen Zöllen: betroffene Aktienindizes/Branchen, Wechselkurse, Rohstoffe; bei Sanktionen: Energiepreise, betroffene Währungen; bei Zentralbankentscheidungen: Anleiherenditen). Sei GROSSZÜGIG beim Erkennen einer plausiblen Korrelation -- ein großer Handelskonflikt, neue Zölle, Sanktionen, ein Kriegsausbruch oder eine Zentralbankentscheidung haben so gut wie IMMER einen bekannten, plausiblen Marktbezug, den du aus Allgemeinwissen benennen kannst, auch ohne exakte tagesaktuelle Zahlen.",
     "tickers": ["0-3 ECHTE, offizielle Yahoo-Finance-Ticker-Symbole fuer die in 'explanation' genannten Instrumente, NUR wenn du dir bei der exakten Schreibweise wirklich sicher bist -- z.B. Aktien wie 'LMT' oder 'GEO', Indizes wie '^GSPC' oder '^VIX', Rohstoff-Futures wie 'BZ=F' (Brent) oder 'GC=F' (Gold), Waehrungspaare wie 'EURUSD=X'. Ein Server-seitiger Dienst (yfinance) holt fuer diese Ticker ECHTE historische Kursdaten und ersetzt damit deine Einschaetzung durch einen verifizierten Chart. Bei Unsicherheit ueber die exakte Schreibweise leer lassen ([]) statt zu raten -- ein falscher Ticker liefert schlicht keine Daten, ist also ungefaehrlich, aber ein erfundener sollte trotzdem vermieden werden."],
+    "event_date": "YYYY-MM-DD: der TAG DES EREIGNISSES, das den Markt bewegt haben koennte (z.B. Tag der Zollankuendigung, des Angriffs, der Zentralbankentscheidung) -- NICHT automatisch das Veroeffentlichungsdatum der Artikel, falls das Ereignis frueher stattfand. Nur angeben, wenn du dir bei dem Datum sicher bist, sonst weglassen (dann wird das Datum der Meldung genommen).",
+    "benchmark": "EIN Yahoo-Finance-Ticker des breiten Vergleichsmarkts, gegen den der 'normale' Kursverlauf geschaetzt wird: '^GSPC' (S&P 500) fuer USA-/Welt-Themen, '^STOXX50E' (Euro Stoxx 50) fuer Europa-Themen, '^GSPTSE' fuer rein kanadische Themen. Im Zweifel '^GSPC'. NICHT zusaetzlich in 'tickers' nennen.",
     "note": "kurzer Hinweis, dass dies eine Einschätzung aus Allgemeinwissen ist, keine live abgefragten Kursdaten"
   },
   // has_correlation=false ist ein akzeptables Ergebnis, aber NUR wenn
@@ -369,7 +371,22 @@ ANALYTICAL_INSTRUCTIONS_LITE_NOTE = """\
    benennst (nur falls du dir bei der exakten Schreibweise sicher bist,
    sonst leer lassen) -- ein Server-seitiger Dienst holt dafür nach der
    Synthese echte, verifizierte Kursdaten nach und macht aus deiner
-   Einschätzung einen echten Chart.
+   Einschätzung einen echten Chart. Wähle für `tickers` die Instrumente,
+   die am DIREKTESTEN betroffen sind (z.B. bei Zöllen auf Kanada: den
+   Wechselkurs 'CADUSD=X', den kanadischen Index '^GSPTSE' und eine
+   betroffene Aktie wie 'GM'; bei Iran-Sanktionen: 'BZ=F' für Brent-Öl,
+   'GC=F' für Gold, eine Ölaktie wie 'XOM') -- nicht drei Mal dasselbe und
+   nicht den breiten Vergleichsmarkt selbst. Gib zusätzlich `event_date`
+   (Tag des Ereignisses, YYYY-MM-DD) und `benchmark` (breiter
+   Vergleichsmarkt, im Zweifel '^GSPC') an: damit wird eine Event Study
+   gerechnet, die zeigt, ob sich der Kurs nach dem Ereignis anders
+   bewegte als normalerweise. Bei `has_correlation: true` sind 1-3 `tickers` PFLICHT. Findest du
+   keine plausiblen Instrumente (z.B. reine Naturkatastrophen mit lokalem
+   Schaden), setze stattdessen `has_correlation: false` -- das ist
+   ehrlicher als eine Behauptung ohne Kurse. Typische Marktthemen, bei
+   denen `has_correlation` fast immer `true` ist: Zölle und Handelskrieg,
+   Sanktionen, Öl/Gas/Rohstoffe, Zentralbankentscheidungen, Rüstung,
+   Währungskrisen, Lieferketten-Engpässe.
 """
 
 

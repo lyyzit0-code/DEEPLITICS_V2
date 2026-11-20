@@ -160,26 +160,67 @@ class PoliticalTheoryNote:
 @dataclass
 class MarketDataPoint:
     date: str
-    value: float  # indexierter Wert (Basis 100 = erster Punkt), nicht der Rohkurs
+    value: float  # Schlusskurs (Rohwert); das Frontend rechnet in Prozent seit dem Ereignis um
 
 
 @dataclass
 class MarketSeries:
-    label: str  # z.B. "Brent Crude Oil"
-    raw_unit: str  # z.B. "USD/Barrel", für die Erklärung, was der Index abbildet
+    label: str  # Ticker (z.B. "BZ=F"); das Frontend ersetzt ihn durch einen Klarnamen
+    raw_unit: str  # optional, z.B. "USD/Barrel"
     points: list[MarketDataPoint]
     source_url: str = ""
 
 
 @dataclass
+class EventStudyPoint:
+    date: str
+    day: int  # Handelstage seit dem Ereignis (0 = letzter Schluss VOR dem Ereignis)
+    actual: float  # tatsaechliche Veraenderung seit Tag 0 in Prozent
+    expected: float | None  # geschaetzter Verlauf OHNE Ereignis in Prozent (None vor Tag 0)
+
+
+@dataclass
+class EventStudyAsset:
+    """Ergebnis der Event Study (pipeline/event_study.py) fuer EIN Instrument.
+    `model`: "market" (Regression gegen `benchmark`) oder "mean" (Durchschnitt)."""
+    ticker: str
+    model: str
+    benchmark: str | None
+    alpha_pct_daily: float
+    beta: float
+    r2: float
+    n_est: int  # Handelstage im Schaetzfenster
+    resid_sd_pct: float  # normales Rauschen pro Tag in Prozent
+    n_post: int  # Handelstage nach dem Ereignis
+    car_pct: float  # kumulierte abnormale Rendite in Prozent
+    diff_pct: float  # tatsaechlich minus erwartet am letzten Tag, in Prozentpunkten
+    t_stat: float | None  # |t| > 2 ~ Abweichung groesser als normales Rauschen
+    points: list[EventStudyPoint] = field(default_factory=list)
+
+
+@dataclass
+class EventStudy:
+    event_date: str  # YYYY-MM-DD
+    event_date_source: str  # "model" oder "story_date" (= Datum der Meldung)
+    benchmark: str | None
+    assets: list[EventStudyAsset] = field(default_factory=list)
+
+
+@dataclass
 class MarketCorrelation:
-    """Ehrliche Prüfung: gibt es eine recherchierbare Marktreaktion auf
-    dieses Ereignis? `has_correlation=False` ist ein vollwertiges Ergebnis,
-    KEINE Korrelation zu erzwingen ist Teil der Formel, nicht ein Fehler."""
+    """Ehrliche Pruefung: gibt es eine Marktreaktion auf dieses Ereignis?
+    `has_correlation=False` ist ein vollwertiges Ergebnis, KEINE Korrelation
+    zu erzwingen ist Teil der Formel, nicht ein Fehler.
+    `tickers`/`benchmark` sind Zwischenfelder aus der Modell-Antwort und
+    werden von enrich_market_data.py wieder entfernt."""
     has_correlation: bool
-    explanation: str  # 2-4 Sätze, was der Zusammenhang ist (oder warum keiner gefunden wurde)
+    explanation: str  # 2-4 Saetze, was der Zusammenhang ist (oder warum keiner gefunden wurde)
     series: list[MarketSeries] = field(default_factory=list)
-    note: str = ""  # z.B. Hinweise zu Näherungen/Indexierung
+    note: str = ""
+    verified_live: bool = False
+    event_date: str = ""
+    event_date_source: str = ""
+    event_study: EventStudy | None = None
 
 
 @dataclass

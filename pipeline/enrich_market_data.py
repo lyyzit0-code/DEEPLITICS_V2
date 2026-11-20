@@ -1,159 +1,268 @@
 """
-Verifizierte Marktdaten via yfinance (Nutzer-Feedback 24.08.2026: "sei
-sensibler bei Marktkorrelation!" und, nachdem ein anderer Chat dabei ein
-Chaos angerichtet hat, "überlege dir wie man wirklich die yfinance
-Einbindung machen kann").
+Verifizierte Marktdaten via yfinance + Event Study.
 
-WICHTIG -- bewusst ANDERS gebaut als der Vorschlag aus dem anderen Chat:
-Dort wurde ein komplett neues, paralleles Datenfeld `story.market_impacts`
-eingeführt (Liste von Ticker-Karten), erzeugt aus einem hartkodierten
-Text-Keyword->Ticker-Dictionary (`TICKER_MAPPING = {"Tesla": "TSLA", ...}`),
-UND `app.js::marketHtml` komplett umgeschrieben, um dieses neue Feld statt
-des bestehenden `market_correlation` zu rendern. Das hätte zwei
-konkurrierende Markt-Datenmodelle im selben Projekt geschaffen und alles
-bisher gebaute UI (Bauhaus-Chart-Card, "Einschätzung aus Allgemeinwissen"-
-Badge, echte vs. qualitative Unterscheidung, s. synthesize_story.py)
-stillschweigend überschrieben. Keywords aus dem Story-Text zu grep'en ist
-außerdem viel ungenauer als das Modell selbst zu fragen, das den vollen
-Kontext der Story kennt.
+Dieses Modul ERGAENZT nur das BESTEHENDE `market_correlation`-Feld einer
+Story (kein zweites Datenmodell). Das Modell nennt in seiner JSON-Antwort
+optional ein paar echte Yahoo-Finance-Ticker (`tickers`), ein Ereignisdatum
+(`event_date`) und einen Vergleichsmarkt (`benchmark`); hier werden dafuer
+ECHTE Kursdaten geholt und ausgewertet.
 
-Deshalb hier stattdessen: dieses Modul ERGÄNZT nur das BESTEHENDE
-`market_correlation`-Feld. Das Modell selbst darf in seiner JSON-Antwort
-optional ein paar echte Yahoo-Finance-Ticker nennen, wenn es einen klaren
-Marktbezug sieht (s. `STORY_JSON_SCHEMA_HINT_MARKET_LITE` und
-`STORY_JSON_SCHEMA_HINT_RESEARCH` in synthesize_story.py, Feld
-`market_correlation.tickers`). Dieses Modul holt für genau diese Ticker
-ECHTE historische Kursdaten von Yahoo Finance (yfinance, kostenlos, kein
-API-Key nötig) und füllt damit `market_correlation.series` -- im EXAKT
-selben Format, das `app.js::marketHtml`/`drawMarketChart` bereits für
-`research_depth="full"` rendert. Keine neue Datenstruktur, KEINE
-Frontend-Änderung nötig: eine bisher nur qualitative Einschätzung (lite-
-Modus) wird dadurch zu einem echten, mit Zahlen belegten Chart aufgewertet,
-`verified_live` wechselt von False auf True.
+Neu (Event Study, s. event_study.py):
+  * Statt Rohkursen werden Prozent-Veraenderungen seit dem Ereignis gezeigt.
+  * Zusaetzlich wird per Marktmodell geschaetzt, wie sich der Kurs OHNE das
+    Ereignis bewegt haette ("erwarteter Verlauf") -- das Ergebnis steht in
+    `market_correlation.event_study` (Frontend: app.js::drawMarketChart).
+  * `market_correlation.series` (Rohkurse) wird weiter befuellt: als
+    Rueckfall fuer Faelle, in denen die Event Study nicht berechnet werden
+    kann (zu wenig Historie, Ereignis zu frisch), und fuer alle, die das
+    alte Format lesen.
 
-Läuft NACH der Synthese (s. run_pipeline.py), pro Story, mit try/except
-drumherum -- ein yfinance-Ausfall (Rate-Limit, Netzwerk, ungültiger
-Ticker) darf niemals den Lauf oder die Story selbst zum Absturz bringen,
-die Story bleibt dann einfach bei ihrer bisherigen qualitativen
-Einschätzung ohne Chart.
+Woher kommen die Ticker? (Reihenfolge = Prioritaet)
+  1. `data/market_overrides.json` fuer genau diese Story (von Hand,
+     Schluessel = Story-ID; kann auch das Urteil "Marktbezug ja" samt
+     Begruendung setzen und das Ereignisdatum festlegen),
+  2. `market_correlation.tickers` aus der Modell-Antwort (neue Storys),
+  3. `data/market_topics.json`: Themen-Tabelle (Stichwoerter -> Ticker),
+     greift automatisch, wenn das Modell Marktbezug bejaht, aber keine
+     Ticker genannt hat.
+
+Ereignisdatum: `market_correlation.event_date` (vom Modell), sonst das
+Datum der Story (`generated_at`) -- dann wird das im Chart offen als
+"Datum der Meldung" ausgewiesen.
+
+Laeuft NACH der Synthese (s. run_pipeline.py), pro Story, mit try/except
+drumherum: ein yfinance-Ausfall darf nie den Lauf oder die Story zum
+Absturz bringen, die Story bleibt dann bei ihrer qualitativen Einschaetzung.
 """
 
 from __future__ import annotations
 
+import json
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 
-# Sicherheitsgrenze: nicht mehr als ein paar Ticker pro Story abfragen,
-# auch wenn das Modell mehr genannt hat -- yfinance-Aufrufe sind zwar
-# kostenlos, aber nicht kostenlos an ZEIT (mehrere sequentielle HTTP-Calls
-# pro Story), und niemand braucht 10 Charts auf einer Story-Seite.
+from pipeline.event_study import build_event_study, parse_date
+
 MAX_TICKERS_PER_STORY = 3
-LOOKBACK_DAYS = 10
-LOOKAHEAD_DAYS = 10
+LOOKBACK_DAYS = 10   # nur fuer den Rohkurs-Rueckfall
+LOOKAHEAD_DAYS = 15  # nur fuer den Rohkurs-Rueckfall
+DEFAULT_BENCHMARK = "^GSPC"
+
+OVERRIDES_PATH = Path(__file__).resolve().parent.parent / "data" / "market_overrides.json"
+TOPICS_PATH = Path(__file__).resolve().parent.parent / "data" / "market_topics.json"
+
+VERIFIED_NOTE = (
+    "Welche Märkte betroffen sind, ist eine Einschätzung aus Allgemeinwissen. "
+    "Die Kurse selbst sind echte Tagesschlusskurse (Yahoo Finance)."
+)
 
 
-def _parse_center_date(story: dict) -> datetime:
-    """Story-Datum als Mittelpunkt fuers Kursfenster, Fallback auf heute
-    falls fehlend/kaputt -- besser ein leicht falsches Fenster als ein
-    kompletter Absturz."""
-    raw = story.get("generated_at")
-    if raw:
-        try:
-            return datetime.fromisoformat(raw.replace("Z", "+00:00"))
-        except ValueError:
-            pass
-    return datetime.now(timezone.utc)
+def _load_overrides() -> dict:
+    try:
+        raw = json.loads(OVERRIDES_PATH.read_text(encoding="utf-8"))
+        return {k: v for k, v in raw.items() if isinstance(v, dict) and not k.startswith("_")}
+    except FileNotFoundError:
+        return {}
+    except Exception as exc:  # noqa: BLE001
+        print(f"[warn] {OVERRIDES_PATH.name} nicht lesbar: {exc}", file=sys.stderr)
+        return {}
 
 
-def _fetch_ticker_series(ticker: str, center: datetime) -> dict | None:
-    """Echte Tagesschlusskurse fuer EINEN Ticker im Fenster um `center`,
-    im Format, das app.js::drawMarketChart erwartet. None bei jedem
-    Fehlschlag (falscher/erfundener Ticker, kein Handel in dem Zeitraum,
-    Netzwerk/Rate-Limit) -- wird vom Aufrufer als "kein Ticker" behandelt,
-    nicht als harter Fehler."""
+def _topic_match(story: dict) -> dict:
+    """Erste Regel aus data/market_topics.json, deren Stichwoerter im Text der
+    Story vorkommen (Titel + Kurzfassung + Zusammenfassung). {} wenn keine."""
+    try:
+        rules = json.loads(TOPICS_PATH.read_text(encoding="utf-8")).get("rules", [])
+    except FileNotFoundError:
+        return {}
+    except Exception as exc:  # noqa: BLE001
+        print(f"[warn] {TOPICS_PATH.name} nicht lesbar: {exc}", file=sys.stderr)
+        return {}
+    text = " ".join(str(story.get(k, "")) for k in ("title", "one_line", "summary")).lower()
+    for rule in rules:
+        any_kw = [k.lower() for k in rule.get("any", [])]
+        all_kw = [k.lower() for k in rule.get("all", [])]
+        if any_kw and not any(k in text for k in any_kw):
+            continue
+        if all_kw and not all(k in text for k in all_kw):
+            continue
+        if any_kw or all_kw:
+            return rule
+    return {}
+
+
+def _clean_tickers(raw) -> list[str]:
+    out: list[str] = []
+    for t in raw or []:
+        if isinstance(t, str) and t.strip() and t.strip() not in out:
+            out.append(t.strip())
+    return out
+
+
+def _story_date(story: dict) -> date:
+    """Datum der Story (generated_at), Fallback heute."""
+    d = parse_date(story.get("generated_at"))
+    return d or datetime.now(timezone.utc).date()
+
+
+def _series_from_study(study: dict) -> list[dict]:
+    """Rohkurs-Serien (altes Format) aus den Event-Study-Punkten."""
+    out = []
+    for a in study["assets"]:
+        out.append({
+            "label": a["ticker"],
+            "raw_unit": "",
+            "points": [{"date": p["date"], "value": round(p["close"], 4)} for p in a["points"]],
+            "source_url": f"https://finance.yahoo.com/quote/{a['ticker']}",
+        })
+    return out
+
+
+def _fetch_raw_series(ticker: str, event: date) -> dict | None:
+    """Rueckfall: Rohkurse im Fenster um das Ereignis (ohne Event Study)."""
     try:
         import yfinance as yf
     except ImportError:
-        print("[info] yfinance nicht installiert -- Marktdaten-Verifizierung übersprungen.", file=sys.stderr)
         return None
-
     try:
-        start = (center - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%d")
-        # +1 Tag, damit `end` (yfinance-Semantik: exklusiv) den letzten
-        # gewuenschten Tag noch mit einschliesst.
-        end = (center + timedelta(days=LOOKAHEAD_DAYS + 1)).strftime("%Y-%m-%d")
+        start = (event - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%d")
+        end = (event + timedelta(days=LOOKAHEAD_DAYS + 1)).strftime("%Y-%m-%d")
         hist = yf.Ticker(ticker).history(start=start, end=end, interval="1d")
         if hist is None or hist.empty or "Close" not in hist.columns:
             return None
         points = [
-            {"date": idx.strftime("%Y-%m-%d"), "value": round(float(close), 2)}
-            for idx, close in hist["Close"].items()
+            {"date": idx.strftime("%Y-%m-%d"), "value": round(float(c), 4)}
+            for idx, c in hist["Close"].items()
         ]
-        # Ein einzelner Punkt ergibt keinen sinnvollen Chart/keine
-        # erkennbare Bewegung -- dann lieber gar nicht anzeigen.
         if len(points) < 2:
             return None
         return {
             "label": ticker,
-            "raw_unit": "USD",
+            "raw_unit": "",
             "points": points,
             "source_url": f"https://finance.yahoo.com/quote/{ticker}",
         }
-    except Exception as exc:  # noqa: BLE001 - jeder yfinance-Fehler ist hier nicht-fatal
+    except Exception as exc:  # noqa: BLE001
         print(f"    [warn] yfinance-Abruf für Ticker '{ticker}' fehlgeschlagen: {exc}", file=sys.stderr)
         return None
 
 
-def enrich_market_data(story: dict) -> bool:
-    """Veredelt `story['market_correlation']` mit echten yfinance-Daten,
-    falls das Modell `tickers` genannt UND noch keine `series` vorhanden
-    ist (in research_depth="full" kann bereits eine web_search-basierte
-    `series` existieren -- die wird NICHT überschrieben, um keine bereits
-    recherchierte Einordnung zu verlieren). Mutiert `story` in-place.
-    Gibt True zurück, wenn mindestens ein Ticker erfolgreich verifiziert
-    wurde (rein informativ fürs Logging)."""
+def _series_is_from_yahoo(mc: dict) -> bool:
+    series = mc.get("series") or []
+    return bool(series) and all(
+        isinstance(s, dict) and str(s.get("source_url", "")).startswith("https://finance.yahoo.com")
+        for s in series
+    )
+
+
+def _apply_override_judgement(story: dict, override: dict) -> bool:
+    """Hat die Override-Datei fuer diese Story ein eigenes Urteil
+    ("explanation"), obwohl das Modell keinen Marktbezug (oder gar keine
+    Analyse) geliefert hat, wird has_correlation=True gesetzt. True, wenn
+    das hier passiert ist (dann kann der Aufrufer es bei Misserfolg
+    zuruecknehmen)."""
+    mc = story.get("market_correlation")
+    if override.get("explanation") and not (isinstance(mc, dict) and mc.get("has_correlation")):
+        story["market_correlation"] = {
+            "has_correlation": True, "explanation": override["explanation"], "series": [], "note": "",
+        }
+        return True
+    return False
+
+
+def enrich_market_data(story: dict, refresh: bool = False) -> bool:
+    """Siehe _enrich_market_data; zusaetzlich: ein per Override gesetztes
+    Urteil "Marktbezug ja" wird zurueckgenommen, wenn keine Kursdaten
+    kommen (sonst stuende eine Behauptung ohne Beleg da)."""
+    original = story.get("market_correlation")
+    forced = _apply_override_judgement(story, _load_overrides().get(str(story.get("id", "")), {}))
+    ok = _enrich_market_data(story, refresh)
+    if forced and not ok:
+        story["market_correlation"] = original
+    return ok
+
+
+def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
+    """Veredelt `story['market_correlation']` mit echten Kursdaten und der
+    Event Study. Mutiert `story` in-place; True, wenn mindestens ein Ticker
+    erfolgreich ausgewertet wurde.
+
+    Eine bereits vorhandene, RECHERCHIERTE `series` (research_depth="full")
+    wird nie ueberschrieben. Mit `refresh=True` werden auch Yahoo-Serien
+    einer frueheren Version neu berechnet (fuer das Backfill-Skript)."""
     mc = story.get("market_correlation")
     if not isinstance(mc, dict) or not mc.get("has_correlation"):
         return False
-    if mc.get("series"):
-        # Schon eine (z.B. recherchierte) series vorhanden -- nicht anfassen.
-        mc.pop("tickers", None)
-        return False
 
-    tickers = [t for t in (mc.get("tickers") or []) if isinstance(t, str) and t.strip()]
-    mc.pop("tickers", None)  # internes Zwischenfeld, nie ins finale JSON/Frontend
+    if mc.get("series"):
+        if not (refresh and _series_is_from_yahoo(mc)):
+            mc.pop("tickers", None)
+            return False
+
+    override = _load_overrides().get(str(story.get("id", "")), {})
+    topic = {}
+    tickers = _clean_tickers(override.get("tickers")) or _clean_tickers(mc.get("tickers"))
+    if not tickers:
+        topic = _topic_match(story)
+        tickers = _clean_tickers(topic.get("tickers"))
+    mc.pop("tickers", None)  # internes Zwischenfeld, nie ins finale JSON
     if not tickers:
         return False
+    tickers = tickers[:MAX_TICKERS_PER_STORY]
 
-    center = _parse_center_date(story)
-    series = []
-    for ticker in tickers[:MAX_TICKERS_PER_STORY]:
-        s = _fetch_ticker_series(ticker.strip(), center)
-        if s:
-            series.append(s)
+    benchmark = (override.get("benchmark") or mc.get("benchmark") or topic.get("benchmark") or DEFAULT_BENCHMARK)
+    benchmark = benchmark.strip() if isinstance(benchmark, str) and benchmark.strip() else DEFAULT_BENCHMARK
+    mc.pop("benchmark", None)
+
+    story_day = _story_date(story)
+    model_date = parse_date(override.get("event_date")) or parse_date(mc.get("event_date"))
+    # Plausibilitaet: ein Ereignis liegt nicht in der Zukunft der Meldung und
+    # nicht ewig davor -- sonst hat das Modell sich vertan, dann Story-Datum.
+    if model_date and not (story_day - timedelta(days=120) <= model_date <= story_day + timedelta(days=1)):
+        model_date = None
+    event = model_date or story_day
+    date_source = "model" if model_date else "story_date"
+
+    study = None
+    try:
+        study = build_event_study(tickers, benchmark, event)
+    except Exception as exc:  # noqa: BLE001
+        print(f"    [warn] Event Study fehlgeschlagen: {exc}", file=sys.stderr)
+
+    if study:
+        series = _series_from_study(study)
+        for a in study["assets"]:
+            for p in a["points"]:
+                p.pop("close", None)
+        study["event_date"] = event.isoformat()
+        study["event_date_source"] = date_source
+        mc["event_study"] = study
+    else:
+        if mc.get("event_study"):
+            return False  # Neuberechnung fehlgeschlagen: bestehende gute Auswertung behalten
+        series = [s for s in (_fetch_raw_series(t, event) for t in tickers) if s]
 
     if not series:
         return False
 
     mc["series"] = series
+    mc["event_date"] = event.isoformat()
+    mc["event_date_source"] = date_source
     mc["verified_live"] = True
-    note = (mc.get("note") or "").strip()
-    verified_note = "Kursdaten via Yahoo Finance (yfinance), echte Tagesschlusskurse."
-    mc["note"] = f"{note} {verified_note}".strip() if note else verified_note
+    mc["note"] = VERIFIED_NOTE
     return True
 
 
-def enrich_all_stories(stories: list[dict]) -> list[dict]:
-    """Batch-Variante über eine ganze Story-Liste, mutiert und gibt
-    dieselbe Liste zurück -- ein einzelner Story-Fehlschlag darf die
-    anderen Storys nicht mit runterreissen."""
+def enrich_all_stories(stories: list[dict], refresh: bool = False) -> list[dict]:
+    """Batch ueber eine Story-Liste; ein Fehler darf die anderen nicht stoppen."""
     n_ok = 0
     for story in stories:
         try:
-            if enrich_market_data(story):
+            if enrich_market_data(story, refresh=refresh):
                 n_ok += 1
         except Exception as exc:  # noqa: BLE001
             print(f"    [warn] Marktdaten-Anreicherung für '{story.get('title', '?')}' fehlgeschlagen: {exc}", file=sys.stderr)
     if n_ok:
-        print(f"[info] {n_ok} Storys mit echten Yahoo-Finance-Kursdaten verifiziert.", file=sys.stderr)
+        print(f"[info] {n_ok} Storys mit echten Kursdaten ausgewertet.", file=sys.stderr)
     return stories

@@ -19,9 +19,9 @@ from pipeline.sources.feeds import SOURCES  # noqa: E402
 
 
 def build() -> Path:
-    stories = json.loads((ROOT / "data" / "stories.json").read_text())
-    tpl = (ROOT / "frontend" / "index.template.html").read_text()
-    app_js = (ROOT / "frontend" / "app.js").read_text()
+    stories = json.loads((ROOT / "data" / "stories.json").read_text(encoding="utf-8"))
+    tpl = (ROOT / "frontend" / "index.template.html").read_text(encoding="utf-8")
+    app_js = (ROOT / "frontend" / "app.js").read_text(encoding="utf-8")
 
     stories_payload = json.dumps(stories, ensure_ascii=False).replace("</script>", "<\\/script>")
 
@@ -37,7 +37,7 @@ def build() -> Path:
     html = html.replace("__BUILD_DATE_ISO__", datetime.date.today().isoformat())
 
     out_path = ROOT / "frontend" / "index.html"
-    out_path.write_text(html)
+    out_path.write_text(html, encoding="utf-8")
     print(f"Wrote {len(html)} bytes -> {out_path}")
     return out_path
 

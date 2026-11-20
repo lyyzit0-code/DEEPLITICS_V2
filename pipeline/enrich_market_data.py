@@ -220,6 +220,9 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
     event_label = override.get("event_label") or mc.get("event_label") or ""
     event_label = event_label.strip()[:40] if isinstance(event_label, str) else ""
     mc.pop("event_label", None)
+    event_desc = override.get("event_description") or mc.get("event_description") or ""
+    event_desc = event_desc.strip()[:160] if isinstance(event_desc, str) else ""
+    mc.pop("event_description", None)
 
     # Trennung Theorie / Messung: Wirkungen, die sich NICHT ueber einen Kurs messen lassen,
     # stehen als eigene Liste "unmeasured" (Frontend: "Nur theoretisch ...").
@@ -274,6 +277,8 @@ def _enrich_market_data(story: dict, refresh: bool = False) -> bool:
     mc["event_date"] = event.isoformat()
     if event_label:
         mc["event_label"] = event_label
+    if event_desc:
+        mc["event_description"] = event_desc
     mc["event_date_source"] = date_source
     mc["verified_live"] = True
     mc["note"] = VERIFIED_NOTE

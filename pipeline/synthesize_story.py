@@ -242,6 +242,7 @@ STORY_JSON_SCHEMA_HINT_MARKET_LITE = """
     "tickers": ["0-3 ECHTE, offizielle Yahoo-Finance-Ticker-Symbole fuer die in 'explanation' genannten Instrumente, NUR wenn du dir bei der exakten Schreibweise wirklich sicher bist -- z.B. Aktien wie 'LMT' oder 'GEO', Indizes wie '^GSPC' oder '^VIX', Rohstoff-Futures wie 'BZ=F' (Brent) oder 'GC=F' (Gold), Waehrungspaare wie 'EURUSD=X'. Ein Server-seitiger Dienst (yfinance) holt fuer diese Ticker ECHTE historische Kursdaten und ersetzt damit deine Einschaetzung durch einen verifizierten Chart. Bei Unsicherheit ueber die exakte Schreibweise leer lassen ([]) statt zu raten -- ein falscher Ticker liefert schlicht keine Daten, ist also ungefaehrlich, aber ein erfundener sollte trotzdem vermieden werden."],
     "unmeasured_effects": ["0-4 kurze Sätze (deutsch) zu Wirkungen, die du in 'explanation' nennst, die sich aber NICHT über einen der 'tickers' messen lassen (z.B. politische Unsicherheit, Lieferketten, Stimmung). Jeder Satz im Konjunktiv ('könnte', 'in der Theorie'). Gehört hier hinein statt in die Messung."],
     "ticker_reasons": {"<ticker>": "EIN kurzer Satz (deutsch): Warum steht dieser Wert hier, was erwartest du von ihm? Ein Eintrag je Ticker in 'tickers'."},
+    "event_description": "EIN konkreter Satz (max. 15 Wörter): WELCHES Ereignis untersucht wird, mit Akteur und Maßnahme, z.B. 'USA verhängen 50-%-Strafzölle auf kanadische Waren'. Steht als Überschrift über der Marktanalyse; nicht allgemein ('Handelskonflikt'), sondern das konkrete Ereignis.",
     "event_label": "2-4 Wörter, die das Ereignis KONKRET benennen, z.B. '50-%-Zölle in Kraft' oder 'Iran-Sanktionen verhängt' -- niemals nur 'Ereignis'. Erscheint als Beschriftung der Ereignislinie im Chart.",
     "event_date": "YYYY-MM-DD: der TAG DES EREIGNISSES, das den Markt bewegt haben koennte (z.B. Tag der Zollankuendigung, des Angriffs, der Zentralbankentscheidung) -- NICHT automatisch das Veroeffentlichungsdatum der Artikel, falls das Ereignis frueher stattfand. Nur angeben, wenn du dir bei dem Datum sicher bist, sonst weglassen (dann wird das Datum der Meldung genommen).",
     "benchmark": "EIN Yahoo-Finance-Ticker des breiten Vergleichsmarkts, gegen den der 'normale' Kursverlauf geschaetzt wird: '^GSPC' (S&P 500) fuer USA-/Welt-Themen, '^STOXX50E' (Euro Stoxx 50) fuer Europa-Themen, '^GSPTSE' fuer rein kanadische Themen. Im Zweifel '^GSPC'. NICHT zusaetzlich in 'tickers' nennen.",
@@ -389,6 +390,12 @@ ANALYTICAL_INSTRUCTIONS_LITE_NOTE = """\
    eine Branche), MUSS in `tickers` stehen -- bis zu 7. Zu jedem Ticker
    gehört ein Satz in `ticker_reasons`. Nenne in `explanation` nichts, was
    du nicht auch messen willst. Gib außerdem `event_label` an.
+   AUFBAU: Die Kursbewegungen beschreibt das System selbst aus den Daten
+   (gestiegen/gefallen gegenüber dem Erwartungsverlauf). `explanation` ist
+   deshalb NICHT Beschreibung, sondern die EINORDNUNG: mögliche Erklärungen
+   und Zusammenhänge zwischen Ereignis und den Märkten, vorsichtig formuliert.
+   Schreibe keine konkreten Kurszahlen und keine Aussage, ob ein Kurs
+   gestiegen oder gefallen ist -- du kennst die Daten nicht.
    TRENNUNG THEORIE/MESSUNG: Formuliere `explanation` durchgehend vorsichtig
    ('könnte', 'dürfte', 'in der Theorie') -- sie ist eine Einschätzung, kein
    Messergebnis. Wirkungen, die sich über keinen Ticker messen lassen,

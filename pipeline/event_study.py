@@ -28,8 +28,14 @@ Zwei bewusste Entscheidungen (Nutzerfeedback 20.11.2026):
    beta * Bewegung des Vergleichsmarkts. alpha wird weiter geschaetzt, damit
    beta und das Rauschen sauber sind, aber nicht fortgeschrieben.
  * PASSENDER Vergleichsmarkt je Wertart (`benchmark_for`): Rohstoffe gegen
-   einen Rohstoff-ETF, Waehrungen gegen den Dollar-Index, Aktien gegen den
+   andere Rohstoffe, Waehrungen gegen den Dollar-Index, Aktien gegen den
    S&P 500 usw. -- der S&P 500 passt fuer Aluminium oder Wechselkurse nicht.
+ * Der Wert darf NICHT in seinem eigenen Vergleichsmarkt stecken (sonst laufen
+   beide Linien fast parallel, z.B. Oel gegen einen Rohstoff-ETF, der zu
+   einem grossen Teil aus Oel besteht). Darum wird der Vergleichsmarkt bei
+   Rohstoffen und Aktienindizes als gleichgewichteter Durchschnitt EINER
+   GRUPPE ANDERER WERTE selbst gebaut ("basket:..."), ohne den Wert selbst
+   und ohne seinen Zwilling (WTI/Brent).
 
 Ist der Kurs selbst die Benchmark und kein anderer Vergleichsmarkt
 verfuegbar, gilt das Mean-Adjusted-Modell ohne Trend: erwartet = 0 %.
@@ -173,35 +179,75 @@ def compute_event_study(asset, bench, event_date) -> dict | None:
     }
 
 
-# Vergleichsmaerkte je Wertart (alle ueber Yahoo Finance abrufbar)
-BENCH_WORLD = "URTH"          # iShares MSCI World (Weltaktien)
-BENCH_COMMODITY = "DBC"       # Invesco DB Commodity Index (breiter Rohstoffkorb)
-BENCH_DOLLAR = "DX-Y.NYB"     # US-Dollar-Index
+# Vergleichsmaerkte je Wertart
+BENCH_DOLLAR = "DX-Y.NYB"     # US-Dollar-Index (CAD ist darin nur zu ca. 9 % enthalten)
+BASKET_PREFIX = "basket:"
+# Gruppen fuer selbstgebaute Vergleichsmaerkte (Wert selbst wird immer weggelassen)
+PEER_GROUPS = {
+    "commodity": ["CL=F", "BZ=F", "NG=F", "GC=F", "SI=F", "HG=F", "ZC=F", "ZW=F", "ZS=F", "KC=F", "SB=F", "CT=F"],
+    "equity": ["^GSPC", "^GDAXI", "^FTSE", "^N225", "^HSI", "^STOXX50E", "^GSPTSE"],
+}
+# Zwillinge: gleicher Markt, darum ebenfalls aus dem Vergleich ausschliessen
+_TWINS = {"CL=F": {"BZ=F"}, "BZ=F": {"CL=F"}}
+MIN_PEERS = 3
 
 
 def benchmark_for(ticker: str, story_benchmark: str | None) -> list[str]:
     """Vergleichsmaerkte fuer diesen Wert, beste Wahl zuerst (Rueckfaelle
-    dahinter). Der S&P 500 passt nur fuer Aktien/Indizes, nicht fuer
-    Rohstoffe oder Waehrungen."""
+    dahinter). Der S&P 500 passt nur fuer Aktien, nicht fuer Rohstoffe oder
+    Waehrungen; und der Wert darf nicht selbst im Vergleichsmarkt stecken."""
     sb = story_benchmark or "^GSPC"
     if ticker.endswith("=X"):
         cands = [BENCH_DOLLAR]
     elif ticker.endswith("=F"):
-        cands = [BENCH_COMMODITY]
+        cands = [BASKET_PREFIX + "commodity"]
     elif ticker == "^GSPC":
-        cands = [BENCH_WORLD]
-    elif ticker == "^TNX":
-        cands = [sb]
+        cands = [BASKET_PREFIX + "equity"]
     else:
         cands = [sb]
-    # Rueckfaelle: Story-Vergleichsmarkt, dann Weltaktien
-    for fb in (sb, BENCH_WORLD):
-        if fb not in cands:
-            cands.append(fb)
+    if not ticker.endswith("=F") and sb not in cands and sb != ticker:
+        cands.append(sb)
     return [c for c in cands if c != ticker]
 
 
+_CLOSE_CACHE: dict = {}
+
+
 def _fetch_close(ticker: str, start: date, end: date):
+    """Schlusskurse via yfinance (end exklusiv), je Lauf zwischengespeichert.
+    None bei jedem Fehler."""
+    key = (ticker, start, end)
+    if key not in _CLOSE_CACHE:
+        _CLOSE_CACHE[key] = _fetch_close_uncached(ticker, start, end)
+    return _CLOSE_CACHE[key]
+
+
+def _peer_basket(group: str, exclude: set, start: date, end: date):
+    """Gleichgewichteter Durchschnitt der Tagesrenditen aller Werte der
+    Gruppe OHNE `exclude`, als Kursreihe (Start = 100). None, wenn zu wenige
+    Werte Daten liefern."""
+    import pandas as pd
+
+    rets = []
+    for sym in PEER_GROUPS.get(group, []):
+        if sym in exclude:
+            continue
+        c = _fetch_close(sym, start, end)
+        if c is None:
+            continue
+        r = _clean(c).pct_change().dropna()
+        if len(r) >= MIN_EST:
+            rets.append(r)
+    if len(rets) < MIN_PEERS:
+        return None
+    df = pd.concat(rets, axis=1)
+    mean = df.mean(axis=1)[df.notna().sum(axis=1) >= MIN_PEERS]
+    if len(mean) < MIN_EST:
+        return None
+    return 100.0 * (1.0 + mean).cumprod()
+
+
+def _fetch_close_uncached(ticker: str, start: date, end: date):
     """Schlusskurse via yfinance (end exklusiv). None bei jedem Fehler."""
     try:
         import yfinance as yf
@@ -230,12 +276,17 @@ def build_event_study(tickers: list[str], benchmark: str | None, event_date: dat
     start = event_date - timedelta(days=EST_CAL_DAYS)
     end = min(event_date + timedelta(days=POST_CAL_DAYS), today) + timedelta(days=1)
 
-    bench_cache: dict[str, object] = {}
+    bench_cache: dict = {}
 
-    def bench_series(sym: str):
-        if sym not in bench_cache:
-            bench_cache[sym] = _fetch_close(sym, start, end)
-        return bench_cache[sym]
+    def bench_series(sym: str, ticker: str):
+        """Vergleichsreihe; Korb-Vergleichsmaerkte werden OHNE den Wert selbst gebaut."""
+        if sym.startswith(BASKET_PREFIX):
+            ex = {ticker} | _TWINS.get(ticker, set())
+            key = (sym, tuple(sorted(ex)))
+            if key not in bench_cache:
+                bench_cache[key] = _peer_basket(sym[len(BASKET_PREFIX):], ex, start, end)
+            return bench_cache[key]
+        return _fetch_close(sym, start, end)
 
     assets = []
     for ticker in tickers:
@@ -244,7 +295,7 @@ def build_event_study(tickers: list[str], benchmark: str | None, event_date: dat
             continue
         res, used = None, None
         for cand in benchmark_for(ticker, benchmark):
-            bs = bench_series(cand)
+            bs = bench_series(cand, ticker)
             if bs is None:
                 continue
             try:

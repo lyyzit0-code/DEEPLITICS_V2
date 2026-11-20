@@ -1,63 +1,138 @@
 {
-  "_hinweis": "Von Hand gepflegte Ticker fuer Storys, bei denen das Modell keine genannt hat. Schluessel = Story-ID (steht in data/stories.json als 'id'). Felder: explanation (Begruendung; setzt 'Marktbezug ja', wenn das Modell keinen gesehen hat), tickers (max. 3, echte Yahoo-Finance-Symbole), benchmark (Vergleichsmarkt, Standard ^GSPC), event_date (YYYY-MM-DD, Standard = Datum der Story; bei Storys ohne Datum bitte angeben). Nach Aenderungen: python pipeline/backfill_market_data.py, dann python pipeline/build_frontend.py",
+  "_hinweis": "Von Hand gepflegte Ticker fuer Storys, bei denen das Modell keine genannt hat. Schluessel = Story-ID (steht in data/stories.json als 'id'). Felder: explanation (Begruendung; setzt 'Marktbezug ja', wenn das Modell keinen gesehen hat), tickers (max. 7, echte Yahoo-Finance-Symbole), reasons (je Ticker ein Satz: Warum steht dieser Wert hier?), unmeasured (Liste: Wirkungen, die nur Theorie sind), explanation_text (ersetzt den Erklaertext, durchgehend im Konjunktiv), event_label (2-4 Woerter, benennt das Ereignis im Chart), benchmark (Vergleichsmarkt, Standard ^GSPC), event_date (YYYY-MM-DD, Standard = Datum der Story; bei Storys ohne Datum bitte angeben). Nach Aenderungen: python pipeline/backfill_market_data.py, dann python pipeline/build_frontend.py",
   "bf41dcc6": {
     "_story": "Trump benennt Lake Ontario um / US-Kanada-Handelskrieg",
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
-      "GM"
+      "^GSPC",
+      "GM",
+      "ALI=F",
+      "LBR=F",
+      "CL=F"
     ],
-    "benchmark": "^GSPC"
+    "benchmark": "^GSPC",
+    "event_label": "50-%-Zölle in Kraft",
+    "reasons": {
+      "CADUSD=X": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA.",
+      "^GSPTSE": "Zeigt, wie die Börse die Folgen für Kanadas Wirtschaft einschätzt.",
+      "^GSPC": "Zeigt, ob die Unsicherheit über das Handelsabkommen USMCA auch US-Aktien belastet.",
+      "GM": "Autohersteller mit Werken beiderseits der Grenze trifft der Streit besonders.",
+      "ALI=F": "Aluminium wird zwischen beiden Ländern intensiv gehandelt.",
+      "LBR=F": "Bauholz ist ein weiteres wichtiges Handelsgut zwischen den Ländern.",
+      "CL=F": "Kanada ist ein wichtiger Öllieferant der USA, Energie gehört zum Streit."
+    },
+    "event_date": "2026-08-22",
+    "explanation_text": "In der Theorie belasten die Zölle und Gegenzölle den kanadischen Dollar, weil Kanada weniger in die USA verkaufen kann. Auch kanadische und US-Aktien sowie Autohersteller mit Werken beiderseits der Grenze könnten leiden. Bei Aluminium, Bauholz und Öl, die zwischen beiden Ländern intensiv gehandelt werden, sind stärkere Preisschwankungen denkbar. Das ist eine Einschätzung; die Kurse unten zeigen, ob sich diese Werte nach dem Ereignis tatsächlich auffällig bewegten.",
+    "unmeasured": [
+      "Wie stabil das Handelsabkommen USMCA bleibt, lässt sich nicht als Kurs messen. Gezeigt werden nur die möglichen Folgen an den Börsen (S&P/TSX, S&P 500)."
+    ]
   },
   "17557223": {
     "_story": "US-Kanada Handelskrieg: Gegenzoelle auf 20 Mrd. USD Waren",
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
-      "GM"
+      "^GSPC",
+      "KMB",
+      "NUE",
+      "DC=F"
     ],
     "benchmark": "^GSPC",
-    "event_date": "2026-08-22"
+    "event_label": "50-%-Zölle in Kraft",
+    "reasons": {
+      "CADUSD=X": "Handelsbarrieren belasten Kanadas Exportwirtschaft, der kanadische Dollar steht unter Abwertungsdruck.",
+      "^GSPTSE": "Der Text erwartet Schwankungen an den nordamerikanischen Börsen; hier die kanadische.",
+      "^GSPC": "Der Text erwartet Schwankungen an den nordamerikanischen Börsen; hier die US-amerikanische.",
+      "KMB": "Stellvertreter für US-Konsumgüter aus Haushalts- und Papierprodukten, die unter höheren Rohstoffkosten leiden könnten.",
+      "NUE": "Stellvertreter für US-Stahlproduzenten, die von weniger kanadischen Importen profitieren könnten.",
+      "DC=F": "Stellvertreter für Molkereiprodukte, die laut Text auf Gegenzölle negativ reagieren."
+    },
+    "event_date": "2026-08-22",
+    "explanation_text": "In der Theorie geraten Kanadas Exportwirtschaft und der kanadische Dollar durch die Gegenzölle unter Druck. US-Konsumgüterhersteller (hier: Kimberly-Clark) könnten Margendruck bekommen, US-Stahlproduzenten (hier: Nucor) von weniger kanadischen Importen profitieren, und Molkereiprodukte könnten auf Gegenzölle negativ reagieren. Auch die nordamerikanischen Börsen könnten schwanken. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
+    "unmeasured": [
+      "Dass höhere Rohstoffkosten schwer an Kunden weitergegeben werden können, ist eine Annahme zur Preissetzung und lässt sich nicht direkt als Kurs messen."
+    ]
   },
   "f221d616": {
     "_story": "US-Kanada offener Handelskrieg nach geplatzten Verhandlungen",
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
-      "GM"
+      "GM",
+      "F",
+      "HRC=F",
+      "ALI=F",
+      "^TNX"
     ],
     "benchmark": "^GSPC",
-    "event_date": "2026-08-22"
+    "event_label": "50-%-Zölle in Kraft",
+    "reasons": {
+      "CADUSD=X": "Handelsunsicherheit könnte Kapital abfließen lassen und den kanadischen Dollar drücken.",
+      "^GSPTSE": "Kanadischer Leitindex als Gesamtbild der Folgen für Kanadas Wirtschaft.",
+      "GM": "Die stark verflochtene nordamerikanische Autoindustrie ist direkt von den Zöllen betroffen.",
+      "F": "Zweiter großer US-Autohersteller mit grenzüberschreitenden Lieferketten.",
+      "HRC=F": "Der Text erwartet steigende Stahlpreise in Nordamerika durch die Zölle.",
+      "ALI=F": "Der Text erwartet steigende Aluminiumpreise in Nordamerika durch die Zölle.",
+      "^TNX": "Anleihen könnten als sicherer Hafen gefragt sein: Dann fällt die Rendite."
+    },
+    "event_date": "2026-08-22",
+    "explanation_text": "In der Theorie fließt bei Handelsunsicherheit Kapital ab und der kanadische Dollar gibt nach. Betroffen wären die stark verflochtene Autoindustrie (hier: GM und Ford), die Preise für Stahl und Aluminium sowie die Börse in Toronto. Als sicherer Hafen könnten US-Staatsanleihen gefragt sein, dann fiele ihre Rendite. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
+    "unmeasured": []
   },
   "903283a0": {
     "_story": "Iran-Sanktionen / Strasse von Hormus",
     "tickers": [
       "BZ=F",
       "GC=F",
-      "XOM"
+      "XOM",
+      "SOXX"
     ],
-    "benchmark": "^GSPC"
+    "benchmark": "^GSPC",
+    "event_label": "Iran-Sanktionen verhängt",
+    "reasons": {
+      "BZ=F": "Rohöl reagiert empfindlich auf Versorgungsrisiken in der Golfregion und der Straße von Hormus.",
+      "GC=F": "Gold gilt bei Eskalationsrisiken als Krisenanlage.",
+      "XOM": "Ölkonzerne profitieren oft von steigenden Ölpreisen.",
+      "SOXX": "Der Text erwartet Druck auf Technologieaktien, weil Chinas Exportkontrollen für Seltene Erden Halbleiter und Batterien treffen könnten."
+    },
+    "explanation_text": "In der Theorie reagieren Rohöl (Brent) und Ölkonzerne wie ExxonMobil auf Versorgungsrisiken in der Golfregion, Gold gilt als Krisenanlage. Chinas mögliche Exportkontrollen für Seltene Erden könnten Chip- und Technologiewerte belasten. Das ist eine Einschätzung; die Kurse unten zeigen, was davon tatsächlich zu sehen ist.",
+    "unmeasured": [
+      "Wie Handelspartner auf die angedrohten Strafmaßnahmen reagieren, lässt sich nicht als Kurs messen."
+    ]
   },
   "dfd45e61": {
     "_story": "USA-Kanada: Gespraeche gescheitert, gegenseitige Strafzoelle",
-    "event_date": "2026-08-22",
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
       "GM"
     ],
     "benchmark": "^GSPC",
+    "event_label": "50-%-Zölle in Kraft",
+    "reasons": {
+      "CADUSD=X": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA.",
+      "^GSPTSE": "Kanadischer Leitindex: zeigt, ob Kanadas Exportunternehmen an der Börse leiden.",
+      "GM": "Autohersteller mit Lieferketten über die Grenze sind besonders exponiert."
+    },
+    "event_date": "2026-08-22",
     "explanation": "Die 50-Prozent-Zölle auf kanadische Waren im Wert von rund 20 Milliarden Dollar und die angekündigten Gegenzölle belasten typischerweise den kanadischen Dollar und kanadische Exporteure. Exponiert sind außerdem der kanadische Leitindex (S&P/TSX) und US-Autohersteller wie General Motors, deren Lieferketten über die Grenze laufen. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten."
   },
   "3e059306": {
     "_story": "USA verhaengen 50%-Strafzoelle auf kanadische Waren",
-    "event_date": "2026-08-22",
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
       "GM"
     ],
     "benchmark": "^GSPC",
+    "event_label": "50-%-Zölle in Kraft",
+    "reasons": {
+      "CADUSD=X": "Zölle und Gegenzölle belasten typischerweise den kanadischen Dollar: Kanada verkauft weniger in die USA.",
+      "^GSPTSE": "Kanadischer Leitindex: zeigt, ob Kanadas Exportunternehmen an der Börse leiden.",
+      "GM": "Autohersteller mit Lieferketten über die Grenze sind besonders exponiert."
+    },
+    "event_date": "2026-08-22",
     "explanation": "Mit den 50-Prozent-Zöllen auf kanadische Güter und der angekündigten Vergeltung Ottawas steigt der Druck auf den kanadischen Dollar und auf Unternehmen, die stark vom Export in die USA abhängen. Betroffen sein können der kanadische Leitindex (S&P/TSX) und Autohersteller mit grenzüberschreitenden Lieferketten wie General Motors. Das ist eine Einschätzung aus Allgemeinwissen; die Kurse unten zeigen, ob sich die Märkte nach dem Ereignis tatsächlich auffällig bewegten."
   },
   "8d35f0ea": {
@@ -65,9 +140,17 @@
     "tickers": [
       "CADUSD=X",
       "^GSPTSE",
-      "GM"
+      "GM",
+      "HRC=F"
     ],
     "benchmark": "^GSPC",
+    "event_label": "Autozölle angekündigt",
+    "reasons": {
+      "CADUSD=X": "Höhere Zölle belasten Kanadas Exportwirtschaft, der kanadische Dollar steht unter Druck.",
+      "^GSPTSE": "Kanadischer Leitindex: zeigt, ob die Börse die Folgen für Kanadas Exporteure schon einpreist.",
+      "GM": "Hersteller mit Produktion in Kanada könnten höhere Kosten haben.",
+      "HRC=F": "Die Zölle gelten auch für Stahl; hier der Walzstahlpreis."
+    },
     "explanation": "Höhere US-Zölle auf kanadische Fahrzeuge und Stahl treffen die eng verflochtene nordamerikanische Autoindustrie: Der kanadische Dollar und kanadische Exportwerte stehen unter Druck, US-Hersteller wie General Motors mit Produktion in Kanada könnten höhere Kosten haben. Der Starttermin liegt erst im Jahr 2027, die Märkte können das aber schon heute einpreisen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob das tatsächlich geschah."
   },
   "f296da25": {
@@ -78,6 +161,12 @@
       "XOM"
     ],
     "benchmark": "^GSPC",
+    "event_label": "Iran-Sanktionen verhängt",
+    "reasons": {
+      "BZ=F": "Die angedrohte Blockade der Ölexporte betrifft direkt den Ölpreis.",
+      "GC=F": "Gold gilt bei Eskalationsrisiken als Krisenanlage.",
+      "XOM": "Ölkonzerne profitieren oft von steigenden Ölpreisen."
+    },
     "explanation": "Weitreichende US-Sanktionen gegen Iran und die angedrohte Blockade von Ölexporten aus der Golfregion betreffen direkt den Ölpreis (Brent), Gold als Krisenanlage und Energiekonzerne wie ExxonMobil. Märkte reagieren auf Angebotsrisiken im Ölhandel oft schon auf Drohungen. Das ist eine Einschätzung aus Allgemeinwissen; der Kursvergleich unten zeigt, ob und wie stark das tatsächlich passierte."
   }
 }

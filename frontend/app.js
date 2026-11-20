@@ -885,6 +885,7 @@
     "LMT": "Lockheed Martin", "RTX": "RTX", "GM": "General Motors", "F": "Ford",
     "XOM": "ExxonMobil", "CVX": "Chevron", "TSLA": "Tesla", "AAPL": "Apple",
     "MUV2.DE": "Munich Re", "SREN.SW": "Swiss Re",
+    "URTH": "Weltaktien (MSCI World)", "DBC": "Rohstoffkorb (ETF)", "DX-Y.NYB": "US-Dollar-Index",
     "RHM.DE": "Rheinmetall", "TSM": "TSMC", "NVDA": "Nvidia", "^HSI": "Hang Seng",
     "ALI=F": "Aluminium", "LBR=F": "Bauholz", "HRC=F": "Stahl (Walzstahl)", "DC=F": "Milchpreis",
     "KMB": "Kimberly-Clark", "NUE": "Nucor (Stahl)", "SOXX": "Chip-Aktien (ETF)"
@@ -1033,13 +1034,13 @@
       var txt;
       if (a.model === "market" && bench) {
         txt = mcL(
-          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte. Grundlage sind die " + a.n_est + " Handelstage davor: Damals bewegte sich " + name + " typischerweise mit dem Faktor " + fmtSigned(a.beta, 2) + " im Verhältnis zu " + bench + " (R² = " + fmtNum(a.r2, 2) + ").",
-          "How to read: the dashed line estimates how " + name + " would have moved without the event. It is based on the " + a.n_est + " trading days before: back then " + name + " typically moved by a factor of " + fmtSigned(a.beta, 2) + " relative to " + bench + " (R² = " + fmtNum(a.r2, 2) + ").");
-        if (a.r2 < 0.1) txt += mcL(" " + name + " hängt kaum mit " + bench + " zusammen, die Schätzung ist daher grob.", " " + name + " is barely related to " + bench + ", so the estimate is rough.");
+          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte. Sie folgt dem Vergleichsmarkt " + bench + ", und zwar so stark wie in den " + a.n_est + " Handelstagen davor (Faktor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). Einen eigenen Trend nimmt sie nicht an.",
+          "How to read: the dashed line estimates how " + name + " would have moved without the event. It follows the reference market " + bench + " as strongly as in the " + a.n_est + " trading days before (factor " + fmtSigned(a.beta, 2) + ", R² = " + fmtNum(a.r2, 2) + "). It assumes no trend of its own.");
+        if (a.r2 < 0.1) txt += mcL(" " + name + " hängt kaum mit " + bench + " zusammen; deshalb verläuft die Linie fast flach: Ohne Ereignis erwarten wir hier keine bestimmte Bewegung.", " " + name + " is barely related to " + bench + ", so the line is almost flat: without the event no particular move is expected.");
       } else {
         txt = mcL(
-          "So gelesen: Die gestrichelte Linie schätzt, wie sich " + name + " ohne das Ereignis bewegt hätte, nämlich mit der durchschnittlichen Tagesbewegung der " + a.n_est + " Handelstage davor.",
-          "How to read: the dashed line estimates how " + name + " would have moved without the event, using its average daily move over the " + a.n_est + " trading days before.");
+          "So gelesen: Für " + name + " war kein Vergleichsmarkt verfügbar. Die gestrichelte Linie zeigt deshalb nur „keine Veränderung“ (0 %) als Maßstab.",
+          "How to read: no reference market was available for " + name + ". The dashed line therefore only shows “no change” (0 %) as the yardstick.");
       }
       txt += mcL(" Das zeigt, ob der Kurs ungewöhnlich lief. Es beweist nicht, dass das Ereignis die Ursache ist.", " This shows whether the price moved unusually. It does not prove that the event was the cause.");
       meth.textContent = txt;
